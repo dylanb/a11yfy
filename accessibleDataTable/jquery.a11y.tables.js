@@ -1,8 +1,8 @@
-/*global jQuery*/
-/*jshint browser:true*/
 /**
  *
  * jQuery module for accessible data tables
+ *
+ * Copyright (C) 2013 Dylan Barrell. All Rights Reserved as specified in the LICENSE file
  *
  */
 (function (jQuery){
@@ -12,8 +12,7 @@
     methods = {
         init: function (options) {
             var opts = jQuery.extend({}, jQuery.fn.accessibleDataTable.defaults, options);
-
-            return this.each(function (index, value) {
+            return this.each(function () {
                 var $table = jQuery(this),
                     $anchors, data, timeout, $select, cellIndex;
 
@@ -60,10 +59,11 @@
 
                 function selectChangeHandler() {
                     var val = $select.val(),
-                        $anchor = $select.parent().find("a");
+                        $anchor = $select.parent().find("a"),
+                        msg;
 
                     jQuery(data).each(function (index, value) {
-                        if (val == value[cellIndex] || val === "__none__") {
+                        if (val+"" === value[cellIndex]+"" || val === "__none__") {
                             value[value.length-1].show();
                         } else {
                             value[value.length-1].hide();
@@ -79,7 +79,7 @@
 
                 function anchorFocusHandler(e) {
                     var $this = jQuery(this),
-                        $span, msg;
+                        $span;
 
                     if ($this.attr("data-filter")) {
                         if (timeout) {
@@ -125,29 +125,32 @@
                     }
                 }
 
-                $table.find("th").each(function (index, value) {
-                    var $this = jQuery(value);
+                if (opts.sortFilter !== "none") {
+                    $table.find("th").each(function (index, value) {
+                        var $this = jQuery(value);
 
-                    if ($this.attr("data-filter")) {
-                        $this.wrapInner("<a href=\"#\" data-filter=\"true\">");
-                    } else {
-                        $this.wrapInner("<a href=\"#\">");
+                        if ($this.attr("data-filter") &&
+                            (opts.sortFilter === "both" || opts.sortFilter === "filter")) {
+                            $this.wrapInner("<a href=\"#\" data-filter=\"true\">");
+                        } else if ((opts.sortFilter === "both" || opts.sortFilter === "sort")) {
+                            $this.wrapInner("<a href=\"#\">");
+                        }
+                    });
+
+                    $anchors = $table.find("th a");
+                    data = getTableData($table);
+                    $anchors.bind("click", anchorClickHandler)
+                        .bind("focus mouseover", anchorFocusHandler)
+                        .bind("blur mouseout", anchorBlurHandler);
+                    if ((opts.sortFilter === "both" || opts.sortFilter === "sort")) {
+                        $anchors.first().click();
                     }
-                });
-
-                $anchors = $table.find("th a");
-                data = getTableData($table);
-                $anchors.bind("click", anchorClickHandler)
-                    .bind("focus mouseover", anchorFocusHandler)
-                    .bind("blur mouseout", anchorBlurHandler);
-                $anchors.first().click();
-                $table.data( "accessibleDataTable", data);
+                }
             });
         },
         destroy: function () {
-            return this.each(function (index, value) {
-                var $table = jQuery(value),
-                    data = $table.data( "accessibleDataTable");
+            return this.each(function () {
+                // Do something
             });
         }
     };
@@ -224,7 +227,7 @@
     };
 
     // Add the polite announce div to the page
-    if (!jQuery('#jquery-ui-politeannounce').length) {
+    if (!jQuery("#jquery-ui-politeannounce").length) {
         jQuery("body").append(
             jQuery("<div>").attr({
                 "id": "jquery-ui-politeannounce",

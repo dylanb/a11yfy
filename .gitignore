@@ -1,3 +1,4 @@
 dist
 node_modules
-accessibleDataTable/jquery.min.js
+tests/jquery.min.js
+.DS_Store

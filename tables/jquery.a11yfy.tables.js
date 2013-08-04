@@ -11,7 +11,7 @@
 
     methods = {
         init: function (options) {
-            var opts = jQuery.extend({}, jQuery.fn.accessibleDataTable.defaults, options);
+            var opts = jQuery.extend({}, jQuery.fn.tables.defaults, options);
             return this.each(function () {
                 var $table = jQuery(this),
                     $anchors, data, timeout, $select, cellIndex;
@@ -212,7 +212,7 @@
     }
 
     // add the jquery instance method
-    jQuery.fn.accessibleDataTable = function (method) {
+    jQuery.fn.tables = function (method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1 ));
         } else if (typeof method === "object" || ! method) {
@@ -222,19 +222,20 @@
         }
     };
 
-    jQuery.fn.accessibleDataTable.defaults = {
+    jQuery.fn.tables.defaults = {
         sortFilter: "both"
     };
 
     // Add the polite announce div to the page
-    if (!jQuery("#jquery-ui-politeannounce").length) {
-        jQuery("body").append(
-            jQuery("<div>").attr({
-                "id": "jquery-ui-politeannounce",
-                "role": "log",
-                "aria-live": "polite",
-                "aria-relevant": "additions"
-            }).addClass("offscreen")
-        );
+    if (!$politeAnnouncer.length) {
+        jQuery(document).ready(function () {
+            $politeAnnouncer = jQuery("<div>").attr({
+                    "id": "jquery-ui-politeannounce",
+                    "role": "log",
+                    "aria-live": "polite",
+                    "aria-relevant": "additions"
+                }).addClass("offscreen");
+            jQuery("body").append($politeAnnouncer);
+        });
     }
 })(jQuery);

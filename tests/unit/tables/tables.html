@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>jQuery a11yfy tables Test Suite</title>
+
+    <script src="../../jquery.min.js"></script>
+    <link rel="stylesheet" href="../../../external/qunit.css">
+    <script src="../../../external/qunit.js"></script>
+    <script src="../../jquery.simulate.js"></script>
+    <script src="../testsuite.js"></script>
+    <script>
+    TestHelpers.loadResources({
+        js: [ "tables/jquery.a11yfy.tables.js" ]
+    });
+    </script>
+
+    <script src="tables.js"></script>
+
+    <script src="../swarminject.js"></script>
+    <style>
+    *:focus {
+        outline: 2px black dotted;
+    }
+    .offscreen { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px;}
+    .zindex {
+        z-index: 100;
+    }
+    .absolute {
+        position: absolute;
+    }
+    </style>
+</head>
+<body>
+
+<h1 id="qunit-header">jQuery UI Core Test Suite</h1>
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+<div id="qunit-fixture">
+    <table id="sortable-not-chatty">
+        <caption>Accessible, Sortable Table of Famous People Born in South Africa</caption>
+        <thead>
+            <tr>
+                <th scope="col">Famouseness Rank</th>
+                <th scope="col">Name</th>
+                <th scope="col" data-filter="true">Age / Dates</th>
+                <th scope="col">Description</th>
+            </tr>
+        </thead>
+        <tbody id="data">
+            <tr>
+                <td class="rank">1</td>
+                <td class="name">NELSON MANDELA</td>
+                <td class="age">95</td>
+                <td class="description">Former political prisoner who upon his release was elected president of South Africa in 1994.</td>
+            </tr>
+            <tr>
+                <td class="rank">2</td>
+                <td class="name">STEVE NASH</td>
+                <td class="age">39</td>
+                <td class="description">NBA legend who won the MVP in 2005 and 2006 with the Phoenix Suns, and played in eight NBA All-Star games.</td>
+            </tr>
+            <tr>
+                <td class="rank">3</td>
+                <td class="name">SASHA PIETERSE</td>
+                <td class="age">17</td>
+                <td class="description">Teen actress who played Alison DiLaurentis on the hit ABC Family series Pretty Little Liars.</td>
+            </tr>
+            <tr>
+                <td class="rank">4</td>
+                <td class="name">J.R.R. TOLKIEN</td>
+                <td class="age">(1892-1973)</td>
+                <td class="description">English author, poet, and professor who created The Hobbit and The Lord of the Rings trilogy.</td>
+            </tr>
+            <tr>
+                <td class="rank">5</td>
+                <td class="name">CARIBA HEINE</td>
+                <td class="age">24</td>
+                <td class="description">South African television actress and dancer, most well known as Rikki Chadwick on Australia's H20: Just Add Water.</td>
+            </tr>
+            <tr>
+                <td class="rank">6</td>
+                <td class="name">CHARLIZE THERON</td>
+                <td class="age">37</td>
+                <td class="description">She hit the spotlight in The Devil's Advocate, and won an Academy Award for Best Actress for her role as a disturbed murderer in the 2003 film, Monster.</td>
+            </tr>
+            <tr>
+                <td class="rank">7</td>
+                <td class="name">CANDICE SWANEPOEL</td>
+                <td class="age">24</td>
+                <td class="description">Famous for being a Victoria Secret model.</td>
+            </tr>
+            <tr>
+                <td class="rank">8</td>
+                <td class="name">BETH TWEDDLE</td>
+                <td class="age">28</td>
+                <td class="description">British gymnastics champion who also competed in three Olympic games.</td>
+            </tr>
+            <tr>
+                <td class="rank">9</td>
+                <td class="name">DAVE MATTHEWS</td>
+                <td class="age">46</td>
+                <td class="description">Singer and guitar player for the Dave Matthews Band, he won a Grammy Award for the song, So Much To Say.</td>
+            </tr>
+            <tr>
+                <td class="rank">10</td>
+                <td class="name">OSCAR PISTORIUS</td>
+                <td class="age">26</td>
+                <td class="description">South African sprint runner who is a double amputee, and has competed in the Olympics, widely known as the blade runner.</td>
+            </tr>
+            <tr>
+                <td class="rank">11</td>
+                <td class="name">JUSTIN GABRIEL</td>
+                <td class="age">32</td>
+                <td class="description">Works for WWE SmackDown; known for being the next 'Breakout Superstar' after competing in 2010.</td>
+            </tr>
+            <tr>
+                <td class="rank">12</td>
+                <td class="name">TAMMIN SURSOK</td>
+                <td class="age">29</td>
+                <td class="description">Plays the role of Jenna on 'Pretty Little Liars' alongside Ashley Benson.</td>
+            </tr>
+            <tr>
+                <td class="rank">13</td>
+                <td class="name">DEAN GEYER</td>
+                <td class="age">27</td>
+                <td class="description">Singer-songwriter who placed third in Australia's version of American Idol; plays the role of Brody Weston on Glee.</td>
+            </tr>
+            <tr>
+                <td class="rank">14</td>
+                <td class="name">LUOL DENG</td>
+                <td class="age">28</td>
+                <td class="description">Chicago bulls swing man who played in the 2012 NBA All-Star game.</td>
+            </tr>
+            <tr>
+                <td class="rank">15</td>
+                <td class="name">CHRISTIAN BENTEKE</td>
+                <td class="age">22</td>
+                <td class="description">Belgian footballer who became known as a player for Aston Villa and the Belgian national team.</td>
+            </tr>
+            <tr>
+                <td class="rank">16</td>
+                <td class="name">BISHOP DESMOND TUTU</td>
+                <td class="age">81</td>
+                <td class="description">Anglican Archbishop who urged equality of black South Africans.</td>
+            </tr>
+            <tr>
+                <td class="rank">17</td>
+                <td class="name">ELON MUSK</td>
+                <td class="age">42</td>
+                <td class="description">American Engineer who founded PayPal, SpaceX, and Tesla Motors.</td>
+            </tr>
+            <tr>
+                <td class="rank">18</td>
+                <td class="name">DALE STEYN</td>
+                <td class="age">30</td>
+                <td class="description">South African cricket star who represents the South African national team and Cape Cobras.</td>
+            </tr>
+            <tr>
+                <td class="rank">19</td>
+                <td class="name">MIRIAM MAKEBA</td>
+                <td class="age">(1932-2008)</td>
+                <td class="description">South African singer whose music was embraced worldwide.</td>
+            </tr>
+            <tr>
+                <td class="rank">20</td>
+                <td class="name">WILFRIED ZAHA</td>
+                <td class="age">20</td>
+                <td class="description">Winger and striker for Crystal Palace and Manchester United.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 (function(jQuery) {
-    module( "tables - jQuery extensions" );
+    module( "tables - jQuery a11yfy" );
 
     test( "Test addition of the polite announce div", function () {
         expect(1);

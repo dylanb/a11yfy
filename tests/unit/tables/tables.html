@@ -39,136 +39,176 @@
 <h2 id="qunit-userAgent"></h2>
 <ol id="qunit-tests"></ol>
 <div id="qunit-fixture">
-    <table id="sortable-not-chatty">
-        <caption>Accessible, Sortable Table of Famous People Born in South Africa</caption>
+    <!- test anchor tag wrapping ->
+    <table id="test1">
         <thead>
             <tr>
-                <th scope="col">Famouseness Rank</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col" data-filter="true"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+    </table>
+    <table id="test2">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col" data-filter="true"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+    </table>
+    <table id="test3">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col" data-filter="true"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+    </table>
+    <table id="test4">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col" data-filter="true"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+    </table>
+    <table id="test5">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col" data-filter="true"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+    </table>
+    <!- Test Sorting ->
+    <table id="test6">
+        <thead>
+            <tr>
+                <th scope="col">Rank</th>
                 <th scope="col">Name</th>
-                <th scope="col" data-filter="true">Age / Dates</th>
+                <th scope="col">Age</th>
                 <th scope="col">Description</th>
             </tr>
         </thead>
-        <tbody id="data">
-            <tr>
-                <td class="rank">1</td>
-                <td class="name">NELSON MANDELA</td>
-                <td class="age">95</td>
-                <td class="description">Former political prisoner who upon his release was elected president of South Africa in 1994.</td>
-            </tr>
-            <tr>
+        <tbody>
+            <tr id="test6row2">
                 <td class="rank">2</td>
-                <td class="name">STEVE NASH</td>
-                <td class="age">39</td>
-                <td class="description">NBA legend who won the MVP in 2005 and 2006 with the Phoenix Suns, and played in eight NBA All-Star games.</td>
+                <td class="name">A</td>
+                <td class="age">20.1</td>
+                <td class="description">something W</td>
             </tr>
-            <tr>
+            <tr id="test6row3">
                 <td class="rank">3</td>
-                <td class="name">SASHA PIETERSE</td>
-                <td class="age">17</td>
-                <td class="description">Teen actress who played Alison DiLaurentis on the hit ABC Family series Pretty Little Liars.</td>
+                <td class="name">W</td>
+                <td class="age">1.9</td>
+                <td class="description">something Z</td>
             </tr>
-            <tr>
+            <tr id="test6row4">
                 <td class="rank">4</td>
-                <td class="name">J.R.R. TOLKIEN</td>
-                <td class="age">(1892-1973)</td>
-                <td class="description">English author, poet, and professor who created The Hobbit and The Lord of the Rings trilogy.</td>
+                <td class="name">C</td>
+                <td class="age">80.1</td>
+                <td class="description">something A</td>
             </tr>
-            <tr>
+            <tr id="test6row5">
                 <td class="rank">5</td>
-                <td class="name">CARIBA HEINE</td>
-                <td class="age">24</td>
-                <td class="description">South African television actress and dancer, most well known as Rikki Chadwick on Australia's H20: Just Add Water.</td>
+                <td class="name">C</td>
+                <td class="age">N/A</td>
+                <td class="description">something A</td>
             </tr>
-            <tr>
-                <td class="rank">6</td>
-                <td class="name">CHARLIZE THERON</td>
-                <td class="age">37</td>
-                <td class="description">She hit the spotlight in The Devil's Advocate, and won an Academy Award for Best Actress for her role as a disturbed murderer in the 2003 film, Monster.</td>
+            <tr id="test6row1">
+                <td class="rank">1</td>
+                <td class="name">Z</td>
+                <td class="age">100.01</td>
+                <td class="description">something C</td>
             </tr>
+        </tbody>
+    </table>
+    <table id="test8">
+        <thead>
             <tr>
-                <td class="rank">7</td>
-                <td class="name">CANDICE SWANEPOEL</td>
-                <td class="age">24</td>
-                <td class="description">Famous for being a Victoria Secret model.</td>
+                <th scope="col">Rank</th>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Description</th>
             </tr>
-            <tr>
-                <td class="rank">8</td>
-                <td class="name">BETH TWEDDLE</td>
-                <td class="age">28</td>
-                <td class="description">British gymnastics champion who also competed in three Olympic games.</td>
+        </thead>
+        <tbody>
+            <tr id="test8row2">
+                <td class="rank">2</td>
+                <td class="name">A</td>
+                <td class="age">20.1</td>
+                <td class="description">something W</td>
             </tr>
-            <tr>
-                <td class="rank">9</td>
-                <td class="name">DAVE MATTHEWS</td>
-                <td class="age">46</td>
-                <td class="description">Singer and guitar player for the Dave Matthews Band, he won a Grammy Award for the song, So Much To Say.</td>
+            <tr id="test8row3">
+                <td class="rank">3</td>
+                <td class="name">W</td>
+                <td class="age">1.9</td>
+                <td class="description">something Z</td>
             </tr>
-            <tr>
-                <td class="rank">10</td>
-                <td class="name">OSCAR PISTORIUS</td>
-                <td class="age">26</td>
-                <td class="description">South African sprint runner who is a double amputee, and has competed in the Olympics, widely known as the blade runner.</td>
+            <tr id="test8row4">
+                <td class="rank">4</td>
+                <td class="name">C</td>
+                <td class="age">80.1</td>
+                <td class="description">something A</td>
             </tr>
-            <tr>
-                <td class="rank">11</td>
-                <td class="name">JUSTIN GABRIEL</td>
-                <td class="age">32</td>
-                <td class="description">Works for WWE SmackDown; known for being the next 'Breakout Superstar' after competing in 2010.</td>
+            <tr id="test8row5">
+                <td class="rank">5</td>
+                <td class="name">C</td>
+                <td class="age">N/A</td>
+                <td class="description">something A</td>
             </tr>
-            <tr>
-                <td class="rank">12</td>
-                <td class="name">TAMMIN SURSOK</td>
-                <td class="age">29</td>
-                <td class="description">Plays the role of Jenna on 'Pretty Little Liars' alongside Ashley Benson.</td>
+            <tr id="test8row1">
+                <td class="rank">1</td>
+                <td class="name">Z</td>
+                <td class="age">100.01</td>
+                <td class="description">something C</td>
             </tr>
+        </tbody>
+    </table>
+    <!- Test Filtering ->
+    <table id="test7">
+        <thead>
             <tr>
-                <td class="rank">13</td>
-                <td class="name">DEAN GEYER</td>
-                <td class="age">27</td>
-                <td class="description">Singer-songwriter who placed third in Australia's version of American Idol; plays the role of Brody Weston on Glee.</td>
+                <th scope="col" data-filter="true">Rank</th>
+                <th scope="col" data-filter="true">Name</th>
+                <th scope="col" data-filter="true">Description</th>
             </tr>
-            <tr>
-                <td class="rank">14</td>
-                <td class="name">LUOL DENG</td>
-                <td class="age">28</td>
-                <td class="description">Chicago bulls swing man who played in the 2012 NBA All-Star game.</td>
+        </thead>
+        <tbody>
+            <tr id="test7row2">
+                <td class="rank">2</td>
+                <td class="name">A</td>
+                <td class="description">something W</td>
             </tr>
-            <tr>
-                <td class="rank">15</td>
-                <td class="name">CHRISTIAN BENTEKE</td>
-                <td class="age">22</td>
-                <td class="description">Belgian footballer who became known as a player for Aston Villa and the Belgian national team.</td>
+            <tr id="test7row3">
+                <td class="rank">3</td>
+                <td class="name">A</td>
+                <td class="description">something Z</td>
             </tr>
-            <tr>
-                <td class="rank">16</td>
-                <td class="name">BISHOP DESMOND TUTU</td>
-                <td class="age">81</td>
-                <td class="description">Anglican Archbishop who urged equality of black South Africans.</td>
+            <tr id="test7row4">
+                <td class="rank">4</td>
+                <td class="name">A</td>
+                <td class="description">something A</td>
             </tr>
-            <tr>
-                <td class="rank">17</td>
-                <td class="name">ELON MUSK</td>
-                <td class="age">42</td>
-                <td class="description">American Engineer who founded PayPal, SpaceX, and Tesla Motors.</td>
+            <tr id="test7row5">
+                <td class="rank">5</td>
+                <td class="name">B</td>
+                <td class="description">something A</td>
             </tr>
-            <tr>
-                <td class="rank">18</td>
-                <td class="name">DALE STEYN</td>
-                <td class="age">30</td>
-                <td class="description">South African cricket star who represents the South African national team and Cape Cobras.</td>
-            </tr>
-            <tr>
-                <td class="rank">19</td>
-                <td class="name">MIRIAM MAKEBA</td>
-                <td class="age">(1932-2008)</td>
-                <td class="description">South African singer whose music was embraced worldwide.</td>
-            </tr>
-            <tr>
-                <td class="rank">20</td>
-                <td class="name">WILFRIED ZAHA</td>
-                <td class="age">20</td>
-                <td class="description">Winger and striker for Crystal Palace and Manchester United.</td>
+            <tr id="test7row1">
+                <td class="rank">1</td>
+                <td class="name">Z</td>
+                <td class="description">something C</td>
             </tr>
         </tbody>
     </table>

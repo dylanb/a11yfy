@@ -36,30 +36,17 @@
                     $span.text("");
                     // Make announcement
                     msg = "Table sorted by " + $this.text() + ", " + (direction === "asc" ? "Ascending" : "Descending");
-                    politeAnnounce(msg);
+                    jQuery.fn.tables.politeAnnounce(msg);
                     // Set the offscreen text
                     setSortedText($span, $this);
                     e.preventDefault();
                 }
 
-                function selectFocusHandler() {
-                    if (timeout) {
-                        clearTimeout(timeout);
-                        timeout = undefined;
-                    }
-                }
-
-                function selectBlurHandler() {
-                    timeout = setTimeout(function () {
-                        $select.hide();
-                        $select.parent().find("a").show();
-                    }, 500);
-                }
-
-
                 function selectChangeHandler() {
-                    var val = $select.val(),
-                        $anchor = $select.parent().find("a"),
+                    var $this = jQuery(this),
+                        val = $this.val(),
+                        $anchor = $this.parent().find("a"),
+                        cellIndex = this.parentNode.cellIndex,
                         msg;
 
                     jQuery(data).each(function (index, value) {
@@ -71,58 +58,10 @@
                     });
                     // Make announcement
                     msg = "Table filtered on " + $anchor.text() + ", by " + (val === "__none__" ? "All" : val);
-                    politeAnnounce(msg);
+                    jQuery.fn.tables.politeAnnounce(msg);
 
-                    $select.hide();
+                    $this.hide();
                     $anchor.show().focus();
-                }
-
-                function anchorFocusHandler(e) {
-                    var $this = jQuery(this),
-                        $span;
-
-                    if ($this.attr("data-filter")) {
-                        if (timeout) {
-                            clearTimeout(timeout);
-                            timeout = undefined;
-                        }
-                        $select = $this.parent().find("select");
-                        cellIndex = $this.parent().get(0).cellIndex;
-                        if (!$select.length) {
-                            $select = jQuery("<select>").attr("aria-label", $this.text() + ", Filterable");
-                            $select.append(jQuery("<option>").attr("value", "__none__").attr("label", "All"));
-                            jQuery(data).each(function (index, value) {
-                                $select.append(jQuery("<option>").text(value[cellIndex]));
-                            });
-                            $this.parent().append($select);
-                            $select.bind("mouseover focus", selectFocusHandler)
-                                .bind("mouseout blur", selectBlurHandler)
-                                .bind("change", selectChangeHandler);
-                        } else {
-                            $select.show();
-                        }
-                        if (e.type === "focus") {
-                            $select.focus();
-                        }
-                        $this.hide();
-                    } else {
-                        $span = $this.find("span.offscreen");
-                        if (!$span.length) {
-                            $span = jQuery("<span class=\"offscreen\">");
-                            $this.append($span);
-                        }
-                        setSortedText($span, $this);
-                    }
-
-                }
-
-                function anchorBlurHandler() {
-                    var $this = jQuery(this), $span;
-
-                    if (!$this.attr("data-filter")) {
-                        $span = $this.find("span.offscreen");
-                        $span.empty().text("");
-                    }
                 }
 
                 if (opts.sortFilter !== "none") {
@@ -132,16 +71,84 @@
                         if ($this.attr("data-filter") &&
                             (opts.sortFilter === "both" || opts.sortFilter === "filter")) {
                             $this.wrapInner("<a href=\"#\" data-filter=\"true\">");
-                        } else if ((opts.sortFilter === "both" || opts.sortFilter === "sort")) {
+                        } else if (!$this.attr("data-filter") && (opts.sortFilter === "both" || opts.sortFilter === "sort")) {
                             $this.wrapInner("<a href=\"#\">");
                         }
                     });
 
                     $anchors = $table.find("th a");
                     data = getTableData($table);
-                    $anchors.bind("click", anchorClickHandler)
-                        .bind("focus mouseover", anchorFocusHandler)
-                        .bind("blur mouseout", anchorBlurHandler);
+                    $anchors.each( function (index, anchor) {
+                        var $anchor = jQuery(anchor),
+                            timeout;
+
+                        function anchorFocusHandler(e) {
+                            var $this = jQuery(this),
+                                $span;
+
+                            if ($this.attr("data-filter")) {
+                                if (timeout) {
+                                    clearTimeout(timeout);
+                                    timeout = undefined;
+                                }
+                                $select = $this.parent().find("select");
+                                cellIndex = $this.parent().get(0).cellIndex;
+                                if (!$select.length) {
+                                    $select = jQuery("<select>").attr("aria-label", $this.text() + ", Filterable");
+                                    $select.append(jQuery("<option>").attr("value", "__none__").attr("label", "All"));
+                                    jQuery(data).each(function (index, value) {
+                                        $select.append(jQuery("<option>").text(value[cellIndex]));
+                                    });
+                                    $this.parent().append($select);
+                                    $select.bind("mouseover focus", selectFocusHandler)
+                                        .bind("mouseout blur", selectBlurHandler)
+                                        .bind("change", selectChangeHandler);
+                                } else {
+                                    $select.show();
+                                }
+                                if (e.type === "focus") {
+                                    $select.focus();
+                                }
+                                $this.hide();
+                            } else {
+                                $span = $this.find("span.offscreen");
+                                if (!$span.length) {
+                                    $span = jQuery("<span class=\"offscreen\">");
+                                    $this.append($span);
+                                }
+                                setSortedText($span, $this);
+                            }
+
+                        }
+
+                        function anchorBlurHandler() {
+                            var $this = jQuery(this), $span;
+
+                            if (!$this.attr("data-filter")) {
+                                $span = $this.find("span.offscreen");
+                                $span.empty().text("");
+                            }
+                        }
+
+                        function selectFocusHandler() {
+                            if (timeout) {
+                                clearTimeout(timeout);
+                                timeout = undefined;
+                            }
+                        }
+
+                        function selectBlurHandler() {
+                            var $this = jQuery(this);
+                            timeout = setTimeout(function () {
+                                $this.hide();
+                                $this.parent().find("a").show();
+                            }, 500);
+                        }
+
+                        $anchor.bind("click", anchorClickHandler)
+                            .bind("focus mouseover", anchorFocusHandler)
+                            .bind("blur mouseout", anchorBlurHandler);
+                    });
                     if ((opts.sortFilter === "both" || opts.sortFilter === "sort")) {
                         $anchors.first().click();
                     }
@@ -155,9 +162,6 @@
         }
     };
 
-    function politeAnnounce(msg) {
-        $politeAnnouncer.append(jQuery("<p>").text(msg));
-    }
     function getSortedText($this) {
         var sorted = $this.attr("data-sorted");
         return "Sortable" +
@@ -226,8 +230,12 @@
         sortFilter: "both"
     };
 
+    jQuery.fn.tables.politeAnnounce = function (msg) {
+        $politeAnnouncer.append(jQuery("<p>").text(msg));
+    };
+
     // Add the polite announce div to the page
-    if (!$politeAnnouncer.length) {
+    if (!$politeAnnouncer || !$politeAnnouncer.length) {
         jQuery(document).ready(function () {
             $politeAnnouncer = jQuery("<div>").attr({
                     "id": "jquery-ui-politeannounce",

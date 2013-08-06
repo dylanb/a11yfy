@@ -1,6 +1,6 @@
 # a11yfy
 
-Accessible Library Functions
+Accessibilyfy Library Functions - Make your jQuery site accessible
 
 ## tables
 

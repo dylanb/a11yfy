@@ -6,5 +6,5 @@ jQuery.fn.tables.defaults.strings = {
     all: "Alle",
     tableSortedAscending: "Tabelle aufsteigend nach ${column} sortiert",
     tableSortedDescending: "Tabelle absteigend nach ${column} sortiert",
-    tableFilteredOnAndBy: "Tabelle auf Kolonne ${column} mit dem Wert ${value} gefiltert"
+    tableFilteredOnAndBy: "Tabelle nach ${column} und ${value} gefiltert"
 }

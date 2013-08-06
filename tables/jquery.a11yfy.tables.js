@@ -35,7 +35,15 @@
                     // Reset the offscreen text
                     $span.text("");
                     // Make announcement
-                    msg = "Table sorted by " + $this.text() + ", " + (direction === "asc" ? "Ascending" : "Descending");
+                    if (direction === "asc") {
+                        msg = getI18nString("tableSortedAscending", {
+                            column: $this.text()
+                        });
+                    } else {
+                        msg = getI18nString("tableSortedDescending", {
+                            column: $this.text()
+                        });
+                    }
                     jQuery.fn.tables.politeAnnounce(msg);
                     // Set the offscreen text
                     setSortedText($span, $this);
@@ -57,7 +65,10 @@
                         }
                     });
                     // Make announcement
-                    msg = "Table filtered on " + $anchor.text() + ", by " + (val === "__none__" ? "All" : val);
+                    msg = getI18nString("tableFilteredOnAndBy", {
+                        column: $anchor.text(),
+                        value: (val === "__none__" ? getI18nString("all") : val)
+                    });
                     jQuery.fn.tables.politeAnnounce(msg);
 
                     $this.hide();
@@ -94,8 +105,8 @@
                                 $select = $this.parent().find("select");
                                 cellIndex = $this.parent().get(0).cellIndex;
                                 if (!$select.length) {
-                                    $select = jQuery("<select>").attr("aria-label", $this.text() + ", Filterable");
-                                    $select.append(jQuery("<option>").attr("value", "__none__").attr("label", "All"));
+                                    $select = jQuery("<select>").attr("aria-label", $this.text() + getI18nString("filterable"));
+                                    $select.append(jQuery("<option>").attr("value", "__none__").attr("label", getI18nString("all")));
                                     jQuery(data).each(function (index, value) {
                                         $select.append(jQuery("<option>").text(value[cellIndex]));
                                     });
@@ -162,12 +173,22 @@
         }
     };
 
+    function getI18nString(str, values) {
+        var msg = jQuery.fn.tables.defaults.strings[str];
+
+        if (values) {
+            for (v in values) {
+                msg = msg.replace("${"+v+"}", values[v])
+            }
+        }
+        return msg;
+    }
+
     function getSortedText($this) {
         var sorted = $this.attr("data-sorted");
-        return "Sortable" +
-                (sorted === "asc" ? ", Sorted Ascending" :
-                (sorted === "desc" ? ", Sorted Descending" :
-                ", Not Sorted"));
+        return (sorted === "asc" ? getI18nString("sortableSortedAscending") :
+                (sorted === "desc" ? getI18nString("sortableSortedDescending") :
+                getI18nString("sortableNotSorted")));
     }
     function getTableData($table) {
         var retVal = [];
@@ -222,12 +243,22 @@
         } else if (typeof method === "object" || ! method) {
             return methods.init.apply(this, arguments);
         } else {
-            jQuery.error("Method " +  method + " does not exist on jQuery.slider");
+            jQuery.error("Method " +  method + " does not exist on jQuery.tables");
         }
     };
 
     jQuery.fn.tables.defaults = {
-        sortFilter: "both"
+        sortFilter: "both",
+        strings : {
+            sortableSortedAscending: " Sortable, Sorted Ascending",
+            sortableNotSorted: " Sortable, Not Sorted",
+            sortableSortedDescending: " Sortable, Sorted Descending",
+            filterable: ", Filterable",
+            all: "All",
+            tableSortedAscending: "Table sorted by ${column}, Ascending",
+            tableSortedDescending: "Table sorted by ${column}, Descending",
+            tableFilteredOnAndBy: "Table filtered on ${column}, by ${value}"
+        }
     };
 
     jQuery.fn.tables.politeAnnounce = function (msg) {

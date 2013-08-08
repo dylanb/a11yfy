@@ -2,6 +2,68 @@
 
 Accessibilyfy Library Functions - Make your jQuery site accessible
 
+## core
+
+The core of the a11yfy library provides some utilitu functions for use a11y as well as for sharing common functionality across a11yfy utilities themselves
+
+### jQuery.fn.a11yfy.getI18nString
+
+Lookup a language string with value replacement from within a string bundle
+
+#### Synopsis
+
+    jQuery.fn.a11yfy.getI18nString(key, [values], stringBundle)
+
+#### Parameters
+
+1. key - a String that is the name of the language string
+2. [values] - A dictionary of key value pairs that represent parameter values that must get replaced in the target languages string to produce the required UI output. This parameter is optional, if not provided, this parameter must be null or undefined.
+3. stringBundle -  an dictionary of key value pairs representing the string bundle for the user's UI language. The strings can contain replacement placeholders of the form ${name}. These placeholders can then be replaced with data values when the string is fetched by passing in the appropriate dictionary items in the values dictionary.
+
+#### Example
+
+    jQuery.fn.a11yfy.getI18nString("hello", {name: "Unobfuscator"}, {hello: "Gruss Gott Herr ${name}"});
+
+### jQuery.fn.a11yfy.politeAnnounce
+
+Use aria-live to make a polite announcement. Polite announcements do not interrupt the announcements currently being made by the AT and are also not guaranteed to be made.
+
+#### Synopsis
+
+    jQuery.fn.a11yfy.politeAnnounce(msg)
+
+#### Parameters
+
+1. msg - a String with the information that should be announced to the AT user
+
+#### Example
+
+    jQuery.fn.a11yfy.politeAnnounce("Your cost estmate has been recalculated");
+
+#### See also
+
+    jQuery.fn.a11yfy.assertiveAnnounce
+
+### jQuery.fn.a11yfy.assertiveAnnounce
+
+Use aria-live to make an assertive announcement. Assertive announcements will not interrupt the announcements currently being made by the AT.
+
+#### Synopsis
+
+    jQuery.fn.a11yfy.assertiveAnnounce(msg)
+
+#### Parameters
+
+1. msg - a String with the information that should be announced to the AT user
+
+#### Example
+
+    jQuery.fn.a11yfy.assertiveAnnounce("Please correct the error in the date field before continuing!");
+
+#### See also
+
+    jQuery.fn.a11yfy.politeAnnounce
+
 ## tables
 
 Add accessible column sorting and filtering to data tables. Columns are identified by th elements.

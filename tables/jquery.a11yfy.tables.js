@@ -5,9 +5,9 @@
  * Copyright (C) 2013 Dylan Barrell. All Rights Reserved as specified in the LICENSE file
  *
  */
+
 (function (jQuery){
-    var methods,
-        $politeAnnouncer = jQuery("#jquery-ui-politeannouncer");
+    var methods;
 
     methods = {
         init: function (options) {
@@ -36,15 +36,15 @@
                     $span.text("");
                     // Make announcement
                     if (direction === "asc") {
-                        msg = getI18nString("tableSortedAscending", {
+                        msg = jQuery.a11yfy.getI18nString("tableSortedAscending", {
                             column: $this.text()
-                        });
+                        }, jQuery.fn.tables.defaults.strings);
                     } else {
-                        msg = getI18nString("tableSortedDescending", {
+                        msg = jQuery.a11yfy.getI18nString("tableSortedDescending", {
                             column: $this.text()
-                        });
+                        }, jQuery.fn.tables.defaults.strings);
                     }
-                    jQuery.fn.tables.politeAnnounce(msg);
+                    jQuery.a11yfy.politeAnnounce(msg);
                     // Set the offscreen text
                     setSortedText($span, $this);
                     e.preventDefault();
@@ -65,11 +65,11 @@
                         }
                     });
                     // Make announcement
-                    msg = getI18nString("tableFilteredOnAndBy", {
+                    msg = jQuery.a11yfy.getI18nString("tableFilteredOnAndBy", {
                         column: $anchor.text(),
-                        value: (val === "__none__" ? getI18nString("all") : val)
-                    });
-                    jQuery.fn.tables.politeAnnounce(msg);
+                        value: (val === "__none__" ? jQuery.a11yfy.getI18nString("all") : val)
+                    }, jQuery.fn.tables.defaults.strings);
+                    jQuery.a11yfy.politeAnnounce(msg);
 
                     $this.hide();
                     $anchor.show().focus();
@@ -105,8 +105,8 @@
                                 $select = $this.parent().find("select");
                                 cellIndex = $this.parent().get(0).cellIndex;
                                 if (!$select.length) {
-                                    $select = jQuery("<select>").attr("aria-label", $this.text() + getI18nString("filterable"));
-                                    $select.append(jQuery("<option>").attr("value", "__none__").attr("label", getI18nString("all")));
+                                    $select = jQuery("<select>").attr("aria-label", $this.text() + jQuery.a11yfy.getI18nString("filterable", undefined, jQuery.fn.tables.defaults.strings));
+                                    $select.append(jQuery("<option>").attr("value", "__none__").attr("label", jQuery.a11yfy.getI18nString("all", undefined, jQuery.fn.tables.defaults.strings)));
                                     jQuery(data).each(function (index, value) {
                                         $select.append(jQuery("<option>").text(value[cellIndex]));
                                     });
@@ -173,22 +173,11 @@
         }
     };
 
-    function getI18nString(str, values) {
-        var msg = jQuery.fn.tables.defaults.strings[str];
-
-        if (values) {
-            for (v in values) {
-                msg = msg.replace("${"+v+"}", values[v])
-            }
-        }
-        return msg;
-    }
-
     function getSortedText($this) {
         var sorted = $this.attr("data-sorted");
-        return (sorted === "asc" ? getI18nString("sortableSortedAscending") :
-                (sorted === "desc" ? getI18nString("sortableSortedDescending") :
-                getI18nString("sortableNotSorted")));
+        return (sorted === "asc" ? jQuery.a11yfy.getI18nString("sortableSortedAscending", undefined, jQuery.fn.tables.defaults.strings) :
+                (sorted === "desc" ? jQuery.a11yfy.getI18nString("sortableSortedDescending", undefined, jQuery.fn.tables.defaults.strings) :
+                jQuery.a11yfy.getI18nString("sortableNotSorted", undefined, jQuery.fn.tables.defaults.strings)));
     }
     function getTableData($table) {
         var retVal = [];
@@ -260,21 +249,4 @@
             tableFilteredOnAndBy: "Table filtered on ${column}, by ${value}"
         }
     };
-
-    jQuery.fn.tables.politeAnnounce = function (msg) {
-        $politeAnnouncer.append(jQuery("<p>").text(msg));
-    };
-
-    // Add the polite announce div to the page
-    if (!$politeAnnouncer || !$politeAnnouncer.length) {
-        jQuery(document).ready(function () {
-            $politeAnnouncer = jQuery("<div>").attr({
-                    "id": "jquery-ui-politeannounce",
-                    "role": "log",
-                    "aria-live": "polite",
-                    "aria-relevant": "additions"
-                }).addClass("offscreen");
-            jQuery("body").append($politeAnnouncer);
-        });
-    }
 })(jQuery);

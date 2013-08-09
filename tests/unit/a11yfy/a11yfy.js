@@ -39,7 +39,6 @@
         expect(2);
         equal(jQuery.a11yfy.getI18nString("test", undefined, {"test": "test"}), "test");
         equal(jQuery.a11yfy.getI18nString("test", { one: 1, two: 2}, {"test": "test ${two}, ${one}"}), "test 2, 1");
-
     });
 })(jQuery);
 

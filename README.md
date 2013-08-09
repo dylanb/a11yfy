@@ -68,6 +68,8 @@ Use aria-live to make an assertive announcement. Assertive announcements will no
 
 Add accessible column sorting and filtering to data tables. Columns are identified by th elements.
 
+### Synopsis
+
     jQuery(selector).tables(options);
 
 where options is
@@ -95,3 +97,7 @@ Strings is the texts that are used for announcements and off-screen texts. These
 ### Limitations
 1. If you have multiple th elements in a column, tables will faithfully attempt to apply filters and sorting to these th elements but will only treat the first row as the header row. The results of this might be interesting, but are not predictable.
 2. You cannot currently sort or filter columns, only rows
+
+### Examples
+
+    jQuery('#mytable').tables();

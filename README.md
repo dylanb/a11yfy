@@ -76,6 +76,9 @@ where options is
 
     {
         sortFilter: "both" | "none" | "sort" | "filter",
+        responsiveColumns: falsy | {
+            breakPoint: 500
+        },
         strings : {
             sortableSortedAscending: " Sortable, Sorted Ascending",
             sortableNotSorted: " Sortable, Not Sorted",
@@ -88,9 +91,11 @@ where options is
         }
     }
 
-When sortFilter is "both" or "filter", filtering capability will be applied only to columns that have the attribute data-filter="true".
+When sortFilter is "both" or "filter", filtering capability will be applied only to columns that have the attribute data-filter="true". SortFilter and responsiveColumns are mutually exclusive and when responsiveColumns is used, sortFilter must be set to "none". If sortFilter is "both" or "sort", sorting will be applied to every column that does not have the data-filter="true" attribute.
 
-If sortFilter is "both" or "sort", sorting will be applied to every column that does not have the data-filter="true" attribute.
+When responsiveColumns is not falsy, then it's value is the options structure that tables will use to convert a columnar table into a responsive columnar table. The options are:
+
+1. breakPoint - Integer - the width in pixels below which the columnar data will be turned into row data so that the responsive CSS can layout the columns sequentially.
 
 Strings is the texts that are used for announcements and off-screen texts. These can be overridden to translate the plugin to other languages. See the i18n folder for examples of translated languages.
 

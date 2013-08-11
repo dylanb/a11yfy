@@ -76,6 +76,9 @@
                 }
 
                 if (opts.sortFilter !== "none") {
+                    if (opts.responsiveColumns) {
+                        throw "responsiveColumns and sortFilter are mutually exclusive options because sortFilter implies a data table with row data and responsiveColumns implies columnar data";
+                    }
                     $table.find("th").each(function (index, value) {
                         var $this = jQuery(value);
 
@@ -163,6 +166,8 @@
                     if ((opts.sortFilter === "both" || opts.sortFilter === "sort")) {
                         $anchors.first().click();
                     }
+                } else if (opts.responsiveColumns) {
+
                 }
             });
         },

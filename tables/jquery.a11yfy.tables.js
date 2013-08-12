@@ -178,6 +178,20 @@
         }
     };
 
+    function getDimensions() {
+        var retVal = { width: 0, height: 0};
+        retVal.width = window.innerWidth-1;
+        retVal.height = window.innerHeight;
+        return retVal;
+    }
+
+    function equalDimensions(first, second) {
+        if (first.width === second.width && first.height === second.height) {
+            return true;
+        }
+        return false;
+    }
+
     function getSortedText($this) {
         var sorted = $this.attr("data-sorted");
         return (sorted === "asc" ? jQuery.a11yfy.getI18nString("sortableSortedAscending", undefined, jQuery.fn.tables.defaults.strings) :

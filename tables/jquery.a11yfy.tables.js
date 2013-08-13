@@ -14,7 +14,7 @@
             var opts = jQuery.extend({}, jQuery.fn.tables.defaults, options);
             return this.each(function () {
                 var $table = jQuery(this),
-                    $anchors, data, timeout, $select, cellIndex;
+                    $anchors, data, timeout, $select, cellIndex, dimensons, resizeTimer;
 
                 function anchorClickHandler(e) {
                     var $this = jQuery(this),
@@ -167,7 +167,23 @@
                         $anchors.first().click();
                     }
                 } else if (opts.responsiveColumns) {
-
+                    data = getTableData($table);
+                    headers = getTableHeaders($table);
+                    dimensions = getDimensions();
+                    drawTable( $table, data, headers, dimensions, opts);
+                    window.onresize = function (e) {
+                        newDimensions = getDimensions();
+                        if (!equalDimensions(newDimensions, dimensions)) {
+                            if (resizeTimer) {
+                                clearTimeout(resizeTimer);
+                                resizeTimer = undefined;
+                            }
+                            dimensions = newDimensions;
+                            resizeTimer = setTimeout(function () {
+                                drawTable( $table, data, headers, newDimensions, opts);
+                            }, 50);
+                        }
+                    }
                 }
             });
         },
@@ -177,6 +193,55 @@
             });
         }
     };
+
+    function drawSmartPhoneTable(data, headers, options) {
+        var html = '', i, _ilen, j, _jlen;
+        for (i = 0, _ilen = data[0].length - 1; i < _ilen; i++) {
+            html += '<tr>';
+            if (headers) {
+                html += '<th scope="row">' + headers[i] + '</th>';
+            }
+            for (j = 0, _jlen = data.length; j < _jlen; j++) {
+                html += '<td>' + data[j][i] + '</td>';
+            }
+            html += '</tr>';
+        }
+        return html;
+    }
+
+    function drawDesktopTable(data, headers, options) {
+        var html = '', i, _ilen, j, _jlen;
+        if (headers) {
+            html += '<tr>';
+            jQuery(headers).each(function (index, value) {
+                html += '<th scope="col">' + value + '</th>';                
+            });
+            html += '</tr>';
+        }
+        for (j = 0, _jlen = data.length; j < _jlen; j++) {
+            html += '<tr>';
+            for (i = 0, _ilen = data[0].length - 1; i < _ilen; i++) {
+                html += '<td>' + data[j][i] + '</td>';
+            }
+            html += '</tr>';
+        }
+        return html;
+    }
+
+    function isSmartPhone(dimensions, breakPoint) {
+        if (dimensions.width <= breakPoint) {
+            return true;
+        }
+        return false;
+    }
+
+    function drawTable($table, data, headers, dimensions, options) {
+        if (isSmartPhone(dimensions, options.responsiveColumns.breakPoint)) {
+            $table.html(drawSmartPhoneTable(data, headers, options));
+        } else {
+            $table.html(drawDesktopTable(data, headers, options));
+        }
+    }
 
     function getDimensions() {
         var retVal = { width: 0, height: 0};
@@ -198,6 +263,7 @@
                 (sorted === "desc" ? jQuery.a11yfy.getI18nString("sortableSortedDescending", undefined, jQuery.fn.tables.defaults.strings) :
                 jQuery.a11yfy.getI18nString("sortableNotSorted", undefined, jQuery.fn.tables.defaults.strings)));
     }
+
     function getTableData($table) {
         var retVal = [];
         $table.find("tbody tr").each(function (index, value) {
@@ -221,6 +287,15 @@
         });
         return retVal;
     }
+    function getTableHeaders($table) {
+        var retVal = [];
+        $table.find('tr').first().find('th').each(function (index, value) {
+            var $this = jQuery(value);
+            retVal.push($this.text());
+        });
+        return retVal;
+    }
+
     function sortTableData(data, direction, index) {
         data.sort(function (first, second) {
             if (typeof first[index] !== typeof second[index]) {

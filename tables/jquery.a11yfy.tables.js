@@ -171,7 +171,7 @@
                     headers = getTableHeaders($table);
                     dimensions = getDimensions();
                     drawTable( $table, data, headers, dimensions, opts);
-                    window.onresize = function (e) {
+                    jQuery(window).on("resize", function (e) {
                         newDimensions = getDimensions();
                         if (!equalDimensions(newDimensions, dimensions)) {
                             if (resizeTimer) {
@@ -183,7 +183,7 @@
                                 drawTable( $table, data, headers, newDimensions, opts);
                             }, 50);
                         }
-                    }
+                    });
                 }
             });
         },

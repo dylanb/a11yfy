@@ -132,4 +132,22 @@
         $anchors.eq(0).simulate("blur");
         equal($anchors.eq(0).find("span.offscreen").text(), "");
     });
+
+    asyncTest( "test exception when sortFilter and responsiveColumns set", function () {
+        var $table = jQuery("#test8"), $rows;
+
+        expect(1);
+
+        try {
+            $table.tables({
+                sortFilter: "both",
+                responsiveColumns: {
+                    breakPoint: 500
+                }
+            });
+        } catch( err) {
+            ok(true);
+            start();
+        }
+    });
 })(jQuery);

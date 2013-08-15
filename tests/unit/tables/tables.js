@@ -133,7 +133,7 @@
         equal($anchors.eq(0).find("span.offscreen").text(), "");
     });
 
-    asyncTest( "test exception when sortFilter and responsiveColumns set", function () {
+    asyncTest( "Test exception when sortFilter and responsiveColumns set", function () {
         var $table = jQuery("#test8"), $rows;
 
         expect(1);
@@ -149,5 +149,19 @@
             ok(true);
             start();
         }
+    });
+
+    test( "That when smaller than the breakpoint, we get row data tables", function () {
+        var $table = jQuery("#test9"), $rows;
+
+        expect(1);
+
+        $table.tables({
+            sortFilter: "none",
+            responsiveColumns: {
+                breakPoint: window.screen.availWidth +1
+            }
+        });
+        equal($table.find("tr").first().find("th").length, 1);
     });
 })(jQuery);

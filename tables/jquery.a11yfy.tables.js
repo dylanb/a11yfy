@@ -184,6 +184,12 @@
                             }, 50);
                         }
                     });
+                    if (opts.responsiveColumns.css) {
+                        jQuery("body").append(
+                            jQuery("<style>\n" +
+                                jQuery.a11yfy.getI18nString('cssString', {breakPoint:opts.responsiveColumns.breakPoint}, jQuery.fn.tables.defaults.css) +
+                                "</style>"));
+                    }
                 }
             });
         },
@@ -341,6 +347,44 @@
             tableSortedAscending: "Table sorted by ${column}, Ascending",
             tableSortedDescending: "Table sorted by ${column}, Descending",
             tableFilteredOnAndBy: "Table filtered on ${column}, by ${value}"
+        },
+        css : {
+              cssString: "@media\n" +
+              "(max-width: ${breakPoint}px) {\n" +
+                "/* Force table to not be like tables anymore but still be navigable as a table */\n" +
+                "table, thead, tbody, tr {\n" +
+                  "width: 100%;\n" +
+                "}\n" +
+
+                "td, th {\n" +
+                  "display: block;\n" +
+                "}\n" +
+
+                "/* Hide table headers with display: none because accessibility APIs do not pick up reliably on these headers anyway */\n" +
+                "thead tr {\n" +
+                  "display:none;\n" +
+                "}\n" +
+
+                "tr { border: 1px solid #ccc; }\n" +
+
+                "td, th {\n" +
+                  "/* Behave  like a \"row\" */\n" +
+                  "border: none;\n" +
+                  "border-bottom: 1px solid #eee;\n" +
+                  "position: relative;\n" +
+                "}\n" +
+
+                "td:before, th:before {\n" +
+                  "/* Now like a table header */\n" +
+                  "position: absolute;\n" +
+                  "/* Top/left values mimic padding */\n" +
+                  "top: 6px;\n" +
+                  "left: 6px;\n" +
+                  "width: 45%;\n" +
+                  "padding-right: 10px;\n" +
+                  "white-space: nowrap;\n" +
+                "}\n" +
+              "}\n"
         }
     };
 })(jQuery);

@@ -164,4 +164,38 @@
         });
         equal($table.find("tr").first().find("th").length, 1);
     });
+
+    test( "That when NOT using css, and when smaller than the breakpoint, td and th have display table-cell", function () {
+        var $table = jQuery("#test10"), $rows;
+
+        expect(16);
+
+        $table.tables({
+            sortFilter: "none",
+            responsiveColumns: {
+                breakPoint: window.screen.availWidth +1
+            }
+        });
+        $table.find("td,th").each(function(index, value) {
+            equal(jQuery(value).css("display"), "table-cell");
+        });
+    });
+
+    test( "That when using css, and when smaller than the breakpoint, td and th have display block", function () {
+        var $table = jQuery("#test11"), $rows;
+
+        expect(32);
+
+        $table.tables({
+            sortFilter: "none",
+            responsiveColumns: {
+                breakPoint: window.screen.availWidth +1,
+                css: true
+            }
+        });
+        $table.find("td,th").each(function(index, value) {
+            equal(jQuery(value).css("display"), "block");
+            equal(jQuery(value).css("position"), "relative");
+        });
+    });
 })(jQuery);

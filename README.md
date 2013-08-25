@@ -77,7 +77,8 @@ where options is
     {
         sortFilter: "both" | "none" | "sort" | "filter",
         responsiveColumns: falsy | {
-            breakPoint: 500
+            breakPoint: 500,
+            css: false
         },
         strings : {
             sortableSortedAscending: " Sortable, Sorted Ascending",
@@ -96,8 +97,17 @@ When sortFilter is "both" or "filter", filtering capability will be applied only
 When responsiveColumns is not falsy, then it's value is the options structure that tables will use to convert a columnar table into a responsive columnar table. The options are:
 
 1. breakPoint - Integer - the width in pixels below which the columnar data will be turned into row data so that the responsive CSS can layout the columns sequentially.
+2. css - Boolean - if set to true, the tables function will generate css to allow the table to flow responsively when the breakpoint is traversed
 
 Strings is the texts that are used for announcements and off-screen texts. These can be overridden to translate the plugin to other languages. See the i18n folder for examples of translated languages.
+
+### Defaults
+The jQuery.fn.tables.defaults structure contains the default options for the tables function. It contains the following attributes.
+
+    sortFilter (String) - default value for this option
+    strings (Object), - default strings object
+    css (Object)
+        cssString: (String) - default CSS template when css is set to true for responsive tables
 
 ### Limitations
 1. If you have multiple th elements in a column, tables will faithfully attempt to apply filters and sorting to these th elements but will only treat the first row as the header row. The results of this might be interesting, but are not predictable.

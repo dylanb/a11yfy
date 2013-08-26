@@ -14,7 +14,7 @@
             var opts = jQuery.extend({}, jQuery.fn.tables.defaults, options);
             return this.each(function () {
                 var $table = jQuery(this),
-                    $anchors, data, timeout, $select, cellIndex, dimensons, resizeTimer;
+                    $anchors, data, $select, cellIndex, dimensions, newDimensions, resizeTimer, headers;
 
                 function anchorClickHandler(e) {
                     var $this = jQuery(this),
@@ -171,7 +171,7 @@
                     headers = getTableHeaders($table);
                     dimensions = getDimensions();
                     drawTable( $table, data, headers, dimensions, opts);
-                    jQuery(window).on("resize", function (e) {
+                    jQuery(window).on("resize", function () {
                         newDimensions = getDimensions();
                         if (!equalDimensions(newDimensions, dimensions)) {
                             if (resizeTimer) {
@@ -187,7 +187,7 @@
                     if (opts.responsiveColumns.css) {
                         jQuery("body").append(
                             jQuery("<style>\n" +
-                                jQuery.a11yfy.getI18nString('cssString', {breakPoint:opts.responsiveColumns.breakPoint}, jQuery.fn.tables.defaults.css) +
+                                jQuery.a11yfy.getI18nString("cssString", {breakPoint:opts.responsiveColumns.breakPoint}, jQuery.fn.tables.defaults.css) +
                                 "</style>"));
                     }
                 }
@@ -200,36 +200,36 @@
         }
     };
 
-    function drawSmartPhoneTable(data, headers, options) {
-        var html = '', i, _ilen, j, _jlen;
+    function drawSmartPhoneTable(data, headers) {
+        var html = "", i, _ilen, j, _jlen;
         for (i = 0, _ilen = data[0].length - 1; i < _ilen; i++) {
-            html += '<tr>';
+            html += "<tr>";
             if (headers) {
-                html += '<th scope="row">' + headers[i] + '</th>';
+                html += "<th scope=\"row\">" + headers[i] + "</th>";
             }
             for (j = 0, _jlen = data.length; j < _jlen; j++) {
-                html += '<td>' + data[j][i] + '</td>';
+                html += "<td>" + data[j][i] + "</td>";
             }
-            html += '</tr>';
+            html += "</tr>";
         }
         return html;
     }
 
-    function drawDesktopTable(data, headers, options) {
-        var html = '', i, _ilen, j, _jlen;
+    function drawDesktopTable(data, headers) {
+        var html = "", i, _ilen, j, _jlen;
         if (headers) {
-            html += '<tr>';
+            html += "<tr>";
             jQuery(headers).each(function (index, value) {
-                html += '<th scope="col">' + value + '</th>';                
+                html += "<th scope=\"col\">" + value + "</th>";
             });
-            html += '</tr>';
+            html += "</tr>";
         }
         for (j = 0, _jlen = data.length; j < _jlen; j++) {
-            html += '<tr>';
+            html += "<tr>";
             for (i = 0, _ilen = data[0].length - 1; i < _ilen; i++) {
-                html += '<td>' + data[j][i] + '</td>';
+                html += "<td>" + data[j][i] + "</td>";
             }
-            html += '</tr>';
+            html += "</tr>";
         }
         return html;
     }
@@ -243,9 +243,9 @@
 
     function drawTable($table, data, headers, dimensions, options) {
         if (isSmartPhone(dimensions, options.responsiveColumns.breakPoint)) {
-            $table.html(drawSmartPhoneTable(data, headers, options));
+            $table.html(drawSmartPhoneTable(data, headers));
         } else {
-            $table.html(drawDesktopTable(data, headers, options));
+            $table.html(drawDesktopTable(data, headers));
         }
     }
 
@@ -295,7 +295,7 @@
     }
     function getTableHeaders($table) {
         var retVal = [];
-        $table.find('tr').first().find('th').each(function (index, value) {
+        $table.find("tr").first().find("th").each(function (index, value) {
             var $this = jQuery(value);
             retVal.push($this.text());
         });

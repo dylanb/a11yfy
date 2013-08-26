@@ -134,7 +134,7 @@
     });
 
     asyncTest( "Test exception when sortFilter and responsiveColumns set", function () {
-        var $table = jQuery("#test8"), $rows;
+        var $table = jQuery("#test8");
 
         expect(1);
 
@@ -152,7 +152,7 @@
     });
 
     test( "That when smaller than the breakpoint, we get row data tables", function () {
-        var $table = jQuery("#test9"), $rows;
+        var $table = jQuery("#test9");
 
         expect(1);
 
@@ -166,7 +166,7 @@
     });
 
     test( "That when NOT using css, and when smaller than the breakpoint, td and th have display table-cell", function () {
-        var $table = jQuery("#test10"), $rows;
+        var $table = jQuery("#test10");
 
         expect(16);
 
@@ -182,7 +182,7 @@
     });
 
     test( "That when using css, and when smaller than the breakpoint, td and th have display block", function () {
-        var $table = jQuery("#test11"), $rows;
+        var $table = jQuery("#test11");
 
         expect(32);
 

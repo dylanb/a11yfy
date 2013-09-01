@@ -40,5 +40,46 @@
         equal(jQuery.a11yfy.getI18nString("test", undefined, {"test": "test"}), "test");
         equal(jQuery.a11yfy.getI18nString("test", { one: 1, two: 2}, {"test": "test ${two}, ${one}"}), "test 2, 1");
     });
+
+    asyncTest( "Test focus being set on element after 1 second", function () {
+        var $fixture = jQuery("#qunit-fixture");
+
+        expect(1);
+        $fixture.empty();
+        $fixture.append(jQuery("<div><button id=\"focus1\">button</button></div>"));
+        jQuery("#focus1").a11yfy("focus").on("focus", function () {
+            ok(true);
+            start();
+        });
+    });
+
+    asyncTest( "Test focus being set on shown element after 1 second", function () {
+        var $fixture = jQuery("#qunit-fixture");
+
+        expect(1);
+        $fixture.empty();
+        $fixture.append(jQuery("<div id=\"show2\" style=\"display:none;\"><button id=\"focus2\">button</button></div>"));
+        jQuery("#show2").a11yfy("showAndFocus", "#focus2");
+        jQuery("#focus2").on("focus", function () {
+            ok(true);
+            start();
+        });
+    });
+
+    asyncTest( "Test focus NOT being set on display:none element after 1 second", function () {
+        var $fixture = jQuery("#qunit-fixture");
+
+        expect(1);
+        $fixture.empty();
+        $fixture.append(jQuery("<div style=\"display:none;\"><button id=\"focus3\">button</button></div>"));
+        jQuery("#focus3").a11yfy("focus", "#focus3").on("focus", function () {
+            ok(false);
+        });
+        setTimeout(function () {
+            ok(true);
+            start();
+        }, 1100);
+    });
+
 })(jQuery);
 

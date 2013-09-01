@@ -6,6 +6,49 @@ Accessibilyfy Library Functions - Make your jQuery site accessible
 
 The core of the a11yfy library provides some utilitu functions for use a11y as well as for sharing common functionality across a11yfy utilities themselves
 
+### jQuery(selector).a11yfy
+
+Execute an accessibility core function on the element(s) targeted by the jQuery selector
+
+#### Synopsis
+
+    jQuery(selector).a11yfy(method, arguments)
+
+#### Parameters
+
+1. method - a String specifying which method to execute on the element(s)
+2. arguments - optional set of arguments to be passed to the method
+
+#### Methods
+
+##### focus
+
+focus the selected element(s) in a way that will work on all platforms
+
+##### Synopsis
+
+    jQuery(selector).a11yfy("focus");
+
+##### Example
+
+    jQuery("#confirm_button_1").a11yfy("focus");
+
+##### showAndFocus
+
+Show the targeted element and then set focus to the element (normally within it, but this is not enforced) identified by the first argument
+
+##### Synopsis
+
+    jQuery(selector).a11yfy("showAndFocus", selector);
+
+##### Parameters
+
+1. selector - String | Element | jQuery object - the element to focus after the content is shown in a way that will work across platforms
+
+##### Example
+
+    jQuery("#confirm_dialog_1").a11yfy("showAndFocus", "#confirm_button_1");
+
 ### jQuery.fn.a11yfy.getI18nString
 
 Lookup a language string with value replacement from within a string bundle

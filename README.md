@@ -6,7 +6,7 @@ Accessibilyfy Library Functions - Make your jQuery site accessible
 
 The core of the a11yfy library provides some utilitu functions for use a11y as well as for sharing common functionality across a11yfy utilities themselves
 
-### jQuery(selector).a11yfy
+### jQuery(selector).a11yfy()
 
 Execute an accessibility core function on the element(s) targeted by the jQuery selector
 
@@ -16,7 +16,9 @@ Execute an accessibility core function on the element(s) targeted by the jQuery 
 
 #### Parameters
 
-1. method - a String specifying which method to execute on the element(s)
+1. method - a String specifying which method to execute on the element(s). The valid methods are:
+1.1 "focus"
+1.2 "showAndFocus"
 2. arguments - optional set of arguments to be passed to the method
 
 #### Methods

@@ -4,7 +4,12 @@ Accessibilyfy Library Functions - Make your jQuery site accessible
 
 ## core
 
-The core of the a11yfy library provides some utilitu functions for use a11y as well as for sharing common functionality across a11yfy utilities themselves
+The core of the a11yfy library provides some utilitu functions for use a11y as well as for sharing common functionality across a11yfy utilities themselves.
+
+This extension adds the following things to the jQuery namespace:
+    jQuery().tables - turn an element or elements into an accessible table
+    jQuery.fn.a11yfy - utility accessibility functions that do not operate on specific DOM nodes
+    jQuery().a11yfy - execute accessibility functions on (a) DOM node(s)
 
 ### jQuery(selector).a11yfy()
 

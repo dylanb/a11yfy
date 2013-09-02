@@ -8,9 +8,55 @@
 
 (function (jQuery){
     var $politeAnnouncer = jQuery("#jquery-a11yfy-politeannouncer"),
-        $assertiveAnnouncer = jQuery('#jquery-a11yfy-assertiveannouncer');
+        $assertiveAnnouncer = jQuery('#jquery-a11yfy-assertiveannouncer'),
+        methods = {
+            showAndFocus: function(focus) {
+                var $focus = focus ? jQuery(focus) : focus;
+                return this.each(function (index, value) {
+                    var $this = jQuery(value);
 
-    jQuery.a11yfy = function () {};
+                    $this.show();
+                    if ($focus && $focus.length) {
+                        if (platform === "iOS") {
+                            jQuery('body').focus();
+                            setTimeout(function () {
+                                $focus.focus();
+                            }, 1000);
+                        } else {
+                            $focus.focus();
+                        }
+                    }
+                });
+            },
+            focus : function() {
+                return this.each(function (index, value) {
+                    var $this = jQuery(value);
+
+                    if (platform === "iOS") {
+                        jQuery('body').focus();
+                        setTimeout(function () {
+                            $this.focus();
+                        }, 1000);
+                    } else {
+                        $this.focus();
+                    }
+                });
+            }
+        },
+        ua = window.navigator.userAgent,
+        platform = ua.match(/iPhone|iPad|iPod/) ? "iOS" :
+                    ua.match(/Mac OS X/) ? "OSX" :
+                    ua.match(/Windows/) ? "Windows" : "Other";
+    
+    jQuery.a11yfy = function () {} ;
+
+    jQuery.fn.a11yfy = function(method) {
+        if (methods[method]) {
+            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1 ));
+        } else {
+            jQuery.error("Method " +  method + " does not exist on jQuery.a11yfy");
+        }
+    }
 
     jQuery.a11yfy.getI18nString = function(str, values, strings) {
         var msg = strings[str];
@@ -55,4 +101,5 @@
             jQuery("body").append($assertiveAnnouncer);
         });
     }
+
 })(jQuery);

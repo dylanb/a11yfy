@@ -47,10 +47,10 @@
         expect(1);
         $fixture.empty();
         $fixture.append(jQuery("<div><button id=\"focus1\">button</button></div>"));
-        jQuery("#focus1").a11yfy("focus").on("focus", function () {
+        jQuery("#focus1").on("focus", function () {
             ok(true);
             start();
-        });
+        }).a11yfy("focus");
     });
 
     asyncTest( "Test focus being set on shown element after 1 second", function () {
@@ -59,11 +59,11 @@
         expect(1);
         $fixture.empty();
         $fixture.append(jQuery("<div id=\"show2\" style=\"display:none;\"><button id=\"focus2\">button</button></div>"));
-        jQuery("#show2").a11yfy("showAndFocus", "#focus2");
         jQuery("#focus2").on("focus", function () {
             ok(true);
             start();
         });
+        jQuery("#show2").a11yfy("showAndFocus", "#focus2");
     });
 
     asyncTest( "Test focus NOT being set on display:none element after 1 second", function () {
@@ -72,9 +72,10 @@
         expect(1);
         $fixture.empty();
         $fixture.append(jQuery("<div style=\"display:none;\"><button id=\"focus3\">button</button></div>"));
-        jQuery("#focus3").a11yfy("focus", "#focus3").on("focus", function () {
+        jQuery("#focus3").on("focus", function () {
             ok(false);
-        });
+        }).a11yfy("focus", "#focus3");
+
         setTimeout(function () {
             ok(true);
             start();

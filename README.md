@@ -137,7 +137,8 @@ where options is
         sortFilter: "both" | "none" | "sort" | "filter",
         responsive: falsy | {
             breakPoint: 500,
-            css: false
+            css: false,
+            rowBased: false
         },
         strings : {
             sortableSortedAscending: " Sortable, Sorted Ascending",
@@ -157,6 +158,7 @@ When responsive is not falsy, then it's value is the options structure that tabl
 
 1. breakPoint - Integer - the width in pixels below which the columnar data will be turned into row data so that the responsive CSS can layout the columns sequentially.
 2. css - Boolean - if set to true, the tables function will generate css to allow the table to flow responsively when the breakpoint is traversed
+3. rowBased - Boolean - if set to true (requires css to be set to true also), will allow a row-based data table to be made accessible.
 
 Strings is the texts that are used for announcements and off-screen texts. These can be overridden to translate the plugin to other languages. See the i18n folder for examples of translated languages.
 

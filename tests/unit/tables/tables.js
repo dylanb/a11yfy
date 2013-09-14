@@ -151,10 +151,10 @@
         }
     });
 
-    test( "That when smaller than the breakpoint, we get row data tables", function () {
+    test( "That when smaller than the breakpoint, we get row data tables and a thead", function () {
         var $table = jQuery("#test9");
 
-        expect(1);
+        expect(2);
 
         $table.tables({
             sortFilter: "none",
@@ -163,6 +163,7 @@
             }
         });
         equal($table.find("tr").first().find("th").length, 1);
+        equal($table.find("thead").length, 1);
     });
 
     test( "That when NOT using css, and when smaller than the breakpoint, td and th have display table-cell", function () {

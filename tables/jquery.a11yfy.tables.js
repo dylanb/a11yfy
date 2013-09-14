@@ -201,7 +201,7 @@
     };
 
     function drawSmartPhoneTable(data, headers) {
-        var html = "", i, _ilen, j, _jlen;
+        var html = "<thead></thead>", i, _ilen, j, _jlen;
         for (i = 0, _ilen = data[0].length - 1; i < _ilen; i++) {
             html += "<tr>";
             if (headers) {

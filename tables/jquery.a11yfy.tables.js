@@ -76,8 +76,8 @@
                 }
 
                 if (opts.sortFilter !== "none") {
-                    if (opts.responsiveColumns) {
-                        throw "responsiveColumns and sortFilter are mutually exclusive options because sortFilter implies a data table with row data and responsiveColumns implies columnar data";
+                    if (opts.responsive) {
+                        throw "responsive and sortFilter are mutually exclusive options because sortFilter implies a data table with row data and responsive implies columnar data";
                     }
                     $table.find("th").each(function (index, value) {
                         var $this = jQuery(value);
@@ -166,7 +166,7 @@
                     if ((opts.sortFilter === "both" || opts.sortFilter === "sort")) {
                         $anchors.first().click();
                     }
-                } else if (opts.responsiveColumns) {
+                } else if (opts.responsive) {
                     data = getTableData($table);
                     headers = getTableHeaders($table);
                     dimensions = getDimensions();
@@ -184,10 +184,10 @@
                             }, 50);
                         }
                     });
-                    if (opts.responsiveColumns.css) {
+                    if (opts.responsive.css) {
                         jQuery("body").append(
                             jQuery("<style>\n" +
-                                jQuery.a11yfy.getI18nString("cssString", {breakPoint:opts.responsiveColumns.breakPoint}, jQuery.fn.tables.defaults.css) +
+                                jQuery.a11yfy.getI18nString("cssString", {breakPoint:opts.responsive.breakPoint}, jQuery.fn.tables.defaults.css) +
                                 "</style>"));
                     }
                 }
@@ -242,7 +242,7 @@
     }
 
     function drawTable($table, data, headers, dimensions, options) {
-        if (isSmartPhone(dimensions, options.responsiveColumns.breakPoint)) {
+        if (isSmartPhone(dimensions, options.responsive.breakPoint)) {
             $table.html(drawSmartPhoneTable(data, headers));
         } else {
             $table.html(drawDesktopTable(data, headers));

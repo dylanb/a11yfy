@@ -133,7 +133,7 @@
         equal($anchors.eq(0).find("span.offscreen").text(), "");
     });
 
-    asyncTest( "Test exception when sortFilter and responsiveColumns set", function () {
+    asyncTest( "Test exception when sortFilter and responsive set", function () {
         var $table = jQuery("#test8");
 
         expect(1);
@@ -141,7 +141,7 @@
         try {
             $table.tables({
                 sortFilter: "both",
-                responsiveColumns: {
+                responsive: {
                     breakPoint: 500
                 }
             });
@@ -158,7 +158,7 @@
 
         $table.tables({
             sortFilter: "none",
-            responsiveColumns: {
+            responsive: {
                 breakPoint: window.screen.availWidth +1
             }
         });
@@ -173,7 +173,7 @@
 
         $table.tables({
             sortFilter: "none",
-            responsiveColumns: {
+            responsive: {
                 breakPoint: window.screen.availWidth +1
             }
         });
@@ -189,7 +189,7 @@
 
         $table.tables({
             sortFilter: "none",
-            responsiveColumns: {
+            responsive: {
                 breakPoint: window.screen.availWidth +1,
                 css: true
             }

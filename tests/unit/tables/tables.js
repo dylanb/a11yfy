@@ -199,4 +199,81 @@
             equal(jQuery(value).css("position"), "relative");
         });
     });
+
+    test( "That for responsive row-based table, css must also be used", function () {
+        var $table = jQuery("#test12");
+
+        expect(1);
+
+        try {
+            $table.tables({
+                sortFilter: "none",
+                responsive: {
+                    breakPoint: window.screen.availWidth +1,
+                    rowBased: true
+                }
+            });
+        } catch(err) {
+            ok("exception thrown because rowBased used without css");
+        }
+    });
+
+    test( "That for responsive row-based table, td and th have display block ", function () {
+        var $table = jQuery("#test13");
+
+        expect(19);
+
+        $table.tables({
+            sortFilter: "none",
+            responsive: {
+                breakPoint: window.screen.availWidth +1,
+                rowBased: true,
+                css: true
+            }
+        });
+        $table.find("td,th").each(function(index, value) {
+            equal(jQuery(value).css("display"), "block");
+            equal(jQuery(value).css("position"), "relative");
+        });
+        // added body
+        equal($table.find("tbody").length, 1);
+        // added head
+        equal($table.find("thead").length, 1);
+        // rows are moved into the body
+        equal($table.find("tbody").find("tr").length, 2);
+    });
+
+    test( "That for columnar responsive table thead exists", function () {
+        var $table = jQuery("#test14");
+
+        expect(1);
+
+        try {
+            $table.tables({
+                sortFilter: "none",
+                responsive: {
+                    breakPoint: window.screen.availWidth +1
+                }
+            });
+        } catch( err) {
+            ok("expected exception caught");
+        }
+    });
+
+    test( "That for columnar responsive table tbody exists", function () {
+        var $table = jQuery("#test15");
+
+        expect(1);
+
+        try {
+            $table.tables({
+                sortFilter: "none",
+                responsive: {
+                    breakPoint: window.screen.availWidth +1
+                }
+            });
+        } catch( err) {
+            ok("expected exception caught");
+        }
+    });
 })(jQuery);

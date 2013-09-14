@@ -77,7 +77,7 @@
 
                 if (opts.sortFilter !== "none") {
                     if (opts.responsive) {
-                        throw "responsive and sortFilter are mutually exclusive options because sortFilter implies a data table with row data and responsive implies columnar data";
+                        throw new Error("responsive and sortFilter are mutually exclusive options because sortFilter implies a data table with row data and responsive implies columnar data");
                     }
                     $table.find("th").each(function (index, value) {
                         var $this = jQuery(value);
@@ -166,7 +166,14 @@
                     if ((opts.sortFilter === "both" || opts.sortFilter === "sort")) {
                         $anchors.first().click();
                     }
-                } else if (opts.responsive) {
+                } else if (opts.responsive && !opts.responsive.rowBased) {
+                    // table must have a thead and a tbody
+                    if (!$table.find("tbody").length) {
+                        throw new Error("Columnar responsive table must have a tbody");
+                    }
+                    if (!$table.find("thead").length) {
+                        throw new Error("Columnar responsive table must have a thead");
+                    }
                     data = getTableData($table);
                     headers = getTableHeaders($table);
                     dimensions = getDimensions();
@@ -189,6 +196,21 @@
                             jQuery("<style>\n" +
                                 jQuery.a11yfy.getI18nString("cssString", {breakPoint:opts.responsive.breakPoint}, jQuery.fn.tables.defaults.css) +
                                 "</style>"));
+                    }
+                } else if (opts.responsive && opts.responsive.rowBased) {
+                    if (!opts.responsive.css) {
+                        throw new Error("css must be used in conjunction with rowBased");
+                    }
+                    jQuery("body").append(
+                        jQuery("<style>\n" +
+                            jQuery.a11yfy.getI18nString("cssString", {breakPoint:opts.responsive.breakPoint}, jQuery.fn.tables.defaults.css) +
+                            "</style>"));
+                    if (!$table.find("thead").length) {
+                        $table.children().first().before(jQuery("<thead></thead>"));
+                    }
+                    if (!$table.find("tbody").length) {
+                        $table.find("thead").after(jQuery("<tbody></tbody>"));
+                        $table.find("tbody").append($table.find("tr"));
                     }
                 }
             });

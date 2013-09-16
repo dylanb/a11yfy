@@ -183,5 +183,16 @@
         jQuery(document.activeElement).simulate("keydown", {keyCode: 13}); // ENTER
         jQuery(document.activeElement).simulate("keydown", {keyCode: 32}); // SPACE
     });
+
+    test("The exception thrown when called on something that is not a UL", function () {
+        var $menu = jQuery('div').first();
+
+        expect(1);
+        try {
+            $menu.a11yfy("menu");
+        } catch( err) {
+            ok("exception expected and caught");
+        }
+    });
 })(jQuery);
 

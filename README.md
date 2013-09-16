@@ -33,7 +33,7 @@ Execute an accessibility core function on the element(s) targeted by the jQuery 
 
 #### Parameters
 
-1. method - a String specifying which method to execute on the element(s). The valid methods are: `focus` and `showAndFocus`
+1. method - a String specifying which method to execute on the element(s). The valid methods are: `menu`, `focus` and `showAndFocus`
 2. arguments - optional set of arguments to be passed to the method
 
 #### Methods

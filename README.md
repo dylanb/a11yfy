@@ -210,7 +210,7 @@ Use aria-live to make a polite announcement. Polite announcements do not interru
 
 #### Example
 
-    jQuery.fn.a11yfy.politeAnnounce("Your cost estmate has been recalculated");
+    jQuery.fn.a11yfy.politeAnnounce("Your cost estimate has been recalculated");
 
 #### See also
 

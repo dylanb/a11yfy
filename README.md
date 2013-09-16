@@ -92,86 +92,31 @@ In the sub-menus
 Given the following HTML code
 
     <ul id="mymenu">
-        <li>
-            One
+        <li>One
             <ul>
-                <li>
-                    <a href="oneone">
-                        One One
-                    </a>
-                </li>
-                <li>
-                    <a href="onetwo">
-                        One Two
-                    </a>
-                </li>
-                <li>
-                    <a href="onethree">
-                        One Three
-                    </a>
-                </li>
-                <li>
-                    <a href="onefour">
-                        One Four
-                    </a>
-                </li>
+                <li><a href="oneone">One One</a></li>
+                <li><a href="onetwo">One Two</a></li>
+                <li><a href="onethree">One Three</a></li>
+                <li><a href="onefour">One Four</a></li>
             </ul>
         </li>
-        <li>
-            Two
+        <li>Two
             <ul>
-                <li>
-                    Two One
+                <li>Two One
                     <ul>
-                        <li>
-                            <a href="twooneone">
-                                Two One One
-                            </a>
-                        </li>
-                        <li>
-                            <a href="twoonetwo">
-                                Two One Two
-                            </a>
-                        </li>
-                        <li>
-                            <a href="twoonethree">
-                                Two One Three
-                            </a>
-                        </li>
-                        <li>
-                            <a href="twoonefour">
-                                Two One Four
-                            </a>
-                        </li>
+                        <li><a href="twooneone">Two One One</a></li>
+                        <li><a href="twoonetwo">Two One Two</a></li>
+                        <li><a href="twoonethree">Two One Three</a></li>
+                        <li><a href="twoonefour">Two One Four</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="onetwo">
-                        Two Two
-                    </a>
-                </li>
-                <li>
-                    <a href="onethree">
-                        Two Three
-                    </a>
-                </li>
-                <li>
-                    <a href="onefour">
-                        Two Four
-                    </a>
-                </li>
+                <li><a href="onetwo">Two Two</a></li>
+                <li><a href="onethree">Two Three</a></li>
+                <li><a href="onefour">Two Four</a></li>
             </ul>
         </li>
-        <li>
-            <a href="three">
-                Three
-            </a>
-        </li>
-        <li>
-            <a href="four">
-                Four
-            </a>
-        </li>
+        <li><a href="three">Three</a></li>
+        <li><a href="four">Four</a></li>
     </ul>
 
 The following call will turn the above HTML into a menu that can be used with a keyboard, a mouse and a screen reader.

@@ -41,6 +41,169 @@
                         $this.focus();
                     }
                 });
+            },
+            menu : function() {
+                return this.each(function (index, value) {
+                    var $this = jQuery(value);
+
+                    if (value.nodeName !== "UL") {
+                        throw new Error("The menu container must be an unordered list");
+                    }
+                    /* First make all anchor tags in the structure non-naturally focussable */
+                    $this.find("a").attr("tabindex", "-1");
+                    $this.attr("role", "menubar").addClass("a11yfy-top-level-menu");
+                    $this.find(">li>ul")
+                        .addClass("a11yfy-second-level-menu")
+                        .parent()
+                            .addClass("a11yfy-has-submenu")
+                            .attr("aria-haspopup", "true");
+                    $this.find(">li>ul>li>ul")
+                        .addClass("a11yfy-third-level-menu")
+                        .parent()
+                            .addClass("a11yfy-has-submenu")
+                            .attr("aria-haspopup", "true");
+                    $this.find("li").each(function(index, value) {
+                        var $this = jQuery(value);
+
+                        $this.attr({
+                            "role": "menuitem",
+                            "tabindex": "-1"
+                        });
+                        $this.find("ul").each(function(index, value) {
+                            jQuery(value).attr("role", "menu");
+                        });
+
+                    }).on("keydown", function(e) {
+                        var keyCode = e.which || e.keyCode,
+                            handled = false,
+                            $this = jQuery(this),
+                            $submenu;
+
+                        if (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey) {
+                            // not interested
+                            return;
+                        }
+                        $submenu = $this.find(">ul").first();
+                        function openMenu() {
+                            if ($submenu.length) {
+                                $submenu.addClass("open").attr("aria-expanded", "true").find(">li").first().attr("tabindex", "0").focus();
+                                $this.attr("tabindex", "-1");
+                            }
+                        }
+                        function prevInMenu() {
+                            if ($this.prev().length) {
+                                $this.prev().attr("tabindex", "0").focus();
+                            } else {
+                                $this.parent().find("li").last().attr("tabindex", "0").focus();
+                            }
+                            $this.attr("tabindex", "-1");
+                        }
+                        function nextInMenu() {
+                            if ($this.next().length) {
+                                $this.next().attr("tabindex", "0").focus();
+                            } else {
+                                $this.parent().find("li").first().attr("tabindex", "0").focus();
+                            }
+                            $this.attr("tabindex", "-1");
+                        }
+                        switch(keyCode) {
+                            case 32: // space
+                            case 13: // enter
+                                handled = true;
+                                if ($this.find(">a").length) {
+                                    // This is a hack for PhantomJS
+                                    if ($this.find(">a")[0].click) {
+                                        $this.find(">a")[0].click();
+                                    } else {
+                                        $this.find(">a").first().trigger("click");
+                                    }
+                                } else {
+                                    $this.click();
+                                }
+                                break;
+                            case 37: //left
+                            case 27: //esc
+                                handled = true;
+                                if (keyCode === 37 && $this.parent().hasClass("a11yfy-top-level-menu")) {
+                                    prevInMenu();
+                                } else {
+                                    if ($this.parent().attr("role") === "menu") {
+                                        // this is part of a submenu, set focus on containing li
+                                        $this.parent().parent().attr("tabindex", "0").focus();
+                                        $this.parent().removeClass("open").attr("aria-expanded", "false");
+                                        $this.attr("tabindex", "-1");
+                                    } else {
+                                        if ($this.prev().length) {
+                                            $this.prev().attr("tabindex", "0").focus();
+                                        } else {
+                                            $this.parent().find("li").last().attr("tabindex", "0").focus();
+                                        }
+                                        $this.attr("tabindex", "-1");
+                                    }
+                                }
+                                break;
+                            case 38: //up
+                                handled = true;
+                                prevInMenu();
+                                break;
+                            case 39: //right
+                                handled = true;
+                                if ($this.parent().hasClass("a11yfy-top-level-menu")) {
+                                    nextInMenu();
+                                } else {
+                                    openMenu();
+                                }
+                                break;
+                            case 40: //down
+                                handled = true;
+                                if ($this.parent().hasClass("a11yfy-top-level-menu")) {
+                                    openMenu();
+                                } else {
+                                    nextInMenu();
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                        if (handled) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }
+                    }).on("click", function(e) {
+                        var $submenu = jQuery(this).find(">ul").first();
+
+                        if ($submenu.is(":hidden")) {
+                            $submenu.addClass("open").attr("aria-expanded", "true");
+                        } else {
+                            $submenu.removeClass("open").attr("aria-expanded", "false");
+                        }
+                    }).first().attr("tabindex", "0");
+                    $this.on("keydown", function (e) {
+                        var focusInTopMenu = false,
+                            keyCode = e.which || e.keyCode;
+
+                        if (e.ctrlKey || e.altKey || e.metaKey) {
+                            // not interested
+                            return;
+                        }
+                        if (keyCode !== 9) {
+                            return;
+                        }
+                        $this.find(">li").each(function(index, value) {
+                            if (jQuery(value).attr("tabindex") === "0") {
+                                focusInTopMenu = true;
+                            }
+                        });
+                        if (!focusInTopMenu) {
+                            $this.find(">li li[tabindex=0]").attr("tabindex", "-1");
+                            $this.find("ul.open").each(function(index, value) {
+                                if (jQuery(value).parent().parent().hasClass("a11yfy-top-level-menu")) {
+                                    jQuery(value).parent().attr("tabindex", "0");
+                                }
+                            }).removeClass("open").attr("aria-expanded", "false");
+                        }
+                    });
+                });
             }
         },
         ua = window.navigator.userAgent,

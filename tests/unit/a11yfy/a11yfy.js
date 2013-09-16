@@ -82,5 +82,106 @@
         }, 1100);
     });
 
+    test("That the markup of the menu is applied correctly", function () {
+        var $menu = jQuery('#menu-test-1'),
+            $topMenuItems;
+
+        expect(16);
+        $menu.a11yfy("menu");
+        $topMenuItems = $menu.find(">li[role='menuitem']");
+        equal($menu.attr("role"), "menubar", "top ul should have role menubar");
+        ok($menu.hasClass("a11yfy-top-level-menu"), "should have to level menu class");
+        equal($menu.find(">li[role='menuitem']").length, 4);
+        $topMenuItems.each(function(index, value) {
+            if (index === 0) {
+                equal(jQuery(value).attr("tabindex"), "0");
+            } else {
+                equal(jQuery(value).attr("tabindex"), "-1");
+            }
+        });
+        equal($menu.find(">li.a11yfy-has-submenu").length, 2);
+        equal(jQuery($topMenuItems[1]).attr("aria-haspopup"), "true");
+        equal(jQuery($topMenuItems[1]).find("li.a11yfy-has-submenu").length, 1);
+        equal(jQuery($topMenuItems[1]).find("li.a11yfy-has-submenu").attr("aria-haspopup"), "true");
+        equal(jQuery($topMenuItems[1]).find(">ul.a11yfy-second-level-menu").length, 1);
+        equal(jQuery($topMenuItems[1]).find(">ul.a11yfy-second-level-menu>li>ul.a11yfy-third-level-menu").length, 1);
+        equal(jQuery($topMenuItems[1]).find("li[tabindex=-1]").length, 8);
+        equal(jQuery($topMenuItems[1]).find("a[tabindex=-1]").length, 7);
+        equal(jQuery($topMenuItems[1]).find("ul[role='menu']").length, 2);
+    });
+
+    test("The keyboard and focus functionality", function () {
+        var $menu = jQuery('#menu-test-2'),
+            $topMenuItems;
+
+        expect(20);
+        $menu.a11yfy("menu");
+        $menu.find("li").each(function(index, value) {
+            // Add ids to all the lis so we can track him
+            jQuery(value).attr("id", "test2-" + index);
+        });
+        // focus the first item to simulate the focus coming into the widget
+        $menu.find("li[tabindex=0]").simulate("focus");
+        equal($menu.find("li[tabindex=0]")[0], document.activeElement);
+
+        // Test wraparound on menu bar
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 37}); // LEFT
+        equal(jQuery(document.activeElement).attr("id"), "test2-15");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 39}); // RIGHT
+        equal(jQuery(document.activeElement).attr("id"), "test2-0");
+
+        // Test opening sub-menu from menu bar
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 39}); // RIGHT
+        equal(jQuery(document.activeElement).attr("id"), "test2-5");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
+        equal(jQuery(document.activeElement).attr("id"), "test2-6");
+
+        // Test the wraparound within the sub-menu
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 38}); // UP
+        equal(jQuery(document.activeElement).attr("id"), "test2-13");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
+        equal(jQuery(document.activeElement).attr("id"), "test2-6");
+        // Open sub-sub-menu
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 39}); // RIGHT
+        equal(jQuery(document.activeElement).attr("id"), "test2-7");
+        // Close sub-sub-menu
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 27}); // ESC
+        equal(jQuery(document.activeElement).attr("id"), "test2-6");
+        // Open sub-sub-menu
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 39}); // RIGHT
+        equal(jQuery(document.activeElement).attr("id"), "test2-7");
+        // Close sub-sub-menu
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 37}); // LEFT
+        equal(jQuery(document.activeElement).attr("id"), "test2-6");
+        // tab out of menu
+        $menu.simulate("keydown", {keyCode: 9}); // TAB
+        equal(jQuery("#test2-6").attr("tabindex"), "-1");
+        // focus should now go to the parent of the sub-menu previously focussed
+        $menu.find("li[tabindex=0]").simulate("focus");
+        equal(jQuery(document.activeElement).attr("id"), "test2-5");
+
+        // move to top-level menu item without sub-menu
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 39}); // RIGHT
+        equal(jQuery(document.activeElement).attr("id"), "test2-14");
+        jQuery(document.activeElement).on("click", function(e) {
+            ok("clicked the anchor in the menu item");
+            e.preventDefault();
+        });
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 13}); // ENTER
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 32}); // SPACE
+
+        // Move to sub-menu without sub-sub-menu
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 37}); // LEFT
+        equal(jQuery(document.activeElement).attr("id"), "test2-5");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
+        equal(jQuery(document.activeElement).attr("id"), "test2-11");
+        jQuery(document.activeElement).on("click", function(e) {
+            ok("clicked the anchor in the menu item");
+            e.preventDefault();
+        });
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 13}); // ENTER
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 32}); // SPACE
+    });
 })(jQuery);
 

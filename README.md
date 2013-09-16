@@ -16,6 +16,7 @@ This extension adds the following things to the jQuery namespace:
 
     jQuery(selector).a11yfy("focus")
     jQuery(selector).a11yfy("showAndFocus", selector)
+    jQuery(selector).a11yfy("menu")
     jQuery.fn.a11yfy.getI18nString(key, [values], stringBundle)
     jQuery.fn.a11yfy.politeAnnounce(msg)
     jQuery.fn.a11yfy.assertiveAnnounce(msg)
@@ -64,6 +65,105 @@ Show the targeted element and then set focus to the element (normally within it,
 ##### Example
 
     jQuery("#confirm_dialog_1").a11yfy("showAndFocus", "#confirm_button_1");
+
+##### menu
+
+Turn a hierarchy of unordered lists into an aria menu. The target must be a ul element and any leaf nodes must contain anchor tags that respond to a click in when the menu item is selected. The menu implementation uses the jquery.a11yfy.core.css CSS styling by default and can of course be restyled to match the look and feel of any web site or application.
+
+##### Synopsis
+
+    jQuery(selector).a11yfy("menu");
+
+##### Example
+
+Given the following HTML code
+
+    <ul id="mymenu">
+        <li>
+            One
+            <ul>
+                <li>
+                    <a href="oneone">
+                        One One
+                    </a>
+                </li>
+                <li>
+                    <a href="onetwo">
+                        One Two
+                    </a>
+                </li>
+                <li>
+                    <a href="onethree">
+                        One Three
+                    </a>
+                </li>
+                <li>
+                    <a href="onefour">
+                        One Four
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            Two
+            <ul>
+                <li>
+                    Two One
+                    <ul>
+                        <li>
+                            <a href="oneone">
+                                Two One One
+                            </a>
+                        </li>
+                        <li>
+                            <a href="onetwo">
+                                Two One Two
+                            </a>
+                        </li>
+                        <li>
+                            <a href="onethree">
+                                Two One Three
+                            </a>
+                        </li>
+                        <li>
+                            <a href="onefour">
+                                Two One Four
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="onetwo">
+                        Two Two
+                    </a>
+                </li>
+                <li>
+                    <a href="onethree">
+                        Two Three
+                    </a>
+                </li>
+                <li>
+                    <a href="onefour">
+                        Two Four
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="three">
+                Three
+            </a>
+        </li>
+        <li>
+            <a href="four">
+                Four
+            </a>
+        </li>
+    </ul>
+
+The following call will turn into a menu
+
+    jQuery("#mymenu").a11yfy("menu");
 
 ### jQuery.fn.a11yfy.getI18nString
 

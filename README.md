@@ -70,6 +70,19 @@ Show the targeted element and then set focus to the element (normally within it,
 
 Turn a hierarchy of unordered lists into an aria menu. The target must be a ul element and any leaf nodes must contain anchor tags that respond to a click in when the menu item is selected. The menu implementation uses the jquery.a11yfy.core.css CSS styling by default and can of course be restyled to match the look and feel of any web site or application.
 
+The aria menu implements the DHTML style guid keyboard navigation
+
+In the top level menu:
+
+LEFT and RIGHT : move between the menu items and cycle at the ends
+DOWN : open a sub-menu
+
+In the sub-menus
+
+UP and DOWN : mive between the menu items and cycle at the ends
+ESC and LEFT: close the menu
+RIGHT : open the sub menu
+
 ##### Synopsis
 
     jQuery(selector).a11yfy("menu");
@@ -111,22 +124,22 @@ Given the following HTML code
                     Two One
                     <ul>
                         <li>
-                            <a href="oneone">
+                            <a href="twooneone">
                                 Two One One
                             </a>
                         </li>
                         <li>
-                            <a href="onetwo">
+                            <a href="twoonetwo">
                                 Two One Two
                             </a>
                         </li>
                         <li>
-                            <a href="onethree">
+                            <a href="twoonethree">
                                 Two One Three
                             </a>
                         </li>
                         <li>
-                            <a href="onefour">
+                            <a href="twoonefour">
                                 Two One Four
                             </a>
                         </li>
@@ -161,7 +174,7 @@ Given the following HTML code
         </li>
     </ul>
 
-The following call will turn into a menu
+The following call will turn the above HTML into a menu that can be used with a keyboard, a mouse and a screen reader.
 
     jQuery("#mymenu").a11yfy("menu");
 

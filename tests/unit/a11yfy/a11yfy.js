@@ -83,7 +83,7 @@
     });
 
     test("That the markup of the menu is applied correctly", function () {
-        var $menu = jQuery('#menu-test-1'),
+        var $menu = jQuery("#menu-test-1"),
             $topMenuItems;
 
         expect(16);
@@ -111,8 +111,7 @@
     });
 
     test("The keyboard and focus functionality", function () {
-        var $menu = jQuery('#menu-test-2'),
-            $topMenuItems;
+        var $menu = jQuery("#menu-test-2");
 
         expect(24);
         $menu.a11yfy("menu");
@@ -189,7 +188,7 @@
     });
 
     test("The exception thrown when called on something that is not a UL", function () {
-        var $menu = jQuery('div').first();
+        var $menu = jQuery("div").first();
 
         expect(1);
         try {

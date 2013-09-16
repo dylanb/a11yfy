@@ -74,14 +74,14 @@ The aria menu implements the DHTML style guid keyboard navigation
 
 In the top level menu:
 
-LEFT and RIGHT : move between the menu items and cycle at the ends
-DOWN : open a sub-menu
+1. LEFT and RIGHT : move between the menu items and cycle at the ends
+2. DOWN : open a sub-menu
 
 In the sub-menus
 
-UP and DOWN : mive between the menu items and cycle at the ends
-ESC and LEFT: close the menu
-RIGHT : open the sub menu
+1. UP and DOWN : mive between the menu items and cycle at the ends
+2. ESC and LEFT: close the menu
+3. RIGHT : open the sub menu
 
 ##### Synopsis
 

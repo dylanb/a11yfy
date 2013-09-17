@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="../tests/jquery.min.js"></script>
+<script src="../a11yfy/jquery.a11yfy.core.js"></script>
+</head>
+<body>
+<h1>Timeout</h1>
+<script>
+function addContent(id) {
+    var pUp = jQuery('<div id="dialog' + id + '" tabindex="-1">' +
+    '<form>' +
+    '       <div id="dialog' + id + '_content">' +
+    '               <div>' +
+    '                       <h1>We Value Your Opinion</h1>' +
+    '                       <div>Would you be willing to answer a few brief questions?</div>' +
+    '               </div>' +
+    '       </div>' +
+    '       <div id="dialog' + id + '_buttons">' +
+    '               <button id="dialog' + id + '_buttonCfrm">Yes, I would</button>' +
+    '               <input type="button" value="No thanks" id="pupinput' + id + '">' +
+    '       </div>' +
+    '</form>' +
+    '</div>');
+    jQuery('body').append(pUp);
+}
+function addContentAndFocusIt(id) {
+    addContent(id);
+    focusIt(id);
+}
+function focusButton(id) {
+    jQuery('#pupinput' + id + '').a11yfy("focus");
+}
+function focusDialog(id) {
+    jQuery('#dialog' + id + '').focus();
+}
+jQuery(document).ready(function() {
+    jQuery('#doIt').click(function(e) {
+        e.preventDefault();
+        var tOut = parseInt(jQuery('#timeoutVal').val(), 10);
+        if (tOut) {
+            setTimeout(function() {
+                addContent(3);
+                focusButton(3);
+            }, 1000);
+        } else {
+            addContent(3);
+            focusButton(3);
+        }
+    });
+});
+</script>
+<style>
+input:focus {
+    outline: 1px solid red;
+}
+</style>
+<p>This page demonstrates how effed up focus management is in iOS Voiceover. The focus is supposed to end up on the "No Thanks" button. Instead, depending on the value of the timeout for the second setTimeout call, it will end up somewhere between the top of the document and the button intended. To get it to reliably not set focus anywhere near the intended button, simply call "focusButton(3)" immediately after "focusDialog(3)" or even instead of it. To get it to reliably set focus to the intended button, first focus something else i.e. call "focusDialog(3)" and then wait 1 second and then call "focusButton(3)".</p>
+<p>The fact that it is not possible to tell when VoiceOver is running means that you have to mess up the user experience of all your other users too in order to get this sort of behavior to function correctly on iOS devices for VoiceOver users.</p>
+<form>
+    <label>Enter timeout Value<input id="timeoutVal" value="1000" type="text" /></label>
+    <button id="doIt">Run</button>
+</form>
+</body>
+</html>

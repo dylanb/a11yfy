@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="../tests/jquery.min.js"></script>
+<script src="../a11yfy/jquery.a11yfy.core.js"></script>
+<script src="../tables/jquery.a11yfy.tables.js"></script>
+<script src="../i18n/jquery.a11yfy.i18n-de.js"></script>
+</head>
+<body>
+<h1>Row-based responsive table</h1>
+<table id="row-based-responsive">
+    <tr>
+        <th scope="row">
+            Nelson Mandela
+        </th>
+        <td>
+            1
+        </td>
+        <td>
+            95
+        </td>
+        <td>
+            Former political prisoner who upon his release was elected president of South Africa in 1994.
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">
+            Steve Nash
+        </th>
+        <td>
+            2
+        </td>
+        <td>
+            39
+        </td>
+        <td>
+            NBA legend who won the MVP in 2005 and 2006 with the Phoenix Suns, and played in eight NBA All-Star games.
+        </td>
+    </tr>
+</table>
+
+<script>
+jQuery(document).ready(function (e) {
+    jQuery('#row-based-responsive').tables({
+        sortFilter: "none",
+        responsive: {
+            breakPoint: 980,
+            rowBased: true,
+            css: true
+        }
+    });
+});
+</script>
+</body>
+</html>

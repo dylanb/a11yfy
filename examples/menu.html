@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="../tests/jquery.min.js"></script>
+<script src="../a11yfy/jquery.a11yfy.core.js"></script>
+<link type="text/css" rel="stylesheet" href="../a11yfy/jquery.a11yfy.core.css">
+</head>
+<body>
+<h1>Menu</h1>
+<ul id="mymenu">
+    <li>
+        One
+        <ul>
+            <li>
+                <a href="oneone">
+                    One One
+                </a>
+            </li>
+            <li>
+                <a href="onetwo">
+                    One Two
+                </a>
+            </li>
+            <li>
+                <a href="onethree">
+                    One Three
+                </a>
+            </li>
+            <li>
+                <a href="onefour">
+                    One Four
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        Two
+        <ul>
+            <li>
+                Two One
+                <ul>
+                    <li>
+                        <a href="oneone">
+                            Two One One
+                        </a>
+                    </li>
+                    <li>
+                        <a href="onetwo">
+                            Two One Two
+                        </a>
+                    </li>
+                    <li>
+                        <a href="onethree">
+                            Two One Three
+                        </a>
+                    </li>
+                    <li>
+                        <a href="onefour">
+                            Two One Four
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="onetwo">
+                    Two Two
+                </a>
+            </li>
+            <li>
+                <a href="onethree">
+                    Two Three
+                </a>
+            </li>
+            <li>
+                <a href="onefour">
+                    Two Four
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="three">
+            Three
+        </a>
+    </li>
+    <li>
+        <a href="four">
+            Four
+        </a>
+    </li>
+</ul>
+<script>
+jQuery(document).ready(function () {
+    jQuery("#mymenu").a11yfy("menu");
+});
+</script>
+</body>
+</html>

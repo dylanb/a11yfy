@@ -6,9 +6,9 @@
 <link type="text/css" rel="stylesheet" href="../a11yfy/jquery.a11yfy.core.css">
 </head>
 <body>
-<h1>Menu</h1>
+<h1>Mega Menu</h1>
 <div style="min-height:400px;">
-<ul id="mymenu">
+<ul id="mymegamenu" class="a11yfy-mega">
     <li>
         One
         <ul>
@@ -36,8 +36,8 @@
     </li>
     <li>
         Two
-        <ul>
-            <li>
+        <ul class="a11yfy-three_col">
+            <li class="a11yfy-col">
                 Two One
                 <ul>
                     <li>
@@ -62,20 +62,55 @@
                     </li>
                 </ul>
             </li>
-            <li>
-                <a href="onetwo">
-                    Two Two
-                </a>
+            <li class="a11yfy-col">
+                Two Two
+                <ul>
+                    <li>
+                        <a href="oneone">
+                            Two Two One
+                        </a>
+                    </li>
+                    <li>
+                        <a href="onetwo">
+                            Two Two Two
+                        </a>
+                    </li>
+                    <li>
+                        <a href="onethree">
+                            Two Two Three
+                        </a>
+                    </li>
+                    <li>
+                        <a href="onefour">
+                            Two Two Four
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li>
-                <a href="onethree">
-                    Two Three
-                </a>
-            </li>
-            <li>
-                <a href="onefour">
-                    Two Four
-                </a>
+            <li class="a11yfy-col">
+                Two Three
+                <ul>
+                    <li>
+                        <a href="oneone">
+                            Two Three One
+                        </a>
+                    </li>
+                    <li>
+                        <a href="onetwo">
+                            Two Three Two
+                        </a>
+                    </li>
+                    <li>
+                        <a href="onethree">
+                            Two Three Three
+                        </a>
+                    </li>
+                    <li>
+                        <a href="onefour">
+                            Two Three Four
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </li>
@@ -93,7 +128,7 @@
 </div>
 <script>
 jQuery(document).ready(function () {
-    jQuery("#mymenu").a11yfy("menu");
+    jQuery("#mymegamenu").a11yfy("menu");
 });
 </script>
 </body>

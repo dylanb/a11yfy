@@ -18,8 +18,16 @@
     display: none;
 }
 
+.a11yfy-mega .a11yfy-third-level-menu {
+    position: static;
+    top: auto;
+    right: auto;
+    width: auto;
+    display:block;
+}
+
 .a11yfy-third-level-menu > li { 
-    height: 30px;
+    min-height: 30px;
     background: #999999;
 }
 .a11yfy-third-level-menu > li:hover,
@@ -40,8 +48,7 @@
 }
 
 .a11yfy-second-level-menu > li {
-    position: relative;
-    height: 30px;
+    min-height: 30px;
     background: #999999;
 }
 .a11yfy-second-level-menu > li:hover,
@@ -78,9 +85,32 @@
 li.a11yfy-has-submenu:after {
     content: "\2b46";
 }
+.a11yfy-mega li.a11yfy-has-submenu:after {
+    content: none;
+}
 
 ul.a11yfy-top-level-menu>li.a11yfy-has-submenu:after {
     content: "\290b";
+}
+
+/*.a11yfy-mega menu columns */
+
+.a11yfy-two_col {
+    width:300px;
+}
+
+.a11yfy-three_col {
+    width: 450px;
+}
+
+.a11yfy-four_col {
+    width: 600px;
+}
+
+.a11yfy-col {
+    display:inline;
+    float:left;
+    width: 140px;
 }
 
 /* Menu Link Styles */

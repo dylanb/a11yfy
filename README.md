@@ -83,11 +83,14 @@ In the sub-menus
 2. ESC and LEFT: close the menu
 3. RIGHT : open the sub menu
 
+To turn the menu into a mega-menu, simply apply class="a11yfy-mega" to the top-level <ul> element, add the class
+a11yfy-col to each of the second level <li> elements and apply either a11yfy-two_col, a11yfy-three_col or a11yfy-four_col to the second level <ul> elements (depending on whether it has 2, 3 or 4 sub-sub-menus) and the menu will function as a mega menu.
+
 ##### Synopsis
 
     jQuery(selector).a11yfy("menu");
 
-##### Example
+##### Examples
 
 Given the following HTML code
 
@@ -119,9 +122,49 @@ Given the following HTML code
         <li><a href="four">Four</a></li>
     </ul>
 
-The following call will turn the above HTML into a menu that can be used with a keyboard, a mouse and a screen reader.
+The following call will turn the above HTML into a simple menu that can be used with a keyboard, a mouse and a screen reader.
 
     jQuery("#mymenu").a11yfy("menu");
+
+Given the following HTML code
+
+    <ul id="mymegamenu" class="a11yfy-mega">
+        <li>One
+            <ul>
+                <li><a href="oneone">One One</a></li>
+                <li><a href="onetwo">One Two</a></li>
+                <li><a href="onethree">One Three</a></li>
+                <li><a href="onefour">One Four</a></li>
+            </ul>
+        </li>
+        <li>Two
+            <ul class="a11yfy-two_col">
+                <li class="a11yfy-col">Two One
+                    <ul>
+                        <li><a href="twooneone">Two One One</a></li>
+                        <li><a href="twoonetwo">Two One Two</a></li>
+                        <li><a href="twoonethree">Two One Three</a></li>
+                        <li><a href="twoonefour">Two One Four</a></li>
+                    </ul>
+                </li>
+                <li class="a11yfy-col">Two Two
+                    <ul>
+                        <li><a href="twooneone">Two Two One</a></li>
+                        <li><a href="twoonetwo">Two Two Two</a></li>
+                        <li><a href="twoonethree">Two Two Three</a></li>
+                        <li><a href="twoonefour">Two Two Four</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><a href="three">Three</a></li>
+        <li><a href="four">Four</a></li>
+    </ul>
+
+The following call will turn the above HTML into a mega menu that can be used with a keyboard, a mouse and a screen reader.
+
+    jQuery("#mymegamenu").a11yfy("menu");
+
 
 ### jQuery.fn.a11yfy.getI18nString
 

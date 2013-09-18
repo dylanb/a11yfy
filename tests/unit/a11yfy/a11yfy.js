@@ -141,7 +141,7 @@
         jQuery(document.activeElement).simulate("keydown", {keyCode: 38}); // UP
         equal(jQuery(document.activeElement).attr("id"), "test2-13", "Up should wrap to the bottom at the top");
         jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
-        equal(jQuery(document.activeElement).attr("id"), "test2-6", "Down should wrap to the top at the end");
+        equal(jQuery(document.activeElement).attr("id"), "test2-6", "Down should wrap to the top at the bottom");
         // Open sub-sub-menu
         jQuery(document.activeElement).simulate("keydown", {keyCode: 39}); // RIGHT
         equal(jQuery(document.activeElement).attr("id"), "test2-7", "Right should open the sub-sub-menu");
@@ -196,6 +196,27 @@
         } catch( err) {
             ok("exception expected and caught");
         }
+    });
+    test("The cycling when sub-menus all have sub-sub-menus", function () {
+        var $menu = jQuery("#menu-test-3");
+
+        expect(3);
+        $menu.a11yfy("menu");
+        $menu.find("li").each(function(index, value) {
+            // Add ids to all the lis so we can track him
+            jQuery(value).attr("id", "test3-" + index);
+        });
+        // focus the first item to simulate the focus coming into the widget
+        $menu.find("li[tabindex=0]").simulate("focus");
+
+        // Test opening sub-menu from menu bar
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
+        equal(jQuery(document.activeElement).attr("id"), "test3-1", "Down open the sub-menu and place focus on the first element");
+        // Test the wraparound within the sub-menu
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 38}); // UP
+        equal(jQuery(document.activeElement).attr("id"), "test3-6", "Up should wrap to the bottom at the top");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
+        equal(jQuery(document.activeElement).attr("id"), "test3-1", "Down should wrap to the top at the bottom");
     });
 })(jQuery);
 

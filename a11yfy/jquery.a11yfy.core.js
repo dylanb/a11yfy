@@ -94,7 +94,7 @@
                             if ($this.prev().length) {
                                 $this.prev().attr("tabindex", "0").focus();
                             } else {
-                                $this.parent().find("li").last().attr("tabindex", "0").focus();
+                                $this.parent().find(">li").last().attr("tabindex", "0").focus();
                             }
                             $this.attr("tabindex", "-1");
                         }
@@ -102,7 +102,7 @@
                             if ($this.next().length) {
                                 $this.next().attr("tabindex", "0").focus();
                             } else {
-                                $this.parent().find("li").first().attr("tabindex", "0").focus();
+                                $this.parent().find(">li").first().attr("tabindex", "0").focus();
                             }
                             $this.attr("tabindex", "-1");
                         }

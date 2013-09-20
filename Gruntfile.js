@@ -17,6 +17,14 @@ module.exports = function(grunt) {
                     src: "tables/*.js"
                 }
             },
+            a11yfy: {
+                options: {
+                    jshintrc: "a11yfy/.jshintrc"
+                },
+                files: {
+                    src: "a11yfy/*.js"
+                }
+            },
             tests: {
                 options: {
                     jshintrc: "tests/.jshintrc"

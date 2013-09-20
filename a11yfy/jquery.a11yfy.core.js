@@ -8,7 +8,7 @@
 
 (function (jQuery){
     var $politeAnnouncer = jQuery("#jquery-a11yfy-politeannouncer"),
-        $assertiveAnnouncer = jQuery('#jquery-a11yfy-assertiveannouncer'),
+        $assertiveAnnouncer = jQuery("#jquery-a11yfy-assertiveannouncer"),
         methods = {
             showAndFocus: function(focus) {
                 var $focus = focus ? jQuery(focus) : focus;
@@ -18,7 +18,7 @@
                     $this.show();
                     if ($focus && $focus.length) {
                         if (platform === "iOS") {
-                            jQuery('body').focus();
+                            jQuery("body").focus();
                             setTimeout(function () {
                                 $focus.focus();
                             }, 1000);
@@ -33,7 +33,7 @@
                     var $this = jQuery(value);
 
                     if (platform === "iOS") {
-                        jQuery('body').focus();
+                        jQuery("body").focus();
                         setTimeout(function () {
                             $this.focus();
                         }, 1000);
@@ -81,7 +81,7 @@
                             currentItem = this,
                             $this = jQuery(this),
                             $nextItem,
-                            $menuitems = $menu.find('li[role="menuitem"]:visible');
+                            $menuitems = $menu.find("li[role=\"menuitem\"]:visible");
 
                         $menuitems.each(function(index, value) {
                             if (value === currentItem) {
@@ -200,7 +200,7 @@
                             e.preventDefault();
                             e.stopPropagation();
                         }
-                    }).on("click", function(e) {
+                    }).on("click", function() {
                         var $submenu = jQuery(this).find(">ul").first();
 
                         if ($submenu.is(":hidden")) {
@@ -250,14 +250,14 @@
         } else {
             jQuery.error("Method " +  method + " does not exist on jQuery.a11yfy");
         }
-    }
+    };
 
     jQuery.a11yfy.getI18nString = function(str, values, strings) {
-        var msg = strings[str];
+        var msg = strings[str], v;
 
         if (values) {
             for (v in values) {
-                msg = msg.replace("${"+v+"}", values[v])
+                msg = msg.replace("${"+v+"}", values[v]);
             }
         }
         return msg;

@@ -52,7 +52,9 @@
                     }
                     /* First make all anchor tags in the structure non-naturally focussable */
                     $this.find("a").attr("tabindex", "-1");
+                    /* Set the roles for the menubar */
                     $this.attr("role", "menubar").addClass("a11yfy-top-level-menu");
+                    /* set the aria attributes and the classes for the sub-menus */
                     $this.find(">li>ul")
                         .addClass("a11yfy-second-level-menu")
                         .parent()
@@ -63,7 +65,11 @@
                         .parent()
                             .addClass("a11yfy-has-submenu")
                             .attr("aria-haspopup", "true");
+                    /*
+                     * Set up the keyboard and mouse handlers for all the individual menuitems
+                     */
                     $this.find("li").each(function(index, value) {
+                        /* Set the roles for the sub-menus and the menuitems */
                         var $this = jQuery(value);
 
                         $this.attr({
@@ -75,6 +81,12 @@
                         });
 
                     }).on("keypress", function(e) {
+                        /*
+                         * This implements the WAI-ARIA-PRACTICES keyboard functionality where
+                         * pressing the key, corresponding to the first letter of a VISIBLE element
+                         * will move the focus to the first such element after the currently focussed
+                         * element
+                         */
                         var keyCode = e.charCode || e.which || e.keyCode,
                             keyString = String.fromCharCode(keyCode).toLowerCase(),
                             ourIndex,
@@ -101,6 +113,9 @@
                         e.stopPropagation();
                         e.preventDefault();
                     }).on("keydown", function(e) {
+                        /*
+                         * This implements the WAI-ARIA-PRACTICES keyboard navigation functionality
+                         */
                         var keyCode = e.which || e.keyCode,
                             handled = false,
                             $this = jQuery(this),
@@ -111,12 +126,18 @@
                             return;
                         }
                         $submenu = $this.find(">ul").first();
+                        /*
+                         * Open a sub-menu and place focus on the first menuitem within it
+                         */
                         function openMenu() {
                             if ($submenu.length) {
                                 $submenu.addClass("open").attr("aria-expanded", "true").find(">li").first().attr("tabindex", "0").focus();
                                 $this.attr("tabindex", "-1");
                             }
                         }
+                        /*
+                         * Move the focus to the menuitem preceding the current menuitem
+                         */
                         function prevInMenu() {
                             if ($this.prev().length) {
                                 $this.prev().attr("tabindex", "0").focus();
@@ -125,6 +146,9 @@
                             }
                             $this.attr("tabindex", "-1");
                         }
+                        /*
+                         * Move the focus to the next menuitem after the currently focussed menuitem
+                         */
                         function nextInMenu() {
                             if ($this.next().length) {
                                 $this.next().attr("tabindex", "0").focus();
@@ -142,9 +166,11 @@
                                     if ($this.find(">a")[0].click) {
                                         $this.find(">a")[0].click();
                                     } else {
+                                        /* If this is a leaf node, activate it*/
                                         $this.find(">a").first().trigger("click");
                                     }
                                 } else {
+                                    /* If it has a sub-menu, open the sub-menu */
                                     openMenu();
                                 }
                                 break;
@@ -152,6 +178,7 @@
                             case 27: //esc
                                 handled = true;
                                 if (keyCode === 37 && $this.parent().hasClass("a11yfy-top-level-menu")) {
+                                    /* If in the menubar, then simply move to the previous menuitem */
                                     prevInMenu();
                                 } else {
                                     if ($this.parent().attr("role") === "menu") {
@@ -159,37 +186,36 @@
                                         $this.parent().parent().attr("tabindex", "0").focus();
                                         $this.parent().removeClass("open").attr("aria-expanded", "false");
                                         $this.attr("tabindex", "-1");
-                                    } else {
-                                        if ($this.prev().length) {
-                                            $this.prev().attr("tabindex", "0").focus();
-                                        } else {
-                                            $this.parent().find("li").last().attr("tabindex", "0").focus();
-                                        }
-                                        $this.attr("tabindex", "-1");
                                     }
                                 }
                                 break;
                             case 38: //up
                                 handled = true;
                                 if ($this.parent().hasClass("a11yfy-top-level-menu")) {
+                                    /* If in the menubar, then open the sub-menu */
                                     openMenu();
                                 } else {
+                                    /* If in sub-menu, move to previous element */
                                     prevInMenu();
                                 }
                                 break;
                             case 39: //right
                                 handled = true;
                                 if ($this.parent().hasClass("a11yfy-top-level-menu")) {
+                                    /* If in menubar, move to next menuitem */
                                     nextInMenu();
                                 } else {
+                                    /* If in sub-menu, open sub-sub-menu */
                                     openMenu();
                                 }
                                 break;
                             case 40: //down
                                 handled = true;
                                 if ($this.parent().hasClass("a11yfy-top-level-menu")) {
+                                    /* If in menubar, open sub-menu */
                                     openMenu();
                                 } else {
+                                    /* If in sub-menu, move to the next menuitem */
                                     nextInMenu();
                                 }
                                 break;
@@ -208,8 +234,11 @@
                         } else {
                             $submenu.removeClass("open").attr("aria-expanded", "false");
                         }
-                    }).first().attr("tabindex", "0");
+                    }).first().attr("tabindex", "0"); // Make the first menuitem in the menubar tab focussable
                     $this.on("keydown", function (e) {
+                        /*
+                         * This callback handles the tabbing out of the widget
+                         */
                         var focusInTopMenu = false,
                             keyCode = e.which || e.keyCode;
 
@@ -220,12 +249,17 @@
                         if (keyCode !== 9) {
                             return;
                         }
+                        /* Find out whether we are currently in the menubar */
                         $this.find(">li").each(function(index, value) {
                             if (jQuery(value).attr("tabindex") === "0") {
                                 focusInTopMenu = true;
                             }
                         });
                         if (!focusInTopMenu) {
+                            /*
+                             * If not in the menubar, close sub-menus and set the tabindex of the top item in the
+                             * menubar so it receives focus when the user tabs back into the menubar
+                             */
                             $this.find(">li li[tabindex=0]").attr("tabindex", "-1");
                             $this.find("ul.open").each(function(index, value) {
                                 if (jQuery(value).parent().parent().hasClass("a11yfy-top-level-menu")) {

@@ -44,7 +44,8 @@
             },
             menu : function() {
                 return this.each(function (index, value) {
-                    var $this = jQuery(value);
+                    var $this = jQuery(value),
+                        $menu = $this;
 
                     if (value.nodeName !== "UL") {
                         throw new Error("The menu container must be an unordered list");
@@ -73,6 +74,32 @@
                             jQuery(value).attr("role", "menu");
                         });
 
+                    }).on("keypress", function(e) {
+                        var keyCode = e.charCode || e.which || e.keyCode,
+                            keyString = String.fromCharCode(keyCode).toLowerCase(),
+                            ourIndex,
+                            currentItem = this,
+                            $this = jQuery(this),
+                            $nextItem,
+                            $menuitems = $menu.find('li[role="menuitem"]:visible');
+
+                        $menuitems.each(function(index, value) {
+                            if (value === currentItem) {
+                                ourIndex = index;
+                            }
+                            if (index > ourIndex && !$nextItem) {
+                                if (jQuery(value).text().trim().toLowerCase().indexOf(keyString) === 0) {
+                                    $nextItem = jQuery(value);
+                                }
+                            }
+                        });
+                        $nextItem.attr("tabindex", "0").focus();
+                        $this.attr("tabindex", "-1");
+                        if ($nextItem.parent().get(0) !== $this.parent().get(0)) {
+                            $this.parent().removeClass("open").attr("aria-expanded", "false");
+                        }
+                        e.stopPropagation();
+                        e.preventDefault();
                     }).on("keydown", function(e) {
                         var keyCode = e.which || e.keyCode,
                             handled = false,
@@ -118,7 +145,7 @@
                                         $this.find(">a").first().trigger("click");
                                     }
                                 } else {
-                                    $this.click();
+                                    openMenu();
                                 }
                                 break;
                             case 37: //left
@@ -144,7 +171,11 @@
                                 break;
                             case 38: //up
                                 handled = true;
-                                prevInMenu();
+                                if ($this.parent().hasClass("a11yfy-top-level-menu")) {
+                                    openMenu();
+                                } else {
+                                    prevInMenu();
+                                }
                                 break;
                             case 39: //right
                                 handled = true;

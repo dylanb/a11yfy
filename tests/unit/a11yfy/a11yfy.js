@@ -113,7 +113,7 @@
     test("The keyboard and focus functionality", function () {
         var $menu = jQuery("#menu-test-2");
 
-        expect(24);
+        expect(40);
         $menu.a11yfy("menu");
         $menu.find("li").each(function(index, value) {
             // Add ids to all the lis so we can track him
@@ -129,6 +129,25 @@
         jQuery(document.activeElement).simulate("keydown", {keyCode: 39}); // RIGHT
         equal(jQuery(document.activeElement).attr("id"), "test2-0", "wrap around at the end goes to the beginning");
 
+        // Test the first character moving to the next visible item with that starting character
+        jQuery(document.activeElement).simulate("keypress", {charCode: 84}); // "t"
+        equal(jQuery(document.activeElement).attr("id"), "test2-5", "t should get us to the second top level menu item");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 37}); // LEFT
+        equal(jQuery(document.activeElement).attr("id"), "test2-0", "Left goes back to the beginning");
+        jQuery(document.activeElement).simulate("keypress", {charCode: 84}); // "t"
+        jQuery(document.activeElement).simulate("keypress", {charCode: 84}); // "t"
+        equal(jQuery(document.activeElement).attr("id"), "test2-14", "t and t should get us to the third top level menu item");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 37}); // LEFT
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
+        equal(jQuery(document.activeElement).attr("id"), "test2-6", "Should b in sub-menu");
+        jQuery(document.activeElement).simulate("keypress", {charCode: 70}); // "f"
+        equal(jQuery(document.activeElement).attr("id"), "test2-15", "f should go to the last item in the top menu");
+        equal(jQuery("#test2-6").parent().attr("aria-expanded"), "false", "sub-menu state should be set to not expanded");
+        equal(jQuery("#test2-6:visible").length, 0, "sub-menu should no longer be visible");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 39}); // RIGHT
+        equal(jQuery(document.activeElement).attr("id"), "test2-0", "Right goes back to the beginning");
+
+
         // Test opening sub-menu from menu bar
         jQuery(document.activeElement).simulate("keydown", {keyCode: 39}); // RIGHT
         equal(jQuery(document.activeElement).attr("id"), "test2-5", "Right should get us to the second top level menu item");
@@ -136,6 +155,18 @@
         equal(jQuery(document.activeElement).attr("id"), "test2-6", "Down on the second top level menu item (with a sub menu) should open it and set focus into it");
         equal(jQuery(document.activeElement).parent().attr("aria-expanded"), "true", "When opened, the menu should have aria-expanded set to true");
         ok(jQuery(document.activeElement).parent().hasClass("open"), "When opened, the menu should have open class");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 27}); // ESC
+        equal(jQuery(document.activeElement).attr("id"), "test2-5", "ESC should close the sub-menu");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 38}); // UP
+        equal(jQuery(document.activeElement).attr("id"), "test2-6", "Up on the second top level menu item (with a sub menu) should open it and set focus into it");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 27}); // ESC
+        equal(jQuery(document.activeElement).attr("id"), "test2-5", "ESC should close the sub-menu");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 32}); // SPACE
+        equal(jQuery(document.activeElement).attr("id"), "test2-6", "Space on the second top level menu item (with a sub menu) should open it and set focus into it");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 27}); // ESC
+        equal(jQuery(document.activeElement).attr("id"), "test2-5", "ESC should close the sub-menu");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 32}); // ENTER
+        equal(jQuery(document.activeElement).attr("id"), "test2-6", "Space on the second top level menu item (with a sub menu) should open it and set focus into it");
 
         // Test the wraparound within the sub-menu
         jQuery(document.activeElement).simulate("keydown", {keyCode: 38}); // UP
@@ -159,6 +190,8 @@
         // tab out of menu
         $menu.simulate("keydown", {keyCode: 9}); // TAB
         equal(jQuery("#test2-6").attr("tabindex"), "-1", "Tab should cause the sub-menus to all be closed and the tabindexes set to -1");
+        equal(jQuery("#test2-6").parent().attr("aria-expanded"), "false", "sub-menu state should be set to not expanded");
+        equal(jQuery("#test2-6:visible").length, 0, "sub-menu should no longer be visible");
         // focus should now go to the parent of the sub-menu previously focussed
         $menu.find("li[tabindex=0]").simulate("focus");
         equal(jQuery(document.activeElement).attr("id"), "test2-5", "The top level menu item that previously contained the focus shold have tabindex set to 0");

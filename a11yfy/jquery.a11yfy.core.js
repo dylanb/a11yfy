@@ -162,11 +162,11 @@
                             case 13: // enter
                                 handled = true;
                                 if ($this.find(">a").length) {
-                                    // This is a hack for PhantomJS
                                     if ($this.find(">a")[0].click) {
+                                        /* If this is a leaf node, activate it*/
                                         $this.find(">a")[0].click();
                                     } else {
-                                        /* If this is a leaf node, activate it*/
+                                        // This is a hack for PhantomJS
                                         $this.find(">a").first().trigger("click");
                                     }
                                 } else {

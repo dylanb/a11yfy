@@ -42,6 +42,73 @@
                     }
                 });
             },
+            validate : function() {
+                return this.each(function (index, value) {
+
+                    function errorPlacement() {
+                        // do nothing
+                    }
+                    function showErrors() {
+                        // do nothing
+                    }
+
+                    function invalidHandler(event, validator) {
+                        var id, invalidIds = [],
+                            $this = jQuery(this),
+                            $errorSummary = $this.find(".a11yfy-error-summary"),
+                            $errorSummaryList = jQuery("<ul>");
+
+                        for (id in validator.invalid) {
+                            if (validator.invalid.hasOwnProperty(id)) {
+                                invalidIds.push(id);
+                            }
+                        }
+                        console.log(validator);
+
+                        // remove any previous validation markup
+                        $this.find("a.a11yfy-skip-link").remove(); // remove all the old skip links
+                        $this.find(".a11yfy-validation-error").removeClass("a11yfy-validation-error"); // Remove old validation errors
+                        $this.find(".a11yfy-validation-message").remove(); // remove the old error messages
+                        $errorSummary.empty();
+
+                        jQuery(invalidIds).each(function(index, invalidId) {
+                            var $input = jQuery("#"+invalidId),
+                                $label = jQuery("label[for=\"" + invalidId + "\"]"),
+                                $next;
+                            $label.addClass("a11yfy-validation-error");
+
+                            // create the summary entry
+                            $errorSummaryList.append("<li><a class=\"a11yfy-skip-link\" href=\"#" + invalidId + "\">" + $label.text() + "</a>"  + " : " + validator.invalid[invalidId] + "</li>")
+
+                            // add link to the next field with a validation error
+                            if (index < (invalidIds.length - 1)) {
+                                $next = jQuery("<a href=\"#\" class=\"a11yfy-skip-link\">");
+                                $next.text(jQuery.a11yfy.getI18nString("skipToNextError", undefined, jQuery.fn.a11yfy.defaults.strings))
+                                $next.attr("href", "#" + invalidIds[index+1]);
+                                $input.after($next);
+                            }
+                        });
+                        $errorSummary.append($errorSummaryList);
+                    }
+                    var $this = jQuery(value);
+
+                    $this.validate({
+                        invalidHandler : invalidHandler,
+                        errorPlacement : errorPlacement,
+                        showErrors : showErrors
+                    });
+                    $this.delegate("a.a11yfy-skip-link", "click", function(e) {
+                        var $target = jQuery(e.target);
+
+                        jQuery($target.attr("href")).select().focus();
+                        e.preventDefault();
+                        e.stopPropagation();
+                    });
+                    $this.children().first().before(
+                        jQuery("<div class=\"a11yfy-error-summary\" role=\"alert\" aria-live=\"assertive\">")
+                    );
+                });
+            },
             menu : function() {
                 return this.each(function (index, value) {
                     var $this = jQuery(value),
@@ -284,6 +351,12 @@
         } else {
             jQuery.error("Method " +  method + " does not exist on jQuery.a11yfy");
         }
+    };
+
+    jQuery.fn.a11yfy.defaults = {};
+
+    jQuery.fn.a11yfy.defaults.strings = {
+        skipToNextError: "skip to next field with an error"
     };
 
     jQuery.a11yfy.getI18nString = function(str, values, strings) {

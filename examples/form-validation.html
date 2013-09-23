@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="../a11yfy/jquery.a11yfy.core.js"></script>
+<script src="../tests/jquery.validate.min.js"></script>
+<link type="text/css" rel="stylesheet" href="../a11yfy/jquery.a11yfy.core.css">
+<style>
+
+/* Label will appear above the input field */
+label {
+    margin-left: 5px;
+    margin-top: 15px;
+    display: block;
+    width: 70%;
+    padding: 5px 0 5px 3px;
+    border-top: 1px solid gray;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    border-radius: 5px 5px 0 0;
+}
+
+label.a11yfy-validation-error {
+    background-color: #8b0000;
+    color: white;
+    border: none;
+}
+
+input[type="text"], input[type="date"], select, textarea {
+    width: 90%;
+    padding: 7px 0 7px 5px;
+    border-radius: 5px;
+    display:block;
+    margin-top: 0px;
+    border: solid 1px gray;
+    padding-right: 20px;
+}
+
+input[type="date"] {
+    width:70%;
+}
+
+.form-container-50 {
+    width: 50%;
+}
+
+.a11yfy-error-summary li {
+    display : block;
+}
+
+@media (max-width: 980px) {
+    .form-container-50 {
+        width: 100%;
+    }    
+}
+</style>
+</head>
+<body>
+<h1>Form Validation</h1>
+<div class="form-container-50">
+<form id="myform" action="mysubmitaction">
+    <label for="firstname">First Name *</label>
+    <input type="text" name="firstname" id="firstname" required aria-required="true"/>
+    <label for="lastname">Last Name *</label>
+    <input type="text" name="lastname" id="lastname" required aria-required="true"/>
+    <label for="dob">Date of Birth *</label>
+    <input type="date" name="dob" id="dob" required aria-required="true" aria-describedby="dateformat"/>
+    <span id="dateformat">mm/dd/yyyy</span>
+    <fieldset>
+        <legend>Address</legend>
+        <label for="street1">Street *</label>
+        <input type="text" name="street1" id="street1" required aria-required="true" />
+        <input type="text" title="Additional Street Information" name="street2" id="street2" />
+        <label for="suite">Suite/Appartment</label>
+        <input type="text" name="suite" id="suite" />
+        <label for="city">City *</label>
+        <input type="text" name="city" id="city" required aria-required="true" />
+        <label for="state">State *</label>
+        <select name="state" required aria-required="true"> 
+            <option value="" selected="selected">Select a State</option> 
+            <option value="AL">Alabama</option> 
+            <option value="AK">Alaska</option> 
+            <option value="AZ">Arizona</option> 
+            <option value="AR">Arkansas</option> 
+            <option value="CA">California</option> 
+            <option value="CO">Colorado</option> 
+            <option value="CT">Connecticut</option> 
+            <option value="DE">Delaware</option> 
+            <option value="DC">District Of Columbia</option> 
+            <option value="FL">Florida</option> 
+            <option value="GA">Georgia</option> 
+            <option value="HI">Hawaii</option> 
+            <option value="ID">Idaho</option> 
+            <option value="IL">Illinois</option> 
+            <option value="IN">Indiana</option> 
+            <option value="IA">Iowa</option> 
+            <option value="KS">Kansas</option> 
+            <option value="KY">Kentucky</option> 
+            <option value="LA">Louisiana</option> 
+            <option value="ME">Maine</option> 
+            <option value="MD">Maryland</option> 
+            <option value="MA">Massachusetts</option> 
+            <option value="MI">Michigan</option> 
+            <option value="MN">Minnesota</option> 
+            <option value="MS">Mississippi</option> 
+            <option value="MO">Missouri</option> 
+            <option value="MT">Montana</option> 
+            <option value="NE">Nebraska</option> 
+            <option value="NV">Nevada</option> 
+            <option value="NH">New Hampshire</option> 
+            <option value="NJ">New Jersey</option> 
+            <option value="NM">New Mexico</option> 
+            <option value="NY">New York</option> 
+            <option value="NC">North Carolina</option> 
+            <option value="ND">North Dakota</option> 
+            <option value="OH">Ohio</option> 
+            <option value="OK">Oklahoma</option> 
+            <option value="OR">Oregon</option> 
+            <option value="PA">Pennsylvania</option> 
+            <option value="RI">Rhode Island</option> 
+            <option value="SC">South Carolina</option> 
+            <option value="SD">South Dakota</option> 
+            <option value="TN">Tennessee</option> 
+            <option value="TX">Texas</option> 
+            <option value="UT">Utah</option> 
+            <option value="VT">Vermont</option> 
+            <option value="VA">Virginia</option> 
+            <option value="WA">Washington</option> 
+            <option value="WV">West Virginia</option> 
+            <option value="WI">Wisconsin</option> 
+            <option value="WY">Wyoming</option>
+        </select>
+        <label for="zip">Zipcode *</label>
+        <input type="text" maxlength="5" name="zip" id="zip" pattern="[0-9]*" required aria-required="true"/>
+    </fieldset>
+    <button>Submit</button>
+</form>
+</div>
+<script>
+jQuery(document).ready(function () {
+    jQuery("#myform").a11yfy("validate");
+});
+</script>
+</body>
+</html>

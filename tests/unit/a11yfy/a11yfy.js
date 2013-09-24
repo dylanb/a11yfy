@@ -255,7 +255,7 @@
     test("The validator", function () {
         var $form = jQuery("#form-test-1"),
             $button = $form.find("button"),
-            $summary;
+            $summary, $anchors;
 
         expect(32);
         $form.a11yfy("validate");

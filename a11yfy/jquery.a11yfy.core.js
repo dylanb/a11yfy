@@ -79,12 +79,12 @@
                             $input.addClass("a11yfy-validation-error");
 
                             // create the summary entry
-                            $errorSummaryList.append("<li><a class=\"a11yfy-skip-link a11yfy-summary-link\" href=\"#" + invalidId + "\">" + $label.text() + "</a>"  + " : " + validator.invalid[invalidId] + "</li>")
+                            $errorSummaryList.append("<li><a class=\"a11yfy-skip-link a11yfy-summary-link\" href=\"#" + invalidId + "\">" + $label.text() + "</a>"  + " : " + validator.invalid[invalidId] + "</li>");
 
                             // add link to the next field with a validation error
                             if (index < (invalidIds.length - 1) && opts.skipLink) {
                                 $next = jQuery("<a href=\"#\" class=\"a11yfy-skip-link\">");
-                                $next.text(jQuery.a11yfy.getI18nString("skipToNextError", undefined, jQuery.fn.a11yfy.defaults.strings))
+                                $next.text(jQuery.a11yfy.getI18nString("skipToNextError", undefined, jQuery.fn.a11yfy.defaults.strings));
                                 $next.attr("href", "#" + invalidIds[index+1]);
                                 if ($input.parent()[0].nodeName === "P") {
                                     $input.parent().after($next);

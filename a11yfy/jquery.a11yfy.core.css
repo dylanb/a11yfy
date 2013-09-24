@@ -5,7 +5,9 @@
     z-index: 100;
 }
 
-/* Menu Styles */
+/***************************/
+/* Menu Styles             */
+/***************************/
 
 .a11yfy-third-level-menu {
     position: absolute;
@@ -136,3 +138,81 @@ ul.a11yfy-top-level-menu>li.a11yfy-has-submenu:after {
     line-height: 30px;
 }
 .a11yfy-top-level-menu li:hover { color: #000000; }
+
+/***************************/
+/* Form Validation Styles  */
+/***************************/
+
+/* Label will appear above the input field */
+form label {
+    margin-left: 5px;
+    margin-top: 15px;
+    display: block;
+    width: 70%;
+    padding: 5px 0 5px 3px;
+    border-top: 1px solid gray;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    border-radius: 5px 5px 0 0;
+}
+
+form p {
+    margin-top : 0;
+    margin-bottom : 0;
+}
+
+form fieldset {
+    margin-top: 15px;
+}
+
+form label.a11yfy-validation-error {
+    background-color: #8b0000;
+    color: white;
+    border: none;
+}
+
+form input[type="text"], form input[type="date"], form select, form textarea {
+    width: 90%;
+    padding: 7px 0 7px 5px;
+    border-radius: 5px;
+    display:inline-block;
+    margin-top: 0px;
+    border: solid 1px gray;
+    padding-right: 20px;
+}
+
+form input[type="date"] {
+    width:70%;
+}
+
+form input.a11yfy-validation-error, form select.a11yfy-validation-error, form textarea.a11yfy-validation-error {
+    border-color: red;
+    box-shadow: inset 0 0 1em red;
+}
+
+.form-container-50 {
+    width: 100%;
+}
+
+form .a11yfy-skip-link {
+    display : block;
+}
+
+form .a11yfy-error-summary li {
+    display : block;
+}
+
+form .a11yfy-error-summary li a.a11yfy-skip-link {
+    display : inline;
+}
+
+form .a11yfy-error-summary ul {
+    border-color: gold;
+    box-shadow: inset 0 0 1em gold;
+    border-radius: 5px;
+    padding: 10px 10px 10px 10px;
+}
+
+@media (max-width: 980px) {
+    /* no specific styles for mobile */
+}

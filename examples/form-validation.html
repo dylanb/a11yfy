@@ -21,6 +21,15 @@ label {
     border-radius: 5px 5px 0 0;
 }
 
+p {
+    margin-top : 0;
+    margin-bottom : 0;
+}
+
+fieldset {
+    margin-top: 15px;
+}
+
 label.a11yfy-validation-error {
     background-color: #8b0000;
     color: white;
@@ -31,7 +40,7 @@ input[type="text"], input[type="date"], select, textarea {
     width: 90%;
     padding: 7px 0 7px 5px;
     border-radius: 5px;
-    display:block;
+    display:inline-block;
     margin-top: 0px;
     border: solid 1px gray;
     padding-right: 20px;
@@ -41,18 +50,36 @@ input[type="date"] {
     width:70%;
 }
 
+input.a11yfy-validation-error, select.a11yfy-validation-error, textarea.a11yfy-validation-error {
+    border-color: red;
+    box-shadow: inset 0 0 1em red;
+}
+
 .form-container-50 {
-    width: 50%;
+    width: 100%;
+}
+
+.a11yfy-skip-link {
+    display : block;
 }
 
 .a11yfy-error-summary li {
     display : block;
 }
 
+.a11yfy-error-summary li a.a11yfy-skip-link {
+    display : inline;
+}
+
+.a11yfy-error-summary ul {
+    border-color: gold;
+    box-shadow: inset 0 0 1em gold;
+    border-radius: 5px;
+    padding: 10px 10px 10px 10px;
+}
+
 @media (max-width: 980px) {
-    .form-container-50 {
-        width: 100%;
-    }    
+    /* no specific styles for mobile */
 }
 </style>
 </head>
@@ -61,23 +88,25 @@ input[type="date"] {
 <div class="form-container-50">
 <form id="myform" action="mysubmitaction">
     <label for="firstname">First Name *</label>
-    <input type="text" name="firstname" id="firstname" required aria-required="true"/>
+    <input type="text" name="firstname" id="firstname" required/>
     <label for="lastname">Last Name *</label>
-    <input type="text" name="lastname" id="lastname" required aria-required="true"/>
-    <label for="dob">Date of Birth *</label>
-    <input type="date" name="dob" id="dob" required aria-required="true" aria-describedby="dateformat"/>
-    <span id="dateformat">mm/dd/yyyy</span>
+    <input type="text" name="lastname" id="lastname" required/>
+    <p>
+        <label for="dob">Date of Birth *</label>
+        <input type="date" name="dob" id="dob" required aria-describedby="dateformat"/>
+        <span id="dateformat">mm/dd/yyyy</span>
+    </p>
     <fieldset>
         <legend>Address</legend>
         <label for="street1">Street *</label>
-        <input type="text" name="street1" id="street1" required aria-required="true" />
+        <input type="text" name="street1" id="street1" required />
         <input type="text" title="Additional Street Information" name="street2" id="street2" />
         <label for="suite">Suite/Appartment</label>
         <input type="text" name="suite" id="suite" />
         <label for="city">City *</label>
-        <input type="text" name="city" id="city" required aria-required="true" />
+        <input type="text" name="city" id="city" required />
         <label for="state">State *</label>
-        <select name="state" required aria-required="true"> 
+        <select name="state" id="state" required> 
             <option value="" selected="selected">Select a State</option> 
             <option value="AL">Alabama</option> 
             <option value="AK">Alaska</option> 
@@ -132,7 +161,7 @@ input[type="date"] {
             <option value="WY">Wyoming</option>
         </select>
         <label for="zip">Zipcode *</label>
-        <input type="text" maxlength="5" name="zip" id="zip" pattern="[0-9]*" required aria-required="true"/>
+        <input type="text" maxlength="5" name="zip" id="zip" pattern="[0-9]*" required/>
     </fieldset>
     <button>Submit</button>
 </form>

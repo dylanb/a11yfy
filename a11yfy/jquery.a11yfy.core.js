@@ -42,14 +42,15 @@
                     }
                 });
             },
-            validate : function() {
+            validate : function(options) {
+                var opts = jQuery.extend({}, jQuery.fn.a11yfy.defaults.validate, options);
                 return this.each(function (index, value) {
 
                     function errorPlacement() {
-                        // do nothing
+                        // do nothing - overrides default behavior
                     }
                     function showErrors() {
-                        // do nothing
+                        // do nothing - overrides default behavior
                     }
 
                     function invalidHandler(event, validator) {
@@ -68,27 +69,40 @@
                         // remove any previous validation markup
                         $this.find("a.a11yfy-skip-link").remove(); // remove all the old skip links
                         $this.find(".a11yfy-validation-error").removeClass("a11yfy-validation-error"); // Remove old validation errors
-                        $this.find(".a11yfy-validation-message").remove(); // remove the old error messages
+                        $this.find(".a11yfy-error-message").remove(); // remove the old error messages
                         $errorSummary.empty();
 
                         jQuery(invalidIds).each(function(index, invalidId) {
                             var $input = jQuery("#"+invalidId),
                                 $label = jQuery("label[for=\"" + invalidId + "\"]"),
-                                $next;
+                                $next, $span;
                             $label.addClass("a11yfy-validation-error");
+                            $input.addClass("a11yfy-validation-error");
 
                             // create the summary entry
-                            $errorSummaryList.append("<li><a class=\"a11yfy-skip-link\" href=\"#" + invalidId + "\">" + $label.text() + "</a>"  + " : " + validator.invalid[invalidId] + "</li>")
+                            $errorSummaryList.append("<li><a class=\"a11yfy-skip-link a11yfy-summary-link\" href=\"#" + invalidId + "\">" + $label.text() + "</a>"  + " : " + validator.invalid[invalidId] + "</li>")
 
                             // add link to the next field with a validation error
-                            if (index < (invalidIds.length - 1)) {
+                            if (index < (invalidIds.length - 1) && opts.skipLink) {
                                 $next = jQuery("<a href=\"#\" class=\"a11yfy-skip-link\">");
                                 $next.text(jQuery.a11yfy.getI18nString("skipToNextError", undefined, jQuery.fn.a11yfy.defaults.strings))
                                 $next.attr("href", "#" + invalidIds[index+1]);
-                                $input.after($next);
+                                if ($input.parent()[0].nodeName === "P") {
+                                    $input.parent().after($next);
+                                } else {
+                                    $input.after($next);
+                                }
                             }
+
+                            // Add the error message into the label
+                            $span = jQuery("<span class=\"a11yfy-error-message\">");
+                            $span.text(" - " + validator.invalid[invalidId]);
+                            $label.append($span);
                         });
-                        $errorSummary.append($errorSummaryList);
+                        if (opts.summary) {
+                            // Add the summary to the document
+                            $errorSummary.append($errorSummaryList);
+                        }
                     }
                     var $this = jQuery(value);
 
@@ -97,16 +111,21 @@
                         errorPlacement : errorPlacement,
                         showErrors : showErrors
                     });
-                    $this.delegate("a.a11yfy-skip-link", "click", function(e) {
-                        var $target = jQuery(e.target);
+                    if (opts.skipLink) {
+                        $this.delegate("a.a11yfy-skip-link", "click", function(e) {
+                            var $target = jQuery(e.target);
 
-                        jQuery($target.attr("href")).select().focus();
-                        e.preventDefault();
-                        e.stopPropagation();
-                    });
+                            jQuery($target.attr("href")).select().focus();
+                            e.preventDefault();
+                            e.stopPropagation();
+                        });
+                    }
                     $this.children().first().before(
                         jQuery("<div class=\"a11yfy-error-summary\" role=\"alert\" aria-live=\"assertive\">")
                     );
+                    // Add the aria-required attributes to all the input elements that have the required
+                    // attribute
+                    $this.find("[required]").attr("aria-required", "true");
                 });
             },
             menu : function() {
@@ -353,10 +372,14 @@
         }
     };
 
-    jQuery.fn.a11yfy.defaults = {};
-
-    jQuery.fn.a11yfy.defaults.strings = {
-        skipToNextError: "skip to next field with an error"
+    jQuery.fn.a11yfy.defaults = {
+        strings : {
+            skipToNextError: "skip to next field with an error"
+        },
+        validate : {
+            skipLink : true,
+            summary : true
+        }
     };
 
     jQuery.a11yfy.getI18nString = function(str, values, strings) {

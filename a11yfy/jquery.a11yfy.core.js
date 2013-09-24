@@ -64,7 +64,6 @@
                                 invalidIds.push(id);
                             }
                         }
-                        console.log(validator);
 
                         // remove any previous validation markup
                         $this.find("a.a11yfy-skip-link").remove(); // remove all the old skip links

@@ -5,6 +5,7 @@
     <title>jQuery a11yfy core Test Suite</title>
 
     <script src="../../jquery.min.js"></script>
+    <script src="../../jquery.validate.min.js"></script>
     <link rel="stylesheet" href="../../../external/qunit.css">
     <link rel="stylesheet" href="../../../a11yfy/jquery.a11yfy.core.css">
     <script src="../../../external/qunit.js"></script>
@@ -37,192 +38,206 @@
 <h2 id="qunit-userAgent"></h2>
 <ol id="qunit-tests"></ol>
 <div id="qunit-fixture">
-<ul id="menu-test-1">
-    <li>
-        One
-        <ul>
-            <li>
-                <a href="oneone">
-                    One One
-                </a>
-            </li>
-            <li>
-                <a href="onetwo">
-                    One Two
-                </a>
-            </li>
-            <li>
-                <a href="onethree">
-                    One Three
-                </a>
-            </li>
-            <li>
-                <a href="onefour">
-                    One Four
-                </a>
-            </li>
-        </ul>
-    </li>
-    <li>
-        Two
-        <ul>
-            <li>
-                Two One
-                <ul>
-                    <li>
-                        <a href="oneone">
-                            Two One One
-                        </a>
-                    </li>
-                    <li>
-                        <a href="onetwo">
-                            Two One Two
-                        </a>
-                    </li>
-                    <li>
-                        <a href="onethree">
-                            Two One Three
-                        </a>
-                    </li>
-                    <li>
-                        <a href="onefour">
-                            Two One Four
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="onetwo">
-                    Two Two
-                </a>
-            </li>
-            <li>
-                <a href="onethree">
-                    Two Three
-                </a>
-            </li>
-            <li>
-                <a href="onefour">
-                    Two Four
-                </a>
-            </li>
-        </ul>
-    </li>
-    <li>
-        <a href="three">
-            Three
-        </a>
-    </li>
-    <li>
-        <a href="four">
-            Four
-        </a>
-    </li>
-</ul>
-<ul id="menu-test-2">
-    <li>
-        One
-        <ul>
-            <li>
-                <a href="oneone">
-                    One One
-                </a>
-            </li>
-            <li>
-                <a href="onetwo">
-                    One Two
-                </a>
-            </li>
-            <li>
-                <a href="onethree">
-                    One Three
-                </a>
-            </li>
-            <li>
-                <a href="onefour">
-                    One Four
-                </a>
-            </li>
-        </ul>
-    </li>
-    <li>
-        Two
-        <ul>
-            <li>
-                Two One
-                <ul>
-                    <li>
-                        <a href="oneone">
-                            Two One One
-                        </a>
-                    </li>
-                    <li>
-                        <a href="onetwo">
-                            Two One Two
-                        </a>
-                    </li>
-                    <li>
-                        <a href="onethree">
-                            Two One Three
-                        </a>
-                    </li>
-                    <li>
-                        <a href="onefour">
-                            Two One Four
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="onetwo">
-                    Two Two
-                </a>
-            </li>
-            <li>
-                <a href="onethree">
-                    Two Three
-                </a>
-            </li>
-            <li>
-                <a href="onefour">
-                    Two Four
-                </a>
-            </li>
-        </ul>
-    </li>
-    <li>
-        <a href="three">
-            Three
-        </a>
-    </li>
-    <li>
-        <a href="four">
-            Four
-        </a>
-    </li>
-</ul>
-<ul id="menu-test-3" class="a11yfy-mega">
-    <li>Two
-        <ul class="a11yfy-two_col">
-            <li class="a11yfy-col">Two One
-                <ul>
-                    <li><a href="twooneone">Two One One</a></li>
-                    <li><a href="twoonetwo">Two One Two</a></li>
-                    <li><a href="twoonethree">Two One Three</a></li>
-                    <li><a href="twoonefour">Two One Four</a></li>
-                </ul>
-            </li>
-            <li class="a11yfy-col">Two Two
-                <ul>
-                    <li><a href="twooneone">Two Two One</a></li>
-                    <li><a href="twoonetwo">Two Two Two</a></li>
-                    <li><a href="twoonethree">Two Two Three</a></li>
-                    <li><a href="twoonefour">Two Two Four</a></li>
-                </ul>
-            </li>
-        </ul>
-    </li>
-</ul>
+    <ul id="menu-test-1">
+        <li>
+            One
+            <ul>
+                <li>
+                    <a href="oneone">
+                        One One
+                    </a>
+                </li>
+                <li>
+                    <a href="onetwo">
+                        One Two
+                    </a>
+                </li>
+                <li>
+                    <a href="onethree">
+                        One Three
+                    </a>
+                </li>
+                <li>
+                    <a href="onefour">
+                        One Four
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            Two
+            <ul>
+                <li>
+                    Two One
+                    <ul>
+                        <li>
+                            <a href="oneone">
+                                Two One One
+                            </a>
+                        </li>
+                        <li>
+                            <a href="onetwo">
+                                Two One Two
+                            </a>
+                        </li>
+                        <li>
+                            <a href="onethree">
+                                Two One Three
+                            </a>
+                        </li>
+                        <li>
+                            <a href="onefour">
+                                Two One Four
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="onetwo">
+                        Two Two
+                    </a>
+                </li>
+                <li>
+                    <a href="onethree">
+                        Two Three
+                    </a>
+                </li>
+                <li>
+                    <a href="onefour">
+                        Two Four
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="three">
+                Three
+            </a>
+        </li>
+        <li>
+            <a href="four">
+                Four
+            </a>
+        </li>
+    </ul>
+    <ul id="menu-test-2">
+        <li>
+            One
+            <ul>
+                <li>
+                    <a href="oneone">
+                        One One
+                    </a>
+                </li>
+                <li>
+                    <a href="onetwo">
+                        One Two
+                    </a>
+                </li>
+                <li>
+                    <a href="onethree">
+                        One Three
+                    </a>
+                </li>
+                <li>
+                    <a href="onefour">
+                        One Four
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            Two
+            <ul>
+                <li>
+                    Two One
+                    <ul>
+                        <li>
+                            <a href="oneone">
+                                Two One One
+                            </a>
+                        </li>
+                        <li>
+                            <a href="onetwo">
+                                Two One Two
+                            </a>
+                        </li>
+                        <li>
+                            <a href="onethree">
+                                Two One Three
+                            </a>
+                        </li>
+                        <li>
+                            <a href="onefour">
+                                Two One Four
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="onetwo">
+                        Two Two
+                    </a>
+                </li>
+                <li>
+                    <a href="onethree">
+                        Two Three
+                    </a>
+                </li>
+                <li>
+                    <a href="onefour">
+                        Two Four
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="three">
+                Three
+            </a>
+        </li>
+        <li>
+            <a href="four">
+                Four
+            </a>
+        </li>
+    </ul>
+    <ul id="menu-test-3" class="a11yfy-mega">
+        <li>Two
+            <ul class="a11yfy-two_col">
+                <li class="a11yfy-col">Two One
+                    <ul>
+                        <li><a href="twooneone">Two One One</a></li>
+                        <li><a href="twoonetwo">Two One Two</a></li>
+                        <li><a href="twoonethree">Two One Three</a></li>
+                        <li><a href="twoonefour">Two One Four</a></li>
+                    </ul>
+                </li>
+                <li class="a11yfy-col">Two Two
+                    <ul>
+                        <li><a href="twooneone">Two Two One</a></li>
+                        <li><a href="twoonetwo">Two Two Two</a></li>
+                        <li><a href="twoonethree">Two Two Three</a></li>
+                        <li><a href="twoonefour">Two Two Four</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <form id="form-test-1" action="javascript:submitIt();">
+        <label for="firstname">First Name *</label>
+        <input type="text" name="firstname" id="firstname" required/>
+        <p>
+            <label for="dob">Date of Birth *</label>
+            <input type="text" name="dob" id="dob" required aria-describedby="dateformat"/>
+            <span id="dateformat">mm/dd/yyyy</span>
+        </p>
+        <label for="lastname">Last Name *</label>
+        <input type="text" name="lastname" id="lastname" required/>
+        <label for="suite">Suite/Appartment</label>
+        <input type="text" name="suite" id="suite" />
+        <button>Submit</button>
+    </form>
 </div>
 </body>
 </html>

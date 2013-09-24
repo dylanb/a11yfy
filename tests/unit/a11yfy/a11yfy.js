@@ -251,5 +251,55 @@
         jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
         equal(jQuery(document.activeElement).attr("id"), "test3-1", "Down should wrap to the top at the bottom");
     });
+
+    test("The validator", function () {
+        var $form = jQuery("#form-test-1"),
+            $button = $form.find("button"),
+            $summary;
+
+        expect(32);
+        $form.a11yfy("validate");
+        $form.find("input[required]").each(function(index, value) {
+            equal(jQuery(value).attr("aria-required"), "true", "Added the aria-required attribute to the required fields");
+        });
+        $form.find("input").not("[required]").each(function(index, value) {
+            equal(jQuery(value).attr("aria-required"), undefined, "Did not add the aria-required attribute to the optional fields");
+        });
+        $summary = $form.find("div.a11yfy-error-summary");
+        equal($summary.length, 1, "The summary element was inserted into the document");
+        equal($summary.attr("role"), "alert", "The summary has the alert role");
+        equal($summary.attr("aria-live"), "assertive", "The summary has the aria-live assertive attribute");
+        ok($summary.hasClass("a11yfy-error-summary"), "The error summary has the correct class");
+        $button.simulate("click");
+        equal($summary.find("ul li").length, 3, "After a failed validation with default values in all fields, the summary has three entries");
+        equal($form.find("label[for=\"firstname\"] span").length, 1, "The error information is in the first name label");
+        equal($form.find("label[for=\"lastname\"] span").length, 1, "The error information is in the last name label");
+        equal($form.find("label[for=\"dob\"] span").length, 1, "The error information is in the date of birth label");
+        ok($form.find("label[for=\"dob\"]").hasClass("a11yfy-validation-error"), "The date of birth label has the correct error class");
+        ok($form.find("label[for=\"firstname\"]").hasClass("a11yfy-validation-error"), "The first name label has the correct error class");
+        ok($form.find("label[for=\"lastname\"]").hasClass("a11yfy-validation-error"), "The last name label has the correct error class");
+        ok($form.find("#firstname").hasClass("a11yfy-validation-error"), "The input has the correct error class");
+        ok($form.find("#lastname").hasClass("a11yfy-validation-error"), "The input has the correct error class");
+        ok($form.find("#dob").hasClass("a11yfy-validation-error"), "The input has the correct error class");
+        equal($form.find("#firstname").next()[0].nodeName, "A", "An anchor was inserted after the invalid input");
+        equal($form.find("#dob").parent().next()[0].nodeName, "A", "An anchor was inserted after the invalid input's parent");
+        notEqual($form.find("#lastname").next()[0].nodeName, "A", "An anchor was NOT inserted after the LAST invalid input");
+        $anchors = $form.find("a.a11yfy-skip-link");
+        equal($anchors.length, 5, "There should be 5 skip links in the form");
+        $anchors.each(function(index, value) {
+            jQuery(value).simulate("click");
+            equal(document.activeElement.id, jQuery(value).attr("href").substring(1), "clicking the links should focus the appropriate input element");
+        });
+
+        // Fill the first name field with a valud value and ensure that the error stuff for tat field has disappeared
+        $form.find("#firstname").val("Dylan");
+        $button.simulate("click");
+        equal($form.find("a[href=\"firstname\"]").length, 0, "No skip links to the valid input");
+        ok(!$form.find("label[for=\"firstname\"]").hasClass("a11yfy-validation-error"), "The first name label has no error class");
+        equal($form.find("label[for=\"firstname\"] span").length, 0, "NO error information is in the first name label");
+        notEqual($form.find("#firstname").next()[0].nodeName, "A", "NO anchor was inserted after the valid input");
+        $anchors = $form.find("a.a11yfy-skip-link");
+        equal($anchors.length, 3, "There should be 3 skip links in the form");
+    });
 })(jQuery);
 

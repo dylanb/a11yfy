@@ -25,10 +25,14 @@
         "grunt-contrib-cssmin": "~0.4.2",
         "grunt-compare-size": "~0.3.1",
         "grunt-html": "~0.3.3",
-        "grunt-git-authors": "~1.2.0"
+        "grunt-git-authors": "~1.2.0",
+        "bower": "*"
     },
     "repository": {
         "type": "git",
         "url": "https://github.com/dylanb/a11yfy"
+    },
+    "scripts": {
+        "install": "bower install"
     }
 }

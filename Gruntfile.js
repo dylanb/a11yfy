@@ -53,6 +53,20 @@ module.exports = function(grunt) {
                     base: "."
                 }
             }
+        },
+        concat: {
+            options: {
+                separator: ";"
+            },
+            dist: {
+                files: {
+                    "dist/jquery.a11yfy.all.js": ["a11yfy/jquery.a11yfy.core.js", "tables/jquery.a11yfy.tables.js"],
+                    "dist/jquery.a11yfy.core.css": ["a11yfy/jquery.a11yfy.core.css"],
+                    "dist/jquery.a11yfy.tables.js": ["tables/jquery.a11yfy.tables.js"],
+                    "dist/jquery.a11yfy.i18n-de.js": ["a11yfy/jquery.a11yfy.i18n-de.js"],
+                    "dist/jquery.a11yfy.core.js": ["a11yfy/jquery.a11yfy.core.js"]
+                }
+            }
         }
     });
 
@@ -74,6 +88,9 @@ module.exports = function(grunt) {
     grunt.registerTask( "test", [ "qunit" ] );
     grunt.registerTask( "server", [ "connect" ] );
     grunt.registerTask( "watcher", [ "watch" ] );
+    grunt.registerTask( "build", [ "concat" ] );
+    grunt.registerTask( "all", [ "lint", "test", "build" ] );
+
 
     // listen for events from the report writer
     grunt.event.on('qunit.coverage', function (data) {

@@ -11,15 +11,7 @@
     <script src="../../../external/qunit.js"></script>
     <script src="../../jquery.simulate.js"></script>
     <script src="../testsuite.js"></script>
-    <script>
-    (function() {
-        var $script = jQuery("<script src=\"../../../bower_components/blanket/dist/qunit/blanket.js\">");
-        if (window && window.navigator.userAgent.indexOf("antom") !== -1) {
-            $script.attr("data-cover-reporter", "../../creporter.js").attr("data-cover-flags", " autoStart ");
-        }
-        jQuery("script").last().after($script);
-    }());
-    </script>
+    <script src="../../cover-with-blanket.js"></script>
     <script src="../../../a11yfy/jquery.a11yfy.core.js" data-cover></script>
     <script src="a11yfy.js"></script>
 

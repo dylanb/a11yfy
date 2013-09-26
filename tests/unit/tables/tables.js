@@ -151,6 +151,20 @@
         }
     });
 
+    test( "That when bigger than the breakpoint, we get columnar data tables", function () {
+        var $table = jQuery("#test9");
+
+        expect(1);
+
+        $table.tables({
+            sortFilter: "none",
+            responsive: {
+                breakPoint: 100
+            }
+        });
+        equal($table.find("tr").first().find("th").length, 4);
+    });
+
     test( "That when smaller than the breakpoint, we get row data tables and a thead", function () {
         var $table = jQuery("#test9");
 
@@ -276,4 +290,13 @@
             ok("expected exception caught");
         }
     });
+    test("Method does not exist", function () {
+        expect(1);
+        try {
+            jQuery("#qunit-fixture").tables("doesnotexist");
+        } catch( err) {
+            ok("Throws an exception when called with an unknown method");
+        }
+    });
+
 })(jQuery);

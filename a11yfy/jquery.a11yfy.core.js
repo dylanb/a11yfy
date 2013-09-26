@@ -304,8 +304,6 @@
                                     nextInMenu();
                                 }
                                 break;
-                            default:
-                                break;
                         }
                         if (handled) {
                             e.preventDefault();

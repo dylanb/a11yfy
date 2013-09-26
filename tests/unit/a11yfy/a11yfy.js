@@ -113,7 +113,7 @@
     test("The keyboard and focus functionality", function () {
         var $menu = jQuery("#menu-test-2");
 
-        expect(40);
+        expect(42);
         $menu.a11yfy("menu");
         $menu.find("li").each(function(index, value) {
             // Add ids to all the lis so we can track him
@@ -134,6 +134,8 @@
         equal(jQuery(document.activeElement).attr("id"), "test2-5", "t should get us to the second top level menu item");
         jQuery(document.activeElement).simulate("keydown", {keyCode: 37}); // LEFT
         equal(jQuery(document.activeElement).attr("id"), "test2-0", "Left goes back to the beginning");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 37, ctrlKey : true}); // "CTRL - LEFT"
+        equal(jQuery(document.activeElement).attr("id"), "test2-0", "CTRL-LEFT does nothing");
         jQuery(document.activeElement).simulate("keypress", {charCode: 84}); // "t"
         jQuery(document.activeElement).simulate("keypress", {charCode: 84}); // "t"
         equal(jQuery(document.activeElement).attr("id"), "test2-14", "t and t should get us to the third top level menu item");
@@ -188,6 +190,9 @@
         jQuery(document.activeElement).simulate("keydown", {keyCode: 37}); // LEFT
         equal(jQuery(document.activeElement).attr("id"), "test2-6", "Left should close the sub-sub-menu");
         // tab out of menu
+        $menu.simulate("keydown", {keyCode: 37}); // LEFT
+        equal(jQuery(document.activeElement).attr("id"), "test2-6", "Left should do nothing when sent to the menubar element");
+
         $menu.simulate("keydown", {keyCode: 9}); // TAB
         equal(jQuery("#test2-6").attr("tabindex"), "-1", "Tab should cause the sub-menus to all be closed and the tabindexes set to -1");
         equal(jQuery("#test2-6").parent().attr("aria-expanded"), "false", "sub-menu state should be set to not expanded");
@@ -300,6 +305,15 @@
         notEqual($form.find("#firstname").next()[0].nodeName, "A", "NO anchor was inserted after the valid input");
         $anchors = $form.find("a.a11yfy-skip-link");
         equal($anchors.length, 3, "There should be 3 skip links in the form");
+    });
+
+    test("Method does not exist", function () {
+        expect(1);
+        try {
+            jQuery("#qunit-fixture").a11yfy("doesnotexist");
+        } catch( err) {
+            ok("Throws an exception when called with an unknown method");
+        }
     });
 })(jQuery);
 

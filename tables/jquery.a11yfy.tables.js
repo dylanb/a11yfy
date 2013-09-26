@@ -214,11 +214,6 @@
                     }
                 }
             });
-        },
-        destroy: function () {
-            return this.each(function () {
-                // Do something
-            });
         }
     };
 

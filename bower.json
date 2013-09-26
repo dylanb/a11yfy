@@ -13,6 +13,7 @@
   ],
   "devDependencies": {
     "jquery": "~1.10.2",
-    "jquery.validation" : "*"
+    "jquery.validation" : "*",
+    "blanket" : "*"
   }
 }

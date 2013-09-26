@@ -54,6 +54,10 @@ module.exports = function(grunt) {
                 }
             }
         },
+        qunit_junit: {
+            options: {
+            }
+        },
         concat: {
             options: {
                 separator: ";"
@@ -75,6 +79,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks( "grunt-contrib-uglify" );
     grunt.loadNpmTasks( "grunt-contrib-concat" );
     grunt.loadNpmTasks( "grunt-contrib-qunit" );
+    grunt.loadNpmTasks( "grunt-qunit-junit" );
     grunt.loadNpmTasks( "grunt-contrib-csslint" );
     grunt.loadNpmTasks( "grunt-contrib-cssmin" );
     grunt.loadNpmTasks( "grunt-contrib-watch");
@@ -85,7 +90,7 @@ module.exports = function(grunt) {
 
 
     grunt.registerTask( "lint", [ "jshint"] );
-    grunt.registerTask( "test", [ "qunit" ] );
+    grunt.registerTask( "test", [ "qunit_junit", "qunit" ] );
     grunt.registerTask( "server", [ "connect" ] );
     grunt.registerTask( "watcher", [ "watch" ] );
     grunt.registerTask( "build", [ "concat" ] );

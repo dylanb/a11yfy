@@ -74,4 +74,11 @@ module.exports = function(grunt) {
     grunt.registerTask( "test", [ "qunit" ] );
     grunt.registerTask( "server", [ "connect" ] );
     grunt.registerTask( "watcher", [ "watch" ] );
+
+    // listen for events from the report writer
+    grunt.event.on('qunit.coverage', function (data) {
+        var fs = require("fs");
+        fs.writeFileSync(data.a11yfyTestUnit + ".txt", JSON.stringify(data.coverageData));
+        console.log("lines : " + data.coverageData.lines + ", covered : " + data.coverageData.covered + ", percentage : " + data.coverageData.percentage + "\n");
+    });
 };

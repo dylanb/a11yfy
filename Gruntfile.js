@@ -117,6 +117,7 @@ module.exports = function(grunt) {
         data = data.replace(/\{\{lines\}\}/gi, summaryData.lines);
         data = data.replace(/\{\{covered\}\}/gi, summaryData.covered);
         data = data.replace(/\{\{percentage\}\}/gi, summaryData.percentage);
+        data = data.replace(/\{\{creationDate\}\}/gi, new Date().toString());
         fs.writeFileSync("report.html", data);
     });
 

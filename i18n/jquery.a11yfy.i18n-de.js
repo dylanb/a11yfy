@@ -8,3 +8,6 @@ jQuery.fn.tables.defaults.strings = {
     tableSortedDescending: "Tabelle absteigend nach ${column} sortiert",
     tableFilteredOnAndBy: "Tabelle nach ${column} und ${value} gefiltert"
 }
+jQuery.fn.a11yfy.defaults.strings = {
+    skipToNextError: "skip to next field with an error"
+}

@@ -1,0 +1,84 @@
+<html><head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title> {{projectName}} - Blanket Report</title>
+    <link rel="stylesheet" type="text/css" href="SimpleJavaAppReport.html-files/style.css">
+    <script src="SimpleJavaAppReport.html-files/sorttable.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="headline">
+        Coverage Report
+    </div>
+    <div class="session">
+        {{session}}
+    </div>
+    <div class="sessionDate">
+        measured on {{sessionDate}}
+    </div>
+    <div class="description">
+        Description: 
+    </div>
+    <div class="metricsForWholeSession">
+    </div><div class="overview">
+    <table class="overview sortable">
+    <thead class="overview">
+        <tr class="overview">
+            <th class="overview firstcolumn"></th>
+            <th class="overview" colspan="3">Statement Coverage</th>
+            <th class="overview" colspan="3">Branch Coverage</th>
+            <th class="overview" colspan="3">Loop Coverage</th>
+            <th class="overview" colspan="3">Strict Condition Coverage</th>
+        </tr>
+    </thead>
+    <tbody class="overview">
+        <tr class="overview">
+            <td class="overview firstcolumn">
+                Blanket
+            </td>
+            <td class="overview">
+                    {{covered}}&nbsp;/&nbsp;{{lines}}
+            </td>
+            <td class="overview">
+                    {{percentage}}&nbsp;%
+            </td>
+            <td class="overview coverage">
+            </td>   
+            
+            <td class="overview">
+                    {{covered}}&nbsp;/&nbsp;{{lines}}
+            </td>
+            <td class="overview">
+                    {{percentage}}&nbsp;%
+            </td>
+            <td class="overview coverage">
+            </td>   
+            
+            <td class="overview">
+                    {{covered}}&nbsp;/&nbsp;{{lines}}
+            </td>
+            <td class="overview">
+                    {{percentage}}&nbsp;%
+            </td>
+            <td class="overview coverage">
+            </td>   
+            
+            <td class="overview">
+                    {{covered}}&nbsp;/&nbsp;{{lines}}
+            </td>
+            <td class="overview">
+                    {{percentage}}&nbsp;%
+            </td>
+            <td class="overview coverage">
+            </td>   
+        </tr>
+    </tbody>
+    <tfoot></tfoot></table>
+    </div>
+    <div class="creationNote">
+        created on {{creationDate}} with
+        <a href="http://www.codecover.org">
+            {{coverageProduct}}
+        </a>
+    </div>
+
+
+        </body></html>

@@ -1,4 +1,6 @@
 dist
+coverage
+report.html
 node_modules
 bower_components
 tests/jquery.min.js

@@ -90,17 +90,43 @@ module.exports = function(grunt) {
 
 
     grunt.registerTask( "lint", [ "jshint"] );
-    grunt.registerTask( "test", [ "qunit_junit", "qunit" ] );
+    grunt.registerTask( "test", [ "qunit_junit", "qunit", "coverage_aggregate" ] );
     grunt.registerTask( "server", [ "connect" ] );
     grunt.registerTask( "watcher", [ "watch" ] );
     grunt.registerTask( "build", [ "concat" ] );
     grunt.registerTask( "all", [ "lint", "test", "build" ] );
 
+    grunt.registerTask("coverage_aggregate", "Aggregate coverage reports into report.html", function() {
+        var fs = require("fs"),
+            data,
+            coverageFiles,
+            summaryData = {
+                lines : 0,
+                covered: 0,
+                percentage : undefined
+            };
+
+        data = fs.readFileSync("report-template.html").toString();
+        coverageFiles = fs.readdirSync("coverage");
+        coverageFiles.forEach(function(file) {
+            var cData = JSON.parse(fs.readFileSync("coverage/" + file));
+            summaryData.lines += cData.lines;
+            summaryData.covered += cData.covered;
+        });
+        summaryData.percentage = (summaryData.covered/summaryData.lines)*100;
+        data = data.replace(/\{\{lines\}\}/gi, summaryData.lines);
+        data = data.replace(/\{\{covered\}\}/gi, summaryData.covered);
+        data = data.replace(/\{\{percentage\}\}/gi, summaryData.percentage);
+        fs.writeFileSync("report.html", data);
+    });
 
     // listen for events from the report writer
     grunt.event.on('qunit.coverage', function (data) {
         var fs = require("fs");
-        fs.writeFileSync(data.a11yfyTestUnit + ".txt", JSON.stringify(data.coverageData));
+        try {
+            fs.mkdirSync("coverage");
+        } catch( err) {}
+        fs.writeFileSync("coverage/" + data.a11yfyTestUnit + ".txt", JSON.stringify(data.coverageData));
         console.log("lines : " + data.coverageData.lines + ", covered : " + data.coverageData.covered + ", percentage : " + data.coverageData.percentage + "\n");
     });
 };

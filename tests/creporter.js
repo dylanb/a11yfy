@@ -1,4 +1,8 @@
 (function (){
+	/*
+	 * This sendMessage function piggy backs off grunt-contrib-qunit's use of the
+	 * builtin PhantomJS bridge (alert) to pass messages back to Node.js/Grunt.
+	 */
 	function sendMessage() {
 		var args = [].slice.call(arguments);
 		alert(JSON.stringify(args));
@@ -7,7 +11,11 @@
 	if (window && window.navigator.userAgent.indexOf("antom") !== -1) {
 		blanket.customReporter = function (coverageData) {
 			var lines, covered, file, i;
-			console.log("\n");
+
+			/*
+			 * Process the data to calcuate the three pieces of information we want to distill
+			 * for grunt/Jenkins. There is a lot more information here that might be of interest in the future
+			 */
 			for (file in coverageData.files) {
 				lines = 0, covered = 0;
 				for (i in coverageData.files[file]) {
@@ -19,6 +27,10 @@
 					}
 				}
 			}
+			/*
+			 * The message "channel" must start with "qunit" in order to ensure that it is re-broadcast
+			 * by grunt-contrib-qunit
+			 */
 			sendMessage("qunit.coverage", {
 				coverageData: {
 					lines : lines,
@@ -27,7 +39,6 @@
 				},
 				a11yfyTestUnit : a11yfyTestUnit
 			});
-			//console.log(JSON.stringify(coverageData,null,"\t"));
 		};
 	}
 })();

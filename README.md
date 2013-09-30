@@ -18,7 +18,7 @@ This extension adds the following things to the jQuery namespace:
 * [jQuery(selector).a11yfy("showAndFocus", selector)](a11yfy.md#showandfocus)
 * [jQuery(selector).a11yfy("menu")](a11yfy.md#menu)
 * [jQuery.fn.a11yfy.getI18nString(key, [values], stringBundle)](i18n.md)
-* [jQuery.fn.a11yfy.politeAnnounce(msg)](announce.md#jquery.fn.a11yfy.politeannounce)
-* [jQuery.fn.a11yfy.assertiveAnnounce(msg)](announce.md#jquery.fn.a11yfy.assertiveannounce)
+* [jQuery.fn.a11yfy.politeAnnounce(msg)](announce.md#jqueryfna11yfypoliteannounce)
+* [jQuery.fn.a11yfy.assertiveAnnounce(msg)](announce.md#jqueryfna11yfyassertiveannounce)
 * [jQuery(selector).tables(options)](tables.md)
 

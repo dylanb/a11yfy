@@ -13,6 +13,12 @@ options - use the attributes of this parameter to control the features of the va
 1. skipLink - Boolean - default value : true - should skip links be created and inserted to allow keyboard users to navigate more quickly between the fields with validation errors. Use this when the form is large or where there are a few fields that are required and the likelihood large that a user might make a small number of errors.
 2. summary - Boolean - default value : true - when true, the validator will create a summary of the fields with validation errors at the top of the form. It will add links to the summary to allow a user to easily navigate to the fields with errors.
 
+## Example
+
+    jQuery(document).ready(function () {
+        jQuery("#myform").a11yfy("validate");
+    });
+
 ## Structuring the form
 
 Validate requires the form labels to be associated using the for-if method in order to be able to find the label for the error message associated with the form to be associated with the form. This is an example of correct for-id association.

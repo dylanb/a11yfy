@@ -22,5 +22,4 @@ This extension adds the following things to the jQuery namespace:
 * [jQuery.fn.a11yfy.politeAnnounce(msg)](announce.md#jqueryfna11yfypoliteannounce)
 * [jQuery.fn.a11yfy.assertiveAnnounce(msg)](announce.md#jqueryfna11yfyassertiveannounce)
 * [jQuery(selector).tables(options)](tables.md)
-* [jQuery(selector).tables(options)](tables.md)
 

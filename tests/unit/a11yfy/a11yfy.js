@@ -47,9 +47,11 @@
         expect(1);
         $fixture.empty();
         $fixture.append(jQuery("<div><button id=\"focus1\">button</button></div>"));
-        jQuery("#focus1").on("focus", function () {
-            ok(true);
+        jQuery("#focus1").on("focus", function (e) {
+            console.log(this);
+            ok(true, "focus 1 got focus");
             start();
+            $fixture.empty();
         }).a11yfy("focus");
     });
 
@@ -60,8 +62,10 @@
         $fixture.empty();
         $fixture.append(jQuery("<div id=\"show2\" style=\"display:none;\"><button id=\"focus2\">button</button></div>"));
         jQuery("#focus2").on("focus", function () {
-            ok(true);
+            console.log(this);
+            ok(true, "focus 2 got focus");
             start();
+            $fixture.empty();
         });
         jQuery("#show2").a11yfy("showAndFocus", "#focus2");
     });
@@ -79,6 +83,7 @@
         setTimeout(function () {
             ok(true);
             start();
+            $fixture.empty();
         }, 1100);
     });
 
@@ -121,7 +126,7 @@
         });
         // focus the first item to simulate the focus coming into the widget
         $menu.find("li[tabindex=0]").simulate("focus");
-        equal($menu.find("li[tabindex=0]")[0], document.activeElement, "The focus should go to the first top level menu item by default");
+        equal($menu.find("li[tabindex=0]")[0].id, document.activeElement.id, "The focus should go to the first top level menu item by default");
 
         // Test wraparound on menu bar
         jQuery(document.activeElement).simulate("keydown", {keyCode: 37}); // LEFT

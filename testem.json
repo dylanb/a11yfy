@@ -1,0 +1,4 @@
+{
+    "launch_in_dev" : [ "Chrome", "Firefox", "Safari", "PhantomJS", "IE"],
+    "framework" : "qunit"
+}

@@ -117,7 +117,7 @@
         equal(jQuery("#jquery-a11yfy-politeannounce p").length, 4); // once for the initial tables call and once for each change
     });
 
-    test( "Off Screen Text by simulating focus/blur on the header anchors", function () {
+    asyncTest( "Off Screen Text by simulating focus/blur on the header anchors", function () {
         var $table = jQuery("#test8"), $anchors;
 
         expect(4);
@@ -130,7 +130,11 @@
         equal($anchors.eq(0).find("span.offscreen").length, 1);
         notEqual($anchors.eq(0).find("span.offscreen").text(), "");
         $anchors.eq(0).simulate("blur");
-        equal($anchors.eq(0).find("span.offscreen").text(), "");
+        setTimeout(function () {
+            // Asynchronous is required for Firfox on OS-X
+            equal($anchors.eq(0).find("span.offscreen").text(), "");
+            start();
+        }, 100);
     });
 
     asyncTest( "Test exception when sortFilter and responsive set", function () {

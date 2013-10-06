@@ -48,7 +48,6 @@
         $fixture.empty();
         $fixture.append(jQuery("<div><button id=\"focus1\">button</button></div>"));
         jQuery("#focus1").on("focus", function (e) {
-            console.log(this);
             ok(true, "focus 1 got focus");
             start();
             $fixture.empty();
@@ -62,7 +61,6 @@
         $fixture.empty();
         $fixture.append(jQuery("<div id=\"show2\" style=\"display:none;\"><button id=\"focus2\">button</button></div>"));
         jQuery("#focus2").on("focus", function () {
-            console.log(this);
             ok(true, "focus 2 got focus");
             start();
             $fixture.empty();

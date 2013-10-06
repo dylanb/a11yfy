@@ -1,10 +1,10 @@
-### jQuery.fn.a11yfy.politeAnnounce
+### jQuery.a11yfy.politeAnnounce
 
 Use aria-live to make a polite announcement. Polite announcements do not interrupt the announcements currently being made by the AT and are also not guaranteed to be made.
 
 #### Synopsis
 
-    jQuery.fn.a11yfy.politeAnnounce(msg)
+    jQuery.a11yfy.politeAnnounce(msg)
 
 #### Parameters
 
@@ -12,19 +12,19 @@ Use aria-live to make a polite announcement. Polite announcements do not interru
 
 #### Example
 
-    jQuery.fn.a11yfy.politeAnnounce("Your cost estimate has been recalculated");
+    jQuery.a11yfy.politeAnnounce("Your cost estimate has been recalculated");
 
 #### See also
 
-    jQuery.fn.a11yfy.assertiveAnnounce
+    jQuery.a11yfy.assertiveAnnounce
 
-### jQuery.fn.a11yfy.assertiveAnnounce
+### jQuery.a11yfy.assertiveAnnounce
 
 Use aria-live to make an assertive announcement. Assertive announcements will not interrupt the announcements currently being made by the AT.
 
 #### Synopsis
 
-    jQuery.fn.a11yfy.assertiveAnnounce(msg)
+    jQuery.a11yfy.assertiveAnnounce(msg)
 
 #### Parameters
 
@@ -32,8 +32,8 @@ Use aria-live to make an assertive announcement. Assertive announcements will no
 
 #### Example
 
-    jQuery.fn.a11yfy.assertiveAnnounce("Please correct the error in the date field before continuing!");
+    jQuery.a11yfy.assertiveAnnounce("Please correct the error in the date field before continuing!");
 
 #### See also
 
-    jQuery.fn.a11yfy.politeAnnounce
+    jQuery.a11yfy.politeAnnounce

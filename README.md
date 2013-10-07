@@ -49,5 +49,18 @@ This assumes that you have git installed with the command line tools for git ena
 8. npm install
 9. grunt all
 
+#### Running testem
 
+Testem can be used to run unit tests automatically in multiple browsers while you are developing. To run it for a particular test page, use the following command:
 
+		testem --test_page {unit-test-html-page}
+
+Example:
+
+		testem --test_page tests/unit/a11yfy/a11yfy.html
+
+Note: The path to the test page must be in "UNIX format" because the web browser expects forward slashes in the URL
+
+To run it from multiple machines simultaneously (e.g. Windows and Mac OS X), connect to the testem port from your remote machine's browser
+
+e.g. http://your.ip.address.here:7357/

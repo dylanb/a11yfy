@@ -37,13 +37,17 @@ I reserve the right at my own discretion to change any submitted changes in any 
 
 ### Getting started
 
+This assumes that you have git installed with the command line tools for git enabled
+
 1. Fork
 2. Clone
 3. Install Node.js and npm
 4. npm install testem -g
-5. Change directory into the cloned repository's directory and install the dependencies
-6. npm install
-7. grunt all
+5. npm install grunt -g
+6. npm install grunt-cli -g
+7. Change directory into the cloned repository's directory and install the dependencies
+8. npm install
+9. grunt all
 
 
 

@@ -47,7 +47,7 @@
         expect(1);
         $fixture.empty();
         $fixture.append(jQuery("<div><button id=\"focus1\">button</button></div>"));
-        jQuery("#focus1").on("focus", function (e) {
+        jQuery("#focus1").on("focus", function () {
             ok(true, "focus 1 got focus");
             start();
             $fixture.empty();

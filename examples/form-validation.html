@@ -6,6 +6,11 @@
         <script src="../a11yfy/jquery.a11yfy.core.js"></script>
         <script src="../bower_components/jquery.validation/jquery.validate.js"></script>
         <link type="text/css" rel="stylesheet" href="../a11yfy/jquery.a11yfy.core.css">
+        <style>
+        form {
+            width : 50%;
+        }
+        </style>
     </head>
     <body>
         <h1>Form Validation</h1>
@@ -16,8 +21,8 @@
             <label for="lastname">Last Name *</label>
             <input type="text" name="lastname" id="lastname" required/>
             <p>
-                <label for="dob">Date of Birth *</label>
-                <input type="date" name="dob" id="dob" required aria-describedby="dateformat"/>
+                <label style="width:50%;" for="dob">Date of Birth *</label>
+                <input style="width:50%;" type="text" name="dob" id="dob" required aria-describedby="dateformat"/>
                 <span id="dateformat">mm/dd/yyyy</span>
             </p>
             <fieldset>
@@ -92,7 +97,17 @@
         </div>
         <script>
         jQuery(document).ready(function () {
-            jQuery("#myform").a11yfy("validate");
+            jQuery("#myform").a11yfy("validate", {
+                validatorOptions : { "rules" : {
+                        "dob" : {
+                            date : true
+                        },
+                        "zip" : {
+                            digits : true
+                        }
+                    }
+                }
+            });
         });
         </script>
     </body>

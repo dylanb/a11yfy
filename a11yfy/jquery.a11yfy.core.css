@@ -192,6 +192,10 @@ form input[type="text"], form input[type="date"], form select, form textarea {
     padding-right: 20px;
 }
 
+form input[type="text"].a11yfy-inline, form input[type="date"].a11yfy-inline {
+        display:inline
+}
+
 form input[type="date"] {
     width:70%;
 }

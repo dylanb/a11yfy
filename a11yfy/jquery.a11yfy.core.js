@@ -103,13 +103,14 @@
                             $errorSummary.append($errorSummaryList);
                         }
                     }
-                    var $this = jQuery(value);
+                    var $this = jQuery(value),
+                        vOptions = jQuery.extend({}, opts.validatorOptions, {
+                                invalidHandler : invalidHandler,
+                                errorPlacement : errorPlacement,
+                                showErrors : showErrors
+                            });
 
-                    $this.validate({
-                        invalidHandler : invalidHandler,
-                        errorPlacement : errorPlacement,
-                        showErrors : showErrors
-                    });
+                    $this.validate(vOptions);
                     if (opts.skipLink) {
                         $this.delegate("a.a11yfy-skip-link", "click", function(e) {
                             var $target = jQuery(e.target);
@@ -375,7 +376,8 @@
         },
         validate : {
             skipLink : true,
-            summary : true
+            summary : true,
+            validatorOptions : {}
         }
     };
 

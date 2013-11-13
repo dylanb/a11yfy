@@ -1,3 +1,10 @@
+/**
+ *
+ * jQuery module for accessibility
+ *
+ * Copyright (C) 2013 Dylan Barrell. All Rights Reserved as specified in the LICENSE file
+ *
+ */
 (function (jQuery) {
     var timeout;
 

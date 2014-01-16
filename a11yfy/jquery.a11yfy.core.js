@@ -175,10 +175,10 @@
                          */
                         var keyCode = e.charCode || e.which || e.keyCode,
                             keyString = String.fromCharCode(keyCode).toLowerCase(),
-                            ourIndex,
+                            ourIndex = -1,
                             currentItem = this,
                             $this = jQuery(this),
-                            $nextItem,
+                            $nextItem, $prevItem,
                             $menuitems = $menu.find("li[role=\"menuitem\"]:visible");
 
                         $menuitems.each(function(index, value) {
@@ -187,14 +187,23 @@
                             }
                             if (index > ourIndex && !$nextItem) {
                                 if (jQuery(value).text().trim().toLowerCase().indexOf(keyString) === 0) {
-                                    $nextItem = jQuery(value);
+                                    if (ourIndex !== -1) {
+                                        $nextItem = jQuery(value);
+                                    } else if (!$prevItem) {
+                                        $prevItem = jQuery(value);
+                                    }
                                 }
                             }
                         });
-                        $nextItem.attr("tabindex", "0").focus();
-                        $this.attr("tabindex", "-1");
-                        if ($nextItem.parent().get(0) !== $this.parent().get(0)) {
-                            $this.parent().removeClass("open").attr("aria-expanded", "false");
+                        if (!$nextItem && $prevItem) {
+                            $nextItem = $prevItem;
+                        }
+                        if ($nextItem) {
+                            $nextItem.attr("tabindex", "0").focus();
+                            $this.attr("tabindex", "-1");
+                            if ($nextItem.parent().get(0) !== $this.parent().get(0)) {
+                                $this.parent().removeClass("open").attr("aria-expanded", "false");
+                            }                            
                         }
                         e.stopPropagation();
                         e.preventDefault();

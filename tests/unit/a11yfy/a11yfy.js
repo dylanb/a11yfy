@@ -119,7 +119,7 @@
         expect(42);
         $menu.a11yfy("menu");
         $menu.find("li").each(function(index, value) {
-            // Add ids to all the lis so we can track him
+            // Add ids to all the lists so we can track them
             jQuery(value).attr("id", "test2-" + index);
         });
         // focus the first item to simulate the focus coming into the widget
@@ -227,6 +227,33 @@
         jQuery(document.activeElement).simulate("keydown", {keyCode: 13}); // ENTER
         jQuery(document.activeElement).simulate("keydown", {keyCode: 32}); // SPACE
     });
+
+    test("The wraparound when using first character navigation", function () {
+        var $menu = jQuery("#menu-testwrap");
+
+        expect(5);
+        $menu.a11yfy("menu");
+        $menu.find("li").each(function(index, value) {
+            // Add ids to all the lists so we can track them
+            jQuery(value).attr("id", "testwrap-" + index);
+        });
+        // focus the first item to simulate the focus coming into the widget
+        $menu.find("li[tabindex=0]").simulate("focus");
+        equal($menu.find("li[tabindex=0]")[0].id, document.activeElement.id, "The focus should go to the first top level menu item by default");
+
+        // Test wraparound on menu bar
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 37}); // LEFT
+        equal(jQuery(document.activeElement).attr("id"), "testwrap-8", "wrap around at beginning goes to the end");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
+        equal(jQuery(document.activeElement).attr("id"), "testwrap-9", "should open up the menu and move to the first");
+
+        // Test the first character moving to the next visible item with that starting character
+        jQuery(document.activeElement).simulate("keypress", {charCode: 80}); // "p"
+        equal(jQuery(document.activeElement).attr("id"), "testwrap-11", "p should get us to the last menu item in this menu");
+        jQuery(document.activeElement).simulate("keypress", {charCode: 80}); // "p"
+        equal(jQuery(document.activeElement).attr("id"), "testwrap-5", "p should get us to the 'Page' menu item in the top menu");
+    });
+
 
     test("The exception thrown when called on something that is not a UL", function () {
         var $menu = jQuery("div").first();

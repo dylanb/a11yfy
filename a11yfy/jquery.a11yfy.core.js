@@ -204,7 +204,7 @@
                             $nextItem.attr("tabindex", "0").focus();
                             $this.attr("tabindex", "-1");
                             if ($nextItem.parent().get(0) !== $this.parent().get(0)) {
-                                $this.parent().parent('li').removeClass("open").attr("aria-expanded", "false");
+                                $this.parent().parent("li").removeClass("open").attr("aria-expanded", "false");
                             }
                         }
                         e.stopPropagation();
@@ -322,7 +322,7 @@
                     }).on("click", function() {
                         var $this = jQuery(this);
 
-                        if ($this.is(":hidden")) {
+                        if (!$this.hasClass("open")) {
                             $this.addClass("open").attr("aria-expanded", "true");
                         } else {
                             $this.removeClass("open").attr("aria-expanded", "false");

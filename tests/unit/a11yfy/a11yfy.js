@@ -254,6 +254,57 @@
         equal(jQuery(document.activeElement).attr("id"), "testwrap-5", "p should get us to the 'Page' menu item in the top menu");
     });
 
+    test("The keyboard nav with hidden elements", function () {
+        var $menu = jQuery("#menu-testhidden1");
+
+        expect(6);
+        $menu.a11yfy("menu");
+        $menu.find("li").each(function(index, value) {
+            // Add ids to all the lists so we can track them
+            jQuery(value).attr("id", "testhidden1-" + index);
+        });
+        // focus the first item to simulate the focus coming into the widget
+        $menu.find("li[tabindex=0]").simulate("focus");
+        equal($menu.find("li[tabindex=0]")[0].id, document.activeElement.id, "The focus should go to the first top level menu item by default");
+
+        // Test wraparound on sub-menu
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
+        equal(jQuery(document.activeElement).attr("id"), "testhidden1-1", "Should open menu and focus first");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 38}); // UP
+        equal(jQuery(document.activeElement).attr("id"), "testhidden1-3", "Should go to the third sub-item (only other one visible");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 38}); // UP
+        equal(jQuery(document.activeElement).attr("id"), "testhidden1-1", "Should focus the first");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
+        equal(jQuery(document.activeElement).attr("id"), "testhidden1-3", "Should go to the third");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
+        equal(jQuery(document.activeElement).attr("id"), "testhidden1-1", "Should focus the first");
+    });
+
+    test("More keyboard tests with hidden elements", function () {
+        var $menu = jQuery("#menu-testhidden2");
+
+        expect(6);
+        $menu.a11yfy("menu");
+        $menu.find("li").each(function(index, value) {
+            // Add ids to all the lists so we can track them
+            jQuery(value).attr("id", "testhidden2-" + index);
+        });
+        // focus the first item to simulate the focus coming into the widget
+        $menu.find("li[tabindex=0]").simulate("focus");
+        equal($menu.find("li[tabindex=0]")[0].id, document.activeElement.id, "The focus should go to the first open item");
+
+        // Test wraparound on sub-menu
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
+        equal(jQuery(document.activeElement).attr("id"), "testhidden2-2", "Should open menu and focus first");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 38}); // UP
+        equal(jQuery(document.activeElement).attr("id"), "testhidden2-4", "Should go to the third sub-item (only other one visible");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 38}); // UP
+        equal(jQuery(document.activeElement).attr("id"), "testhidden2-2", "Should focus the first");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
+        equal(jQuery(document.activeElement).attr("id"), "testhidden2-4", "Should go to the third");
+        jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
+        equal(jQuery(document.activeElement).attr("id"), "testhidden2-2", "Should focus the first");
+    });
 
     test("The exception thrown when called on something that is not a UL", function () {
         var $menu = jQuery("div").first();

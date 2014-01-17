@@ -145,12 +145,14 @@
                         .addClass("a11yfy-second-level-menu")
                         .parent()
                             .addClass("a11yfy-has-submenu")
-                            .attr("aria-haspopup", "true");
+                            .attr("aria-haspopup", "true")
+                            .attr("aria-expanded", "false");
                     $this.find(">li>ul>li>ul")
                         .addClass("a11yfy-third-level-menu")
                         .parent()
                             .addClass("a11yfy-has-submenu")
-                            .attr("aria-haspopup", "true");
+                            .attr("aria-haspopup", "true")
+                            .attr("aria-expanded", "false");
                     /*
                      * Set up the keyboard and mouse handlers for all the individual menuitems
                      */

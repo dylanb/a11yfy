@@ -204,8 +204,8 @@
                             $nextItem.attr("tabindex", "0").focus();
                             $this.attr("tabindex", "-1");
                             if ($nextItem.parent().get(0) !== $this.parent().get(0)) {
-                                $this.parent().removeClass("open").attr("aria-expanded", "false");
-                            }                            
+                                $this.parent().parent('li').removeClass("open").attr("aria-expanded", "false");
+                            }
                         }
                         e.stopPropagation();
                         e.preventDefault();
@@ -215,20 +215,18 @@
                          */
                         var keyCode = e.which || e.keyCode,
                             handled = false,
-                            $this = jQuery(this),
-                            $submenu;
+                            $this = jQuery(this);
 
                         if (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey) {
                             // not interested
                             return;
                         }
-                        $submenu = $this.find(">ul").first();
                         /*
                          * Open a sub-menu and place focus on the first menuitem within it
                          */
                         function openMenu() {
-                            if ($submenu.length) {
-                                $submenu.addClass("open").attr("aria-expanded", "true").find(">li").first().attr("tabindex", "0").focus();
+                            if($this.hasClass("a11yfy-has-submenu")) {
+                                $this.addClass("open").attr("aria-expanded", "true").find(">ul>li").first().attr("tabindex", "0").focus();
                                 $this.attr("tabindex", "-1");
                             }
                         }
@@ -280,8 +278,8 @@
                                 } else {
                                     if ($this.parent().attr("role") === "menu") {
                                         // this is part of a submenu, set focus on containing li
-                                        $this.parent().parent().attr("tabindex", "0").focus();
-                                        $this.parent().removeClass("open").attr("aria-expanded", "false");
+                                        $this.parent().parent().attr("tabindex", "0").focus()
+                                            .removeClass("open").attr("aria-expanded", "false");
                                         $this.attr("tabindex", "-1");
                                     }
                                 }
@@ -322,12 +320,12 @@
                             e.stopPropagation();
                         }
                     }).on("click", function() {
-                        var $submenu = jQuery(this).find(">ul").first();
+                        var $this = jQuery(this);
 
-                        if ($submenu.is(":hidden")) {
-                            $submenu.addClass("open").attr("aria-expanded", "true");
+                        if ($this.is(":hidden")) {
+                            $this.addClass("open").attr("aria-expanded", "true");
                         } else {
-                            $submenu.removeClass("open").attr("aria-expanded", "false");
+                            $this.removeClass("open").attr("aria-expanded", "false");
                         }
                     }).first().attr("tabindex", "0"); // Make the first menuitem in the menubar tab focussable
                     $this.on("keydown", function (e) {
@@ -356,9 +354,9 @@
                              * menubar so it receives focus when the user tabs back into the menubar
                              */
                             $this.find(">li li[tabindex=0]").attr("tabindex", "-1");
-                            $this.find("ul.open").each(function(index, value) {
-                                if (jQuery(value).parent().parent().hasClass("a11yfy-top-level-menu")) {
-                                    jQuery(value).parent().attr("tabindex", "0");
+                            $this.find("li.open").each(function(index, value) {
+                                if (jQuery(value).parent().hasClass("a11yfy-top-level-menu")) {
+                                    jQuery(value).attr("tabindex", "0");
                                 }
                             }).removeClass("open").attr("aria-expanded", "false");
                         }

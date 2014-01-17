@@ -306,6 +306,28 @@
         equal(jQuery(document.activeElement).attr("id"), "testhidden2-2", "Should focus the first");
     });
 
+    test("The click to open a menu", function () {
+        var $menu = jQuery("#menu-testclick");
+
+        expect(7);
+        $menu.a11yfy("menu");
+        $menu.find("li").each(function(index, value) {
+            // Add ids to all the lists so we can track them
+            jQuery(value).attr("id", "testclick-" + index);
+        });
+        equal(jQuery("#testclick-0").attr("aria-haspopup"), "true", "Should have correct state");
+        // click the menu to open the sub-menu
+        $menu.find("li[tabindex=0]").simulate("click");
+        equal(jQuery("#testclick-1").is(":visible"), true, "Should open menu");
+        equal(jQuery("#testclick-0").attr("aria-expanded"), "true", "Should have correct state");
+        equal(jQuery("#testclick-0").hasClass("open"), true, "Should have correct state");
+        $menu.find("li[tabindex=0]").simulate("click");
+        equal(jQuery("#testclick-1").is(":visible"), false, "Should open menu");
+        equal(jQuery("#testclick-0").attr("aria-expanded"), "false", "Should have correct state");
+        equal(jQuery("#testclick-0").hasClass("open"), false, "Should have correct state");
+    });
+
+
     test("The exception thrown when called on something that is not a UL", function () {
         var $menu = jQuery("div").first();
 

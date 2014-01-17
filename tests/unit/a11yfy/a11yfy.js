@@ -147,7 +147,7 @@
         equal(jQuery(document.activeElement).attr("id"), "test2-6", "Should b in sub-menu");
         jQuery(document.activeElement).simulate("keypress", {charCode: 70}); // "f"
         equal(jQuery(document.activeElement).attr("id"), "test2-15", "f should go to the last item in the top menu");
-        equal(jQuery("#test2-6").parent().attr("aria-expanded"), "false", "sub-menu state should be set to not expanded");
+        equal(jQuery("#test2-6").parent().parent().attr("aria-expanded"), "false", "sub-menu state should be set to not expanded");
         equal(jQuery("#test2-6:visible").length, 0, "sub-menu should no longer be visible");
         jQuery(document.activeElement).simulate("keydown", {keyCode: 39}); // RIGHT
         equal(jQuery(document.activeElement).attr("id"), "test2-0", "Right goes back to the beginning");
@@ -158,8 +158,8 @@
         equal(jQuery(document.activeElement).attr("id"), "test2-5", "Right should get us to the second top level menu item");
         jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
         equal(jQuery(document.activeElement).attr("id"), "test2-6", "Down on the second top level menu item (with a sub menu) should open it and set focus into it");
-        equal(jQuery(document.activeElement).parent().attr("aria-expanded"), "true", "When opened, the menu should have aria-expanded set to true");
-        ok(jQuery(document.activeElement).parent().hasClass("open"), "When opened, the menu should have open class");
+        equal(jQuery(document.activeElement).parent().parent().attr("aria-expanded"), "true", "When opened, the menu should have aria-expanded set to true");
+        ok(jQuery(document.activeElement).parent().parent().hasClass("open"), "When opened, the menu should have open class");
         jQuery(document.activeElement).simulate("keydown", {keyCode: 27}); // ESC
         equal(jQuery(document.activeElement).attr("id"), "test2-5", "ESC should close the sub-menu");
         jQuery(document.activeElement).simulate("keydown", {keyCode: 38}); // UP
@@ -184,8 +184,8 @@
         // Close sub-sub-menu
         jQuery(document.activeElement).simulate("keydown", {keyCode: 27}); // ESC
         equal(jQuery(document.activeElement).attr("id"), "test2-6", "ESC should close the sub-sub-menu");
-        equal(jQuery("#test2-7").parent().attr("aria-expanded"), "false", "aria-expended should be false after close");
-        ok(!jQuery("#test2-7").parent().hasClass("open"), "open class should be removed after close");
+        equal(jQuery("#test2-7").parent().parent().attr("aria-expanded"), "false", "aria-expended should be false after close");
+        ok(!jQuery("#test2-7").parent().parent().hasClass("open"), "open class should be removed after close");
         // Open sub-sub-menu
         jQuery(document.activeElement).simulate("keydown", {keyCode: 39}); // RIGHT
         equal(jQuery(document.activeElement).attr("id"), "test2-7", "open the sub-sub-menu");
@@ -198,7 +198,7 @@
 
         $menu.simulate("keydown", {keyCode: 9}); // TAB
         equal(jQuery("#test2-6").attr("tabindex"), "-1", "Tab should cause the sub-menus to all be closed and the tabindexes set to -1");
-        equal(jQuery("#test2-6").parent().attr("aria-expanded"), "false", "sub-menu state should be set to not expanded");
+        equal(jQuery("#test2-6").parent().parent().attr("aria-expanded"), "false", "sub-menu state should be set to not expanded");
         equal(jQuery("#test2-6:visible").length, 0, "sub-menu should no longer be visible");
         // focus should now go to the parent of the sub-menu previously focussed
         $menu.find("li[tabindex=0]").simulate("focus");

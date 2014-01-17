@@ -90,7 +90,7 @@
 }
 
 .a11yfy-top-level-menu li:hover > ul,
-.a11yfy-top-level-menu ul.open {
+.a11yfy-top-level-menu li.open ul {
     /* On hover, display the next level's menu */
     display: inline;
 }

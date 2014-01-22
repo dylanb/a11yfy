@@ -9,6 +9,7 @@
     overflow: hidden;
     padding: 0;
     width: 1px;
+    position: absolute;
 }
 
 .a11yfy-top-level-menu li:focus {

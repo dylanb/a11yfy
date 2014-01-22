@@ -204,7 +204,7 @@
                             $nextItem.attr("tabindex", "0").focus();
                             $this.attr("tabindex", "-1");
                             if ($nextItem.parent().get(0) !== $this.parent().get(0)) {
-                                $this.parent().parent('li').removeClass("open").attr("aria-expanded", "false");
+                                $this.parent().parent("li").removeClass("open").attr("aria-expanded", "false");
                             }
                         }
                         e.stopPropagation();
@@ -226,7 +226,7 @@
                          */
                         function openMenu() {
                             if($this.hasClass("a11yfy-has-submenu")) {
-                                $this.addClass("open").attr("aria-expanded", "true").find(">ul>li").first().attr("tabindex", "0").focus();
+                                $this.addClass("open").attr("aria-expanded", "true").find(">ul>li:visible").first().attr("tabindex", "0").focus();
                                 $this.attr("tabindex", "-1");
                             }
                         }
@@ -234,23 +234,51 @@
                          * Move the focus to the menuitem preceding the current menuitem
                          */
                         function prevInMenu() {
-                            if ($this.prev().length) {
-                                $this.prev().attr("tabindex", "0").focus();
-                            } else {
-                                $this.parent().find(">li").last().attr("tabindex", "0").focus();
-                            }
+                            var $context = $this;
                             $this.attr("tabindex", "-1");
+                            while (true) {
+                                if ($context.prev().is(':visible')) {
+                                    $context.prev().attr("tabindex", "0").focus();
+                                    return
+                                }
+                                $context = $context.prev();
+                                if (!$context.prev().length) {
+                                    $context =  $this.parent().find(">li").last();
+                                    if ($context.is(':visible')) {
+                                        $context.attr("tabindex", "0").focus();
+                                        return
+                                    }
+                                }
+                                if ($context[0] === $this[0]) {
+                                    $this.attr("tabindex", "0")
+                                    break;
+                                }
+                            }
                         }
                         /*
                          * Move the focus to the next menuitem after the currently focussed menuitem
                          */
                         function nextInMenu() {
-                            if ($this.next().length) {
-                                $this.next().attr("tabindex", "0").focus();
-                            } else {
-                                $this.parent().find(">li").first().attr("tabindex", "0").focus();
-                            }
+                            var $context = $this;
                             $this.attr("tabindex", "-1");
+                            while (true) {
+                                if ($context.next().is(':visible')) {
+                                    $context.next().attr("tabindex", "0").focus();
+                                    return
+                                }
+                                $context = $context.next();
+                                if (!$context.next().length) {
+                                    $context = $this.parent().find(">li").first();
+                                    if ($context.is(':visible')) {
+                                        $context.attr("tabindex", "0").focus();
+                                        return
+                                    }
+                                }
+                                if ($context[0] === $this[0]) {
+                                    $this.attr("tabindex", "0")
+                                    break;
+                                }
+                            }
                         }
                         switch(keyCode) {
                             case 32: // space
@@ -322,7 +350,7 @@
                     }).on("click", function() {
                         var $this = jQuery(this);
 
-                        if ($this.is(":hidden")) {
+                        if (!$this.hasClass("open")) {
                             $this.addClass("open").attr("aria-expanded", "true");
                         } else {
                             $this.removeClass("open").attr("aria-expanded", "false");

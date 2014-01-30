@@ -183,6 +183,10 @@
                             $nextItem, $prevItem,
                             $menuitems = $menu.find("li[role=\"menuitem\"]:visible");
 
+                        if (keyCode === 9) {
+                            return;
+                        }
+
                         $menuitems.each(function(index, value) {
                             if (value === currentItem) {
                                 ourIndex = index;

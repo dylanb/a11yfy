@@ -1,0 +1,119 @@
+/* General Styles */
+
+.a11yfy-top-level-menu li:focus {
+    outline: 2px dotted black;
+    z-index: 1001;
+}
+
+/* Menu Styles */
+
+.a11yfy-third-level-menu {
+    position: absolute;
+    top: 0;
+    right: -150px;
+    width: 150px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+}
+
+.mega .a11yfy-third-level-menu {
+    position: static;
+    top: auto;
+    right: auto;
+    width: auto;
+    display:block;
+}
+
+.a11yfy-third-level-menu > li { 
+    min-height: 30px;
+    background: #999999;
+}
+.a11yfy-third-level-menu > li:hover,
+.a11yfy-third-level-menu > li:focus {
+    background: #CCCCCC;
+    color: #000000;
+}
+
+.a11yfy-second-level-menu {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    min-width: 150px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+}
+
+.a11yfy-second-level-menu > li {
+    min-height: 30px;
+    background: #999999;
+}
+
+.a11yfy-second-level-menu > li:hover,
+.a11yfy-second-level-menu > li:focus  {
+    background: #CCCCCC;
+    color: #000000;
+}
+
+.a11yfy-top-level-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.a11yfy-top-level-menu > li {
+    position: relative;
+    display:inline-block;
+    height: 30px;
+    width: 150px;
+    background: #999999;
+    overflow:hidden;
+}
+.a11yfy-top-level-menu > li:hover,
+.a11yfy-top-level-menu > li:focus  {
+    background: #CCCCCC;
+    color: #000000;
+}
+
+.a11yfy-top-level-menu li:hover > ul,
+.a11yfy-top-level-menu ul.open {
+    /* On hover, display the next level's menu */
+    display: inline;
+}
+
+li.a11yfy-has-submenu:after {
+    content: "\2b46";
+}
+.mega li.a11yfy-has-submenu:after {
+    content: none;
+}
+
+ul.a11yfy-top-level-menu>li.a11yfy-has-submenu:after {
+    content: "\290b";
+}
+
+/* Menu Link Styles */
+
+.a11yfy-top-level-menu a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.a11yfy-top-level-menu li:focus>a, .a11yfy-top-level-menu li:hover>a  {
+    color: #000000;
+}
+
+.a11yfy-top-level-menu li {
+/* Apply to all links inside the multi-level menu */
+    font: bold 14px Arial, Helvetica, sans-serif;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 0 0 0 10px;
+
+    /* Make the link cover the entire list item-container */
+    line-height: 30px;
+}
+.a11yfy-top-level-menu li:hover { color: #000000; }

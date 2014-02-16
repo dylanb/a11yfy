@@ -1,6 +1,14 @@
 {
   "name": "a11yfy",
-  "version": "0.0.3",
+  "version": "0.0.4",
+  "main": [
+    "./dist/jquery.a11yfy.all.js",
+    "./dist/jquery.a11yfy.core.css",
+    "./dist/jquery.a11yfy.core.js",
+    "./dist/jquery.a11yfy.gmaps.js",
+    "./dist/jquery.a11yfy.i18n-de.js",
+    "./dist/jquery.a11yfy.tables.js"
+  ],
   "ignore": [
     "external",
     "node_modules",
@@ -16,8 +24,7 @@
     "*.md",
     ".gitignore",
     "Gruntfile.js",
-    "package.json",
-    "bower.json"
+    "package.json"
   ],
   "devDependencies": {
     "jquery": "~1.10.2",

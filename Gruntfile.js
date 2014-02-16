@@ -67,6 +67,7 @@ module.exports = function(grunt) {
                     "dist/jquery.a11yfy.all.js": ["a11yfy/jquery.a11yfy.core.js", "tables/jquery.a11yfy.tables.js"],
                     "dist/jquery.a11yfy.core.css": ["a11yfy/jquery.a11yfy.core.css"],
                     "dist/jquery.a11yfy.tables.js": ["tables/jquery.a11yfy.tables.js"],
+                    "dist/jquery.a11yfy.gmaps.js": ["gmaps/jquery.a11yfy.gmaps.js"],
                     "dist/jquery.a11yfy.i18n-de.js": ["a11yfy/jquery.a11yfy.i18n-de.js"],
                     "dist/jquery.a11yfy.core.js": ["a11yfy/jquery.a11yfy.core.js"]
                 }

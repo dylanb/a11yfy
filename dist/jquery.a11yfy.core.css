@@ -1,0 +1,234 @@
+/* General Styles */
+
+.offscreen {
+    border: 0;
+    clip: rect(0 0 0 0);
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    width: 1px;
+    position: absolute;
+}
+
+.a11yfy-top-level-menu li:focus {
+    outline: 2px dotted black;
+    z-index: 100;
+}
+
+/***************************/
+/* Menu Styles             */
+/***************************/
+
+.a11yfy-third-level-menu {
+    position: absolute;
+    top: 0;
+    right: -150px;
+    width: 150px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+}
+
+.a11yfy-mega .a11yfy-third-level-menu {
+    position: static;
+    top: auto;
+    right: auto;
+    width: auto;
+    display:block;
+}
+
+.a11yfy-third-level-menu > li { 
+    min-height: 30px;
+    background: #999999;
+}
+.a11yfy-third-level-menu > li:hover,
+.a11yfy-third-level-menu > li:focus {
+    background: #CCCCCC;
+    color: #000000;
+}
+
+.a11yfy-second-level-menu {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 150px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+}
+
+.a11yfy-second-level-menu > li {
+    min-height: 30px;
+    background: #999999;
+}
+.a11yfy-second-level-menu > li:hover,
+.a11yfy-second-level-menu > li:focus  {
+    background: #CCCCCC;
+    color: #000000;
+}
+
+.a11yfy-top-level-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.a11yfy-top-level-menu > li {
+    position: relative;
+    float: left;
+    height: 30px;
+    width: 150px;
+    background: #999999;
+}
+.a11yfy-top-level-menu > li:hover,
+.a11yfy-top-level-menu > li:focus  {
+    background: #CCCCCC;
+    color: #000000;
+}
+
+.a11yfy-top-level-menu li:hover > ul,
+.a11yfy-top-level-menu li.open > ul {
+    /* On hover, display the next level's menu */
+    display: inline;
+}
+
+li.a11yfy-has-submenu:after {
+    content: "\2b46";
+}
+.a11yfy-mega li.a11yfy-has-submenu:after {
+    content: none;
+}
+
+ul.a11yfy-top-level-menu>li.a11yfy-has-submenu:after {
+    content: "\290b";
+}
+
+/*.a11yfy-mega menu columns */
+
+.a11yfy-two_col {
+    width:300px;
+}
+
+.a11yfy-three_col {
+    width: 450px;
+}
+
+.a11yfy-four_col {
+    width: 600px;
+}
+
+.a11yfy-col {
+    display:inline;
+    float:left;
+    width: 140px;
+}
+
+/* Menu Link Styles */
+
+.a11yfy-top-level-menu a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.a11yfy-top-level-menu li:focus>a, .a11yfy-top-level-menu li:hover>a  {
+    color: #000000;
+}
+
+.a11yfy-top-level-menu li {
+/* Apply to all links inside the multi-level menu */
+    font: bold 14px Arial, Helvetica, sans-serif;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 0 0 0 10px;
+
+    /* Make the link cover the entire list item-container */
+    display: block;
+    line-height: 30px;
+}
+.a11yfy-top-level-menu li:hover { color: #000000; }
+
+/***************************/
+/* Form Validation Styles  */
+/***************************/
+
+/* Label will appear above the input field */
+form label {
+    margin-left: 5px;
+    margin-top: 15px;
+    display: block;
+    width: 70%;
+    padding: 5px 0 5px 3px;
+    border-top: 1px solid gray;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    border-radius: 5px 5px 0 0;
+}
+
+form p {
+    margin-top : 0;
+    margin-bottom : 0;
+}
+
+form fieldset {
+    margin-top: 15px;
+}
+
+form label.a11yfy-validation-error {
+    background-color: #8b0000;
+    color: white;
+    border: none;
+}
+
+form input[type="text"], form input[type="date"], form select, form textarea {
+    width: 90%;
+    padding: 7px 0 7px 5px;
+    border-radius: 5px;
+    display:inline-block;
+    margin-top: 0px;
+    border: solid 1px gray;
+    padding-right: 20px;
+}
+
+form input[type="text"].a11yfy-inline, form input[type="date"].a11yfy-inline {
+        display:inline
+}
+
+form input[type="date"] {
+    width:70%;
+}
+
+form input.a11yfy-validation-error, form select.a11yfy-validation-error, form textarea.a11yfy-validation-error {
+    border-color: red;
+    box-shadow: inset 0 0 1em red;
+}
+
+.form-container-50 {
+    width: 100%;
+}
+
+form .a11yfy-skip-link {
+    display : block;
+}
+
+form .a11yfy-error-summary li {
+    display : block;
+}
+
+form .a11yfy-error-summary li a.a11yfy-skip-link {
+    display : inline;
+}
+
+form .a11yfy-error-summary ul {
+    border-color: gold;
+    box-shadow: inset 0 0 1em gold;
+    border-radius: 5px;
+    padding: 10px 10px 10px 10px;
+}
+
+@media (max-width: 980px) {
+    /* no specific styles for mobile */
+}

@@ -1,6 +1,6 @@
 {
   "name": "a11yfy",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": [
     "./dist/jquery.a11yfy.all.js",
     "./dist/jquery.a11yfy.core.css",
@@ -19,7 +19,7 @@
     "tests",
     "i18n",
     "testem.json",
-    "*.html",
+    "./*.html",
     "*.log",
     "*.md",
     ".gitignore",

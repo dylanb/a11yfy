@@ -1,6 +1,6 @@
 {
   "name": "a11yfy",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "main": [
     "./dist/jquery.a11yfy.all.js",
     "./dist/jquery.a11yfy.core.css",

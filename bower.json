@@ -27,8 +27,10 @@
     "package.json"
   ],
   "devDependencies": {
-    "jquery": "~1.10.2",
-    "jquery.validation" : "*",
     "blanket" : "*"
+  },
+  "dependencies": {
+    "jquery": "~1.10.2",
+    "jquery.validation" : "~1.11.1"
   }
 }

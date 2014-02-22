@@ -1,0 +1,34 @@
+<html lang="en"><head>
+    <title>VoiceOver Bug Test</title>
+    <meta charset="UTF-8">
+    <script src="../bower_components/jquery/jquery.js"></script>
+    <script>
+    /* Set focus to target of in-page links.
+    Retrieves hash, sets tabindex on target, sets focus, removes tabindex.
+    Resolves VoiceOver/Safari bug, but when tabindex is removed, keyboard focus reverts to top of the page in Chrome. */
+
+    jQuery(document).ready( function () {
+        $("a[href^='#']").click(function(event){
+            var clickAnchor="#"+this.href.split('#')[1];
+            $(clickAnchor).attr('tabindex', -1).on('blur focusout', function () {
+                $(this).removeAttr('tabindex');
+            }).focus();
+            event.preventDefault();
+        });
+    });
+    </script>
+</head>
+<body>
+<div>
+    <a href="#maincontent">Skip to main content</a>
+</div>
+
+<p><a href="link">I am a navigation link</a></p>
+
+<div id="maincontent">
+<p>I am the main content. <a href="link">I am a main content link</a>. If you activate the "Skip" link above, jQuery is used to set tabindex to -1 when the "skip" link is activated, then focus is set to the maincontent div, then tabindex is removed. The main content should be focused. If you then hit tab, the main content link should be the next things focused, not the navigation or "Skip" link.</p>
+</div>
+
+<p><a href="link">I'm a link after the main content</a>.</p>
+</body>
+</html>

@@ -1,0 +1,88 @@
+#compStoreImg {
+margin: 25px;
+}
+
+#container {
+height: 100%;
+}
+
+.errorSpan {
+    color: red;
+}
+
+p {
+    clear: both;
+}
+
+.submit {
+    margin-left: 12em;
+}
+
+em {
+    font-weight: bold;
+    vertical-align: top;
+}
+
+.validation-summary ul {
+    margin-top: 0;
+    width: 90%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 40px;
+    padding-right: 0px;
+    margin: 0px;
+}
+.validation-summary h3 {
+    margin-bottom: 0;
+}
+
+label {
+    border-top: 1px solid gray;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+}
+
+h3 {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    border-bottom:0px;
+}
+.error label, .validation-summary h3 {
+    background-color: #8b0000;
+    color: white;
+    border: none;
+}
+label, .validation-summary h3 {
+    margin-left: 5px;
+    display: block;
+    width: 70%;
+    padding: 5px 0 5px 3px;
+    border-radius: 5px 5px 0 0;
+}
+a.a11yfy-skip-link {
+    display: block;
+}
+input[type="text"], textarea {
+    width: 90%;
+    padding: 7px 0 7px 5px;
+    border-radius: 5px;
+    display:block;
+    margin-top: 0px;
+    border: solid 1px gray;
+    padding-right: 20px;
+}
+.error input, .error textarea, .validation-summary ul {
+    border: solid 1px #8b0000;
+}
+
+.validation-summary {
+    margin: 5px;
+}
+#messageForm {
+    padding-left: 7px;
+}
+
+    #messageForm a {
+        text-decoration: underline;
+    }

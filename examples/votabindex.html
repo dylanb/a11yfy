@@ -1,0 +1,41 @@
+<html lang="en"><head>
+    <title>VoiceOver Bug Test</title>
+    <meta charset="UTF-8">
+    <script src="../bower_components/jquery/jquery.js"></script>
+    <script>
+    jQuery(document).ready( function () {
+        var focussedIn;
+        jQuery('#buggy').on('focusout', function (e) {
+            var $this = jQuery(this);
+            focussedIn = false;
+            $this.removeAttr('tabindex');
+            setTimeout(function() {
+                if (!focussedIn) {
+                    $this.attr('tabindex', '0');
+                }
+            }, 0);
+        }).on('focusin', function (e) {
+            focussedIn = true;
+        });
+
+    });
+    </script>
+</head>
+
+<body>
+
+<div style="border:1px solid red; margin:5px;">
+<p>I am a generic container.</p>
+<p>I have <a href="link">a link</a>. When navigated to in VO, only the link text will read.
+</p></div>
+
+<p>When navigating to the element below or any navigable element within it, the link text PLUS ALL OTHER NON-LINK/FORM TEXT within the element will be read for each item.</p>
+
+<div tabindex="0" style="border:1px solid blue; margin:5px;" id="buggy">
+<p>I am a container with tabindex="0" (any value will trigger bug).</p>
+<p><a href="link">A link</a>.</p>
+<p>Some text with <a href="link">another link</a> in it.</p>
+<p><label for="text">Form label:</label> <input type="text" id="text"></p>
+</div>
+<p><a href="link">A link</a>.</p>
+</body></html>

@@ -113,7 +113,7 @@
         equal(jQuery($topMenuItems[1]).find("ul[role='menu']").length, 2, "The second menu item should have 2 sub-menus");
     });
 
-    test("The keyboard and focus functionality", function () {
+    asyncTest("The keyboard and focus functionality", function () {
         var $menu = jQuery("#menu-test-2");
 
         expect(42);
@@ -198,34 +198,39 @@
 
         $menu.simulate("keydown", {keyCode: 9}); // TAB
         equal(jQuery("#test2-6").attr("tabindex"), "-1", "Tab should cause the sub-menus to all be closed and the tabindexes set to -1");
-        equal(jQuery("#test2-6").parent().parent().attr("aria-expanded"), "false", "sub-menu state should be set to not expanded");
-        equal(jQuery("#test2-6:visible").length, 0, "sub-menu should no longer be visible");
-        // focus should now go to the parent of the sub-menu previously focussed
-        $menu.find("li[tabindex=0]").simulate("focus");
-        equal(jQuery(document.activeElement).attr("id"), "test2-5", "The top level menu item that previously contained the focus shold have tabindex set to 0");
 
-        // move to top-level menu item without sub-menu
-        jQuery(document.activeElement).simulate("keydown", {keyCode: 39}); // RIGHT
-        equal(jQuery(document.activeElement).attr("id"), "test2-14", "Focussed on a top level menu item without sub-menu");
-        jQuery(document.activeElement).on("click", function(e) {
-            ok("clicked the anchor in the menu item of a top level menu item");
-            e.preventDefault();
-        });
-        jQuery(document.activeElement).simulate("keydown", {keyCode: 13}); // ENTER
-        jQuery(document.activeElement).simulate("keydown", {keyCode: 32}); // SPACE
+        setTimeout(function() {
+            // These tests are in a timeout to deal with the Firefox bug
+            equal(jQuery("#test2-6").parent().parent().attr("aria-expanded"), "false", "sub-menu state should be set to not expanded");
+            equal(jQuery("#test2-6:visible").length, 0, "sub-menu should no longer be visible");
+            // focus should now go to the parent of the sub-menu previously focussed
+            $menu.find("li[tabindex=0]").simulate("focus");
+            equal(jQuery(document.activeElement).attr("id"), "test2-5", "The top level menu item that previously contained the focus shold have tabindex set to 0");
 
-        // Move to sub-menu without sub-sub-menu
-        jQuery(document.activeElement).simulate("keydown", {keyCode: 37}); // LEFT
-        equal(jQuery(document.activeElement).attr("id"), "test2-5");
-        jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
-        jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
-        equal(jQuery(document.activeElement).attr("id"), "test2-11");
-        jQuery(document.activeElement).on("click", function(e) {
-            ok("clicked the anchor in the menu item of a sub-menu");
-            e.preventDefault();
-        });
-        jQuery(document.activeElement).simulate("keydown", {keyCode: 13}); // ENTER
-        jQuery(document.activeElement).simulate("keydown", {keyCode: 32}); // SPACE
+            // move to top-level menu item without sub-menu
+            jQuery(document.activeElement).simulate("keydown", {keyCode: 39}); // RIGHT
+            equal(jQuery(document.activeElement).attr("id"), "test2-14", "Focussed on a top level menu item without sub-menu");
+            jQuery(document.activeElement).on("click", function(e) {
+                ok("clicked the anchor in the menu item of a top level menu item");
+                e.preventDefault();
+            });
+            jQuery(document.activeElement).simulate("keydown", {keyCode: 13}); // ENTER
+            jQuery(document.activeElement).simulate("keydown", {keyCode: 32}); // SPACE
+
+            // Move to sub-menu without sub-sub-menu
+            jQuery(document.activeElement).simulate("keydown", {keyCode: 37}); // LEFT
+            equal(jQuery(document.activeElement).attr("id"), "test2-5");
+            jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
+            jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
+            equal(jQuery(document.activeElement).attr("id"), "test2-11");
+            jQuery(document.activeElement).on("click", function(e) {
+                ok("clicked the anchor in the menu item of a sub-menu");
+                e.preventDefault();
+            });
+            jQuery(document.activeElement).simulate("keydown", {keyCode: 13}); // ENTER
+            jQuery(document.activeElement).simulate("keydown", {keyCode: 32}); // SPACE
+            start();
+        }, 0);
     });
 
     test("The wraparound when using first character navigation", function () {

@@ -203,7 +203,7 @@
                             $menuitems = $menu.find("li[role=\"menuitem\"]:visible");
 
                         if (keyCode === 9) {
-                            return;
+                            return true;
                         }
 
                         $menuitems.each(function(index, value) {
@@ -369,6 +369,8 @@
                             e.preventDefault();
                             e.stopPropagation();
                         }
+                        return true;
+                    }).on("blur", function() {
                     }).on("click", function() {
                         var $this = jQuery(this);
 
@@ -390,7 +392,7 @@
                             return;
                         }
                         if (keyCode !== 9) {
-                            return;
+                            return true;
                         }
                         /* Find out whether we are currently in the menubar */
                         $this.find(">li").each(function(index, value) {
@@ -404,12 +406,16 @@
                              * menubar so it receives focus when the user tabs back into the menubar
                              */
                             $this.find(">li li[tabindex=0]").attr("tabindex", "-1");
-                            $this.find("li.open").each(function(index, value) {
-                                if (jQuery(value).parent().hasClass("a11yfy-top-level-menu")) {
-                                    jQuery(value).attr("tabindex", "0");
-                                }
-                            }).removeClass("open").attr("aria-expanded", "false");
+                            setTimeout(function () {
+                                $this.find("li.open").each(function(index, value) {
+                                    if (jQuery(value).parent().hasClass("a11yfy-top-level-menu")) {
+                                        jQuery(value).attr("tabindex", "0");
+                                    }
+                                }).attr("aria-expanded", "false")
+                                .removeClass("open");
+                            }, 0);
                         }
+                        return true;
                     });
                 });
             }

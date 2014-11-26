@@ -12,13 +12,28 @@
 				margin: 0px;
 				padding: 0px
 			}
-
+			#pac-input {
+				background-color: #fff;
+				padding: 0 11px 0 13px;
+				width: 400px;
+				font-family: Roboto;
+				font-size: 15px;
+				font-weight: 300;
+				text-overflow: ellipsis;
+			}
+			#pac-input:focus {
+				border-color: #4d90fe;
+				margin-left: -1px;
+				padding-left: 14px;  /* Regular padding-left + 1. */
+				width: 401px;
+			}
 		</style>
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
 		<script>
 		(function () {
 			var map;
 			function initialize() {
+				var markers = [];
 				var mapOptions = {
 					zoom: 8,
 					mapTypeId: google.maps.MapTypeId.ROADMAP

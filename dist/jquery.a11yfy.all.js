@@ -407,6 +407,10 @@
                              */
                             $this.find(">li li[tabindex=0]").attr("tabindex", "-1");
                             setTimeout(function () {
+                                // This code is in a setTimeout so that shift tab works correctly AND
+                                // because there is a Firefox (Windows) bug that
+                                // causes the default event for a TAB to not happen properly if the visibility of the
+                                // currently focussed node is chanhed mid event (e.g. removal of the open class)
                                 $this.find("li.open").each(function(index, value) {
                                     if (jQuery(value).parent().hasClass("a11yfy-top-level-menu")) {
                                         jQuery(value).attr("tabindex", "0");

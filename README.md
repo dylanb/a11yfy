@@ -1,6 +1,6 @@
 # a11yfy
 
-Accessibilyfy Library Functions - Make your jQuery site accessible
+A11yfy Library Functions - Make your jQuery code accessible
 
 ## core
 

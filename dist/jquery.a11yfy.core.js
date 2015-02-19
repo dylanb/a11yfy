@@ -164,14 +164,12 @@
                         .addClass("a11yfy-second-level-menu")
                         .parent()
                             .addClass("a11yfy-has-submenu")
-                            .attr("aria-haspopup", "true")
-                            .attr("aria-expanded", "false");
+                            .attr("aria-haspopup", "true");
                     $this.find(">li>ul>li>ul")
                         .addClass("a11yfy-third-level-menu")
                         .parent()
                             .addClass("a11yfy-has-submenu")
-                            .attr("aria-haspopup", "true")
-                            .attr("aria-expanded", "false");
+                            .attr("aria-haspopup", "true");
                     /*
                      * Set up the keyboard and mouse handlers for all the individual menuitems
                      */
@@ -227,7 +225,7 @@
                             $nextItem.attr("tabindex", "0").focus();
                             $this.attr("tabindex", "-1");
                             if ($nextItem.parent().get(0) !== $this.parent().get(0)) {
-                                $this.parent().parent("li").removeClass("open").attr("aria-expanded", "false");
+                                $this.parent().parent("li").removeClass("open");
                             }
                         }
                         e.stopPropagation();
@@ -248,7 +246,7 @@
                          */
                         function openMenu() {
                             if($this.hasClass("a11yfy-has-submenu")) {
-                                $this.addClass("open").attr("aria-expanded", "true").find(">ul>li:visible").first().attr("tabindex", "0").focus();
+                                $this.addClass("open").find(">ul>li:visible").first().attr("tabindex", "0").focus();
                                 $this.attr("tabindex", "-1");
                             }
                         }
@@ -329,7 +327,7 @@
                                     if ($this.parent().attr("role") === "menu") {
                                         // this is part of a submenu, set focus on containing li
                                         $this.parent().parent().attr("tabindex", "0").focus()
-                                            .removeClass("open").attr("aria-expanded", "false");
+                                            .removeClass("open");
                                         $this.attr("tabindex", "-1");
                                     }
                                 }
@@ -375,9 +373,9 @@
                         var $this = jQuery(this);
 
                         if (!$this.hasClass("open")) {
-                            $this.addClass("open").attr("aria-expanded", "true");
+                            $this.addClass("open");
                         } else {
-                            $this.removeClass("open").attr("aria-expanded", "false");
+                            $this.removeClass("open");
                         }
                     }).first().attr("tabindex", "0"); // Make the first menuitem in the menubar tab focussable
                     $this.on("keydown", function (e) {
@@ -415,8 +413,7 @@
                                     if (jQuery(value).parent().hasClass("a11yfy-top-level-menu")) {
                                         jQuery(value).attr("tabindex", "0");
                                     }
-                                }).attr("aria-expanded", "false")
-                                .removeClass("open");
+                                }).removeClass("open");
                             }, 0);
                         }
                         return true;

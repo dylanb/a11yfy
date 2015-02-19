@@ -116,7 +116,7 @@
     asyncTest("The keyboard and focus functionality", function () {
         var $menu = jQuery("#menu-test-2");
 
-        expect(42);
+        expect(38);
         $menu.a11yfy("menu");
         $menu.find("li").each(function(index, value) {
             // Add ids to all the lists so we can track them
@@ -147,7 +147,6 @@
         equal(jQuery(document.activeElement).attr("id"), "test2-6", "Should b in sub-menu");
         jQuery(document.activeElement).simulate("keypress", {charCode: 70}); // "f"
         equal(jQuery(document.activeElement).attr("id"), "test2-15", "f should go to the last item in the top menu");
-        equal(jQuery("#test2-6").parent().parent().attr("aria-expanded"), "false", "sub-menu state should be set to not expanded");
         equal(jQuery("#test2-6:visible").length, 0, "sub-menu should no longer be visible");
         jQuery(document.activeElement).simulate("keydown", {keyCode: 39}); // RIGHT
         equal(jQuery(document.activeElement).attr("id"), "test2-0", "Right goes back to the beginning");
@@ -158,7 +157,6 @@
         equal(jQuery(document.activeElement).attr("id"), "test2-5", "Right should get us to the second top level menu item");
         jQuery(document.activeElement).simulate("keydown", {keyCode: 40}); // DOWN
         equal(jQuery(document.activeElement).attr("id"), "test2-6", "Down on the second top level menu item (with a sub menu) should open it and set focus into it");
-        equal(jQuery(document.activeElement).parent().parent().attr("aria-expanded"), "true", "When opened, the menu should have aria-expanded set to true");
         ok(jQuery(document.activeElement).parent().parent().hasClass("open"), "When opened, the menu should have open class");
         jQuery(document.activeElement).simulate("keydown", {keyCode: 27}); // ESC
         equal(jQuery(document.activeElement).attr("id"), "test2-5", "ESC should close the sub-menu");
@@ -184,7 +182,6 @@
         // Close sub-sub-menu
         jQuery(document.activeElement).simulate("keydown", {keyCode: 27}); // ESC
         equal(jQuery(document.activeElement).attr("id"), "test2-6", "ESC should close the sub-sub-menu");
-        equal(jQuery("#test2-7").parent().parent().attr("aria-expanded"), "false", "aria-expended should be false after close");
         ok(!jQuery("#test2-7").parent().parent().hasClass("open"), "open class should be removed after close");
         // Open sub-sub-menu
         jQuery(document.activeElement).simulate("keydown", {keyCode: 39}); // RIGHT
@@ -201,7 +198,6 @@
 
         setTimeout(function() {
             // These tests are in a timeout to deal with the Firefox bug
-            equal(jQuery("#test2-6").parent().parent().attr("aria-expanded"), "false", "sub-menu state should be set to not expanded");
             equal(jQuery("#test2-6:visible").length, 0, "sub-menu should no longer be visible");
             // focus should now go to the parent of the sub-menu previously focussed
             $menu.find("li[tabindex=0]").simulate("focus");
@@ -314,7 +310,7 @@
     test("The click to open a menu", function () {
         var $menu = jQuery("#menu-testclick");
 
-        expect(7);
+        expect(5);
         $menu.a11yfy("menu");
         $menu.find("li").each(function(index, value) {
             // Add ids to all the lists so we can track them
@@ -324,11 +320,9 @@
         // click the menu to open the sub-menu
         $menu.find("li[tabindex=0]").simulate("click");
         equal(jQuery("#testclick-1").is(":visible"), true, "Should open menu");
-        equal(jQuery("#testclick-0").attr("aria-expanded"), "true", "Should have correct state");
         equal(jQuery("#testclick-0").hasClass("open"), true, "Should have correct state");
         $menu.find("li[tabindex=0]").simulate("click");
         equal(jQuery("#testclick-1").is(":visible"), false, "Should open menu");
-        equal(jQuery("#testclick-0").attr("aria-expanded"), "false", "Should have correct state");
         equal(jQuery("#testclick-0").hasClass("open"), false, "Should have correct state");
     });
 

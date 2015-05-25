@@ -58,7 +58,7 @@ input:focus {
 </style>
 <h2>UPDATE</h2>
 <p>
-    This bug has been fixed in iOS 8.x! So this is only relevant if you need to support iOS 7.x or older.
+    This bug has been PARTIALLY fixed in iOS 8.x! for iOS 8.x you only need a timeout value of 0. For older OSes, you will need larger timeout values.
 </p>
 <h2>ORIGINAL POST</h2>
 <p>This page demonstrates how effed up focus management is in iOS 7.x with Voiceover. The focus is supposed to end up on the "No Thanks" button. Instead, depending on the value of the timeout for the second setTimeout call, it will end up somewhere between the top of the document and the button intended. To get it to reliably not set focus anywhere near the intended button, simply call "focusButton(3)" immediately after "focusDialog(3)" or even instead of it. To get it to reliably set focus to the intended button, first focus something else i.e. call "focusDialog(3)" and then wait 1 second and then call "focusButton(3)".</p>

@@ -54,7 +54,7 @@ In the top level menu:
 
 In the sub-menus
 
-1. UP and DOWN : mive between the menu items and cycle at the ends
+1. UP and DOWN : move between the menu items and cycle at the ends
 2. ESC and LEFT: close the menu
 3. RIGHT : open the sub menu
 

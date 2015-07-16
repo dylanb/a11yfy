@@ -140,7 +140,9 @@
                     mapButtons = document.querySelectorAll('.gmnoprint div[title]');
                     if (!mapButtons.length) {
                         // If the map has not yet been drawn, wait
-                        setTimeout(fixMap, 100);
+                        setTimeout(function() {
+                            fixMap(node);
+                        }, 100);
                         return;
                     }
                     for (i = mapButtons.length;i--;) {

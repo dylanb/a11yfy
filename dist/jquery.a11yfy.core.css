@@ -42,7 +42,7 @@
 
 .a11yfy-third-level-menu > li { 
     min-height: 30px;
-    background: #999999;
+    background: #333333;
 }
 .a11yfy-third-level-menu > li:hover,
 .a11yfy-third-level-menu > li:focus {
@@ -63,7 +63,7 @@
 
 .a11yfy-second-level-menu > li {
     min-height: 30px;
-    background: #999999;
+    background: #333333;
 }
 .a11yfy-second-level-menu > li:hover,
 .a11yfy-second-level-menu > li:focus  {
@@ -82,7 +82,7 @@
     float: left;
     height: 30px;
     width: 150px;
-    background: #999999;
+    background: #333333;
 }
 .a11yfy-top-level-menu > li:hover,
 .a11yfy-top-level-menu > li:focus  {

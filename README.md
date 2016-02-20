@@ -2,6 +2,7 @@
 
 A11yfy Library Functions - Make your jQuery code accessible
 
+[![Build Status](https://travis-ci.org/dylanb/a11yfy.svg?branch=master)](https://travis-ci.org/dylanb/a11yfy)
 ## core
 
 The core of the a11yfy library provides some utility functions for use a11y as well as for sharing common functionality across a11yfy utilities themselves.

@@ -116,8 +116,9 @@
     asyncTest("The keyboard and focus functionality", function () {
         var $menu = jQuery("#menu-test-2");
 
-        expect(38);
+        expect(39);
         $menu.a11yfy("menu");
+
         $menu.find("li").each(function(index, value) {
             // Add ids to all the lists so we can track them
             jQuery(value).attr("id", "test2-" + index);
@@ -225,7 +226,10 @@
             });
             jQuery(document.activeElement).simulate("keydown", {keyCode: 13}); // ENTER
             jQuery(document.activeElement).simulate("keydown", {keyCode: 32}); // SPACE
-            start();
+            axe.a11yCheck($menu[0], {reporter: 'v1'}, function (results) {
+                equal(results.violations.length, 0, "should have no violations");
+                start();
+            });
         }, 0);
     });
 

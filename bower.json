@@ -27,10 +27,11 @@
     "package.json"
   ],
   "devDependencies": {
-    "blanket" : "*"
+    "blanket": "*",
+    "axe-core": "~1.1.0"
   },
   "dependencies": {
     "jquery": "~1.10.2",
-    "jquery.validation" : "~1.11.1"
+    "jquery.validation": "~1.11.1"
   }
 }

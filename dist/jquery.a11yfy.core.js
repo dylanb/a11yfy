@@ -225,7 +225,10 @@
                             $nextItem.attr("tabindex", "0").focus();
                             $this.attr("tabindex", "-1");
                             if ($nextItem.parent().get(0) !== $this.parent().get(0)) {
-                                $this.parent().parent("li").removeClass("open");
+                                $this.parent()
+                                    .parent("li")
+                                    .removeClass("open");
+                                // $this.attr("aria-expanded", "false");
                             }
                         }
                         e.stopPropagation();
@@ -248,6 +251,7 @@
                             if($this.hasClass("a11yfy-has-submenu")) {
                                 $this.addClass("open").find(">ul>li:visible").first().attr("tabindex", "0").focus();
                                 $this.attr("tabindex", "-1");
+                                // $this.attr("aria-expanded", "true");
                             }
                         }
                         /*
@@ -329,6 +333,7 @@
                                         $this.parent().parent().attr("tabindex", "0").focus()
                                             .removeClass("open");
                                         $this.attr("tabindex", "-1");
+                                        // $this.attr("aria-expanded", "false");
                                     }
                                 }
                                 break;
@@ -374,8 +379,10 @@
 
                         if (!$this.hasClass("open")) {
                             $this.addClass("open");
+                            // $this.attr("aria-expanded", "true");
                         } else {
                             $this.removeClass("open");
+                            // $this.attr("aria-expanded", "false");
                         }
                     }).first().attr("tabindex", "0"); // Make the first menuitem in the menubar tab focussable
                     $this.on("keydown", function (e) {
@@ -414,6 +421,7 @@
                                         jQuery(value).attr("tabindex", "0");
                                     }
                                 }).removeClass("open");
+                                // $this.attr("aria-expanded", "false");
                             }, 0);
                         }
                         return true;

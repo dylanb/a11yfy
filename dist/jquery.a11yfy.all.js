@@ -261,20 +261,20 @@
                             var $context = $this;
                             $this.attr("tabindex", "-1");
                             while (true) {
-                                if ($context.prev().is(':visible')) {
+                                if ($context.prev().is(":visible")) {
                                     $context.prev().attr("tabindex", "0").focus();
-                                    return
+                                    return;
                                 }
                                 $context = $context.prev();
                                 if (!$context.prev().length) {
                                     $context =  $this.parent().find(">li").last();
-                                    if ($context.is(':visible')) {
+                                    if ($context.is(":visible")) {
                                         $context.attr("tabindex", "0").focus();
-                                        return
+                                        return;
                                     }
                                 }
                                 if ($context[0] === $this[0]) {
-                                    $this.attr("tabindex", "0")
+                                    $this.attr("tabindex", "0");
                                     break;
                                 }
                             }
@@ -286,20 +286,20 @@
                             var $context = $this;
                             $this.attr("tabindex", "-1");
                             while (true) {
-                                if ($context.next().is(':visible')) {
+                                if ($context.next().is(":visible")) {
                                     $context.next().attr("tabindex", "0").focus();
-                                    return
+                                    return;
                                 }
                                 $context = $context.next();
                                 if (!$context.next().length) {
                                     $context = $this.parent().find(">li").first();
-                                    if ($context.is(':visible')) {
+                                    if ($context.is(":visible")) {
                                         $context.attr("tabindex", "0").focus();
-                                        return
+                                        return;
                                     }
                                 }
                                 if ($context[0] === $this[0]) {
-                                    $this.attr("tabindex", "0")
+                                    $this.attr("tabindex", "0");
                                     break;
                                 }
                             }

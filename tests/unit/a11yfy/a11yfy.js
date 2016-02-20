@@ -1,3 +1,4 @@
+/*global axe*/
 (function(jQuery) {
     module( "core - jQuery a11yfy" );
 
@@ -226,7 +227,7 @@
             });
             jQuery(document.activeElement).simulate("keydown", {keyCode: 13}); // ENTER
             jQuery(document.activeElement).simulate("keydown", {keyCode: 32}); // SPACE
-            axe.a11yCheck($menu[0], {reporter: 'v1'}, function (results) {
+            axe.a11yCheck($menu[0], {reporter: "v1"}, function (results) {
                 equal(results.violations.length, 0, "should have no violations");
                 start();
             });

@@ -38,6 +38,7 @@
     "url": "https://github.com/dylanb/a11yfy"
   },
   "scripts": {
-    "install": "bower install"
+    "install": "bower install",
+    "test": "grunt test"
   }
 }

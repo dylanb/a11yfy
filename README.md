@@ -1,6 +1,6 @@
 # a11yfy
 
-A11yfy Library Functions - Make your jQuery code accessible
+A11yfy Library Functions - Make your jQuery code accessible easily
 
 [![Build Status](https://travis-ci.org/dylanb/a11yfy.svg?branch=master)](https://travis-ci.org/dylanb/a11yfy)
 ## core
